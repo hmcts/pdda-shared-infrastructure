@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
+  <display-name>Real_PDDA</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <!--  Scheduler -->
+  <listener>
+    <listener-class>uk.gov.hmcts.framework.scheduler.web.SchedulerInitServlet</listener-class>
+  </listener>
+  
+  <servlet>
+    <servlet-name>SchedulerInitServlet</servlet-name>
+    <servlet-class>uk.gov.hmcts.framework.scheduler.web.SchedulerInitServlet</servlet-class>
+    <load-on-startup>0</load-on-startup>
+  </servlet>
+  
+  <!-- START Merged in from 090020-thinclient-publicdisplay2 -->
+  <servlet>
+       <servlet-name>FileServlet</servlet-name>
+       <servlet-class>uk.gov.hmcts.pdda.web.publicdisplay.storage.pub.servlet.FileServlet</servlet-class>
+   </servlet>
+   <!-- Servlet to serve images -->
+   <servlet>
+       <servlet-name>HeaderImageServlet</servlet-name>
+       <servlet-class>uk.gov.hmcts.pdda.web.publicdisplay.imaging.HeaderImageServlet</servlet-class>
+   </servlet>
+   <servlet>
+       <servlet-name>HeadingServlet</servlet-name>
+       <servlet-class>uk.gov.hmcts.pdda.web.publicdisplay.imaging.HeadingServlet</servlet-class>
+   </servlet>
+   <servlet>
+       <servlet-name>DisplaySelectorServlet</servlet-name>
+       <servlet-class>uk.gov.hmcts.pdda.web.publicdisplay.setup.servlet.DisplaySelectorServlet</servlet-class>
+   </servlet>
+   <!-- Servlet used to perform initialization -->
+   <servlet>
+       <servlet-name>InitServlet</servlet-name>
+       <servlet-class>uk.gov.hmcts.pdda.web.publicdisplay.initialization.servlet.InitServlet</servlet-class>
+       <init-param>
+           <param-name>retry.period</param-name>
+           <param-value>60000</param-value>
+           <!-- <description>Retry period used by the initialization service for connecting to the midtier</description> -->
+       </init-param>
+       <init-param>
+           <param-name>num.subscription.workers</param-name>
+           <param-value>1</param-value>
+           <!-- <description>Number of worker threads used by each subscriptions</description> -->
+       </init-param>
+       <init-param>
+           <param-name>messaging.mode</param-name>
+           <param-value>PubSub</param-value>
+           <!-- <description>Messaging mode used by public display. Possible values are P2P or PubSub</description> -->
+       </init-param>
+       <init-param>
+           <param-name>num.initialization.workers</param-name>
+           <param-value>5</param-value>
+           <!-- <description>Number of worker threads used for document initialization</description> -->
+       </init-param>
+       <init-param>
+           <param-name>initialization.delay</param-name>
+           <param-value>2000</param-value>
+           <!-- <description>Delay after each initialization</description> -->
+       </init-param>
+       <load-on-startup>0</load-on-startup>
+   </servlet>
+   <servlet-mapping>
+       <servlet-name>FileServlet</servlet-name>
+       <url-pattern>/FileServlet</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+       <servlet-name>HeaderImageServlet</servlet-name>
+       <url-pattern>/header/*</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+       <servlet-name>HeadingServlet</servlet-name>
+       <url-pattern>/heading</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+       <servlet-name>DisplaySelectorServlet</servlet-name>
+       <url-pattern>/setup/DisplaySelectorServlet</url-pattern>
+   </servlet-mapping>
+   
+   <session-config>
+       <session-timeout>-2</session-timeout>
+   </session-config>
+   <!-- Error Page Settings -->
+   <error-page>
+       <error-code>404</error-code>
+       <location>/errors/error_404.jsp</location>
+   </error-page>
+   <error-page>
+       <error-code>503</error-code>
+       <location>/errors/error_503.jsp</location>
+   </error-page>
+   <error-page>
+       <exception-type>java.lang.Throwable</exception-type>
+       <location>/errors/error_general_runtime.jsp</location>
+   </error-page>
+   <!-- Taglib discriptors
+   <jsp-config>
+	   <taglib>
+	       <taglib-uri>http://java.sun.com/jstl/core</taglib-uri>
+	       <taglib-location>/WEB-INF/tld/c.tld</taglib-location>
+	   </taglib>
+   </jsp-config> -->
+   <!-- Security constraint for stress test JSPs -->
+   <security-constraint>
+       <display-name>Security constraint for load test JSPs</display-name>
+       <web-resource-collection>
+           <web-resource-name>Load test JSPs</web-resource-name>
+           <url-pattern>/loadtest/*</url-pattern>
+       </web-resource-collection>
+   </security-constraint>
+   <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>HTTPS enabled</web-resource-name>
+      <url-pattern>/*</url-pattern>
+    </web-resource-collection>
+    <user-data-constraint>
+      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
+   <!-- END Merged in from 090020-thinclient-publicdisplay2 -->
+  
+  <!--  Test stuff -->
+  <servlet>
+    <servlet-name>HelloServlet</servlet-name>
+    <servlet-class>com.test.HelloServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>HelloServlet2</servlet-name>
+    <servlet-class>com.test.HelloServlet2</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>BeanTesterServlet</servlet-name>
+    <servlet-class>uk.gov.hmcts.pdda.web.test.BeanTesterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>HelloServlet</servlet-name>
+	<url-pattern>/HelloServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+	<servlet-name>HelloServlet2</servlet-name>
+	<url-pattern>/HelloServlet2</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+	<servlet-name>BeanTesterServlet</servlet-name>
+	<url-pattern>/BeanTesterServlet</url-pattern>
+  </servlet-mapping>
+</web-app>

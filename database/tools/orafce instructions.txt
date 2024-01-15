@@ -1,0 +1,3 @@
+I made dll of orafce 3.16.2. These dll are available from archive orafce-3.16.2-x64-win.zip Instalation is simple. Copy related dll file to directory Program files/Postgres/version/lib and rename this dll just to orafce. Next, copy orafce.control and orafce--3.16.sql to Program files/Postgres/version/share/extension. Last step is executing command CREATE EXTENSION orafce in the database, where you want to use orafce
+
+copy *.sql and *.control to ../PostgreSQL/version/share/extensions and *.dll (after to rename to just orafce.dll to ../PostgreSQL/version/lib.
