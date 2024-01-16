@@ -1,0 +1,13 @@
+/target/
+/xhibit.error.log
+/xhibit.debug.log
+activemq-data
+
+### Gradle ###
+# Exclude Folder List #
+.gradle/
+build/
+bin/
+
+### Eclipse Settings ###
+/.settings/
