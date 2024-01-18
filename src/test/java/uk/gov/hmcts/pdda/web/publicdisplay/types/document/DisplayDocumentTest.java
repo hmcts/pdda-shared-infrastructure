@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
@@ -33,23 +31,16 @@ class DisplayDocumentTest {
 
     private static final String EQUALS = "Results are not Equal";
     private static final String TRUE = "Result is not True";
-
-    @Mock
+    
+    private DisplayStoreControllerBean mockDisplayStoreControllerBean;
+    
     private PdDataControllerBean mockPdDataControllerBean;
 
-    @Mock
-    private DisplayStoreControllerBean mockDisplayStoreControllerBean;
-
-    @Mock
     private Storer mockStorer;
 
-    @Mock
     private Logger mockLogger;
 
-    @InjectMocks
-    private final DisplayDocument classUnderTest =
-        new DisplayDocument(DummyDisplayDocumentUtil.getUri(DisplayDocumentType.DAILY_LIST),
-            DummyDataUtil.getDataDelegate(), mockDisplayStoreControllerBean, mockStorer);
+    private final DisplayDocument classUnderTest = getClassUnderTest();
 
     @BeforeAll
     public static void setUp() throws Exception {
@@ -59,6 +50,16 @@ class DisplayDocumentTest {
     @AfterAll
     public static void tearDown() throws Exception {
         // Do nothing
+    }
+
+    private DisplayDocument getClassUnderTest() {
+        mockDisplayStoreControllerBean = Mockito.mock(DisplayStoreControllerBean.class);
+        mockPdDataControllerBean = Mockito.mock(PdDataControllerBean.class);
+        mockStorer = Mockito.mock(Storer.class);
+        mockLogger = Mockito.mock(Logger.class);
+        
+        return new DisplayDocument(DummyDisplayDocumentUtil.getUri(DisplayDocumentType.DAILY_LIST),
+            mockPdDataControllerBean, mockDisplayStoreControllerBean, mockStorer);
     }
 
     @Test
