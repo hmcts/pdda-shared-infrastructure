@@ -42,7 +42,7 @@ public class PublicNoticeWorkFlow {
 
     private static final Integer REPORTING_RESTRICTIONS_LIFTED = Integer.valueOf(700);
     private static final Integer REPORTING_RESTRICTIONS = Integer.valueOf(100);
-    
+
     protected PublicNoticeWorkFlow() {
         // Protected constructor
     }
@@ -55,12 +55,18 @@ public class PublicNoticeWorkFlow {
      */
     public static DisplayablePublicNoticeValue[] getAllPublicNoticesForCourtRoom(int xhbCourtRoomId) {
 
-        LOG.debug(" 01 Enter the getAllPublicNoticesForCourtRoom method for " + xhbCourtRoomId);
+        LOG.debug(" 01 Enter the getAllPublicNoticesForCourtRoom method for {}", xhbCourtRoomId);
 
+        Optional<XhbCourtRoomDao> courtRoom = PddaEntityHelper.xcrtFindByPrimaryKey(Integer.valueOf(xhbCourtRoomId));
+        return getAllPublicNoticesForCourtRoom(xhbCourtRoomId, courtRoom);
+    }
+
+    public static DisplayablePublicNoticeValue[] getAllPublicNoticesForCourtRoom(int xhbCourtRoomId,
+        Optional<XhbCourtRoomDao> courtRoom) {
         // construct the array given a collection of ConfigurePublicNotices
 
         DisplayablePublicNoticeValue[] displayablePublicNoticeValues =
-            constructDisplayablePublicNoticeValuesForCourtRoom(xhbCourtRoomId);
+            constructDisplayablePublicNoticeValuesForCourtRoom(Integer.valueOf(xhbCourtRoomId), courtRoom);
 
         LOG.debug(" 49 Sorting the Array into Priority");
 
@@ -73,9 +79,9 @@ public class PublicNoticeWorkFlow {
     }
 
     /**
-     * Sets the Acivation Status on the Configured Public Notices which correspond to the
-     * Displayable Public notices passed in. If an activation status is updated it sends a
-     * notification to the Public Display System.
+     * Sets the Acivation Status on the Configured Public Notices which correspond to the Displayable
+     * Public notices passed in. If an activation status is updated it sends a notification to the
+     * Public Display System.
      * 
      * @param publicNotices Array of displayablePublicNotices with updated isactive status
      * @param xhbCourtRoomId the target court room ID
@@ -122,19 +128,18 @@ public class PublicNoticeWorkFlow {
     }
 
     /**
-     * Based on the CourlogSubscriptions event type it decides what configured public notices
-     * Activation Status is updated(If any ). When an Activation status is updated a notification is
-     * sent to the public Displays subsystem.
+     * Based on the CourlogSubscriptions event type it decides what configured public notices Activation
+     * Status is updated(If any ). When an Activation status is updated a notification is sent to the
+     * public Displays subsystem.
      * 
      * @param courtLogSubscriptionValue The new publicNoticeforCourtRoom value
      * @throws PublicNoticeException Description of the Exception
      */
 
-    public static void setPublicNoticeforCourtRoom(
-        CourtLogSubscriptionValue courtLogSubscriptionValue) {
+    public static void setPublicNoticeforCourtRoom(CourtLogSubscriptionValue courtLogSubscriptionValue) {
 
-        LOG.debug(" 01 Enter the setPublicNoticeforCourtRoom xhbCourtRoomID"
-            + courtLogSubscriptionValue.getCourtRoomId());
+        LOG.debug(
+            " 01 Enter the setPublicNoticeforCourtRoom xhbCourtRoomID" + courtLogSubscriptionValue.getCourtRoomId());
 
         // updates are carried out need to send a notification
         if (updateConfiguredPublicNoticeActivationState(courtLogSubscriptionValue)) {
@@ -144,13 +149,12 @@ public class PublicNoticeWorkFlow {
     }
 
     /**
-     * updateConfiguredPublicNoticeActivationState updates the Activation State based on the
-     * contents of the DisplayablePublicNotice Value.
+     * updateConfiguredPublicNoticeActivationState updates the Activation State based on the contents of
+     * the DisplayablePublicNotice Value.
      * 
      * @param publicNotice parameter for updateConfiguredPublicNoticeActivationState
      */
-    private static void updateConfiguredPublicNoticeActivationState(
-        DisplayablePublicNoticeValue publicNotice) {
+    private static void updateConfiguredPublicNoticeActivationState(DisplayablePublicNoticeValue publicNotice) {
         PublicNoticeMaintainer.updateIsActive(publicNotice);
     }
 
@@ -165,7 +169,7 @@ public class PublicNoticeWorkFlow {
         CourtLogSubscriptionValue courtLogSubscriptionValue) {
         return PublicNoticeSelectionManipulator.manipulateSelection(courtLogSubscriptionValue);
     }
-    
+
     /**
      * sendNotification sends a notification to the public display system.
      * 
@@ -174,15 +178,14 @@ public class PublicNoticeWorkFlow {
     private static void sendNotification(CourtLogSubscriptionValue courtLogSubscriptionValue) {
         PublicNoticeChangeNotifier.sendNotificationtoPublicDisplays(courtLogSubscriptionValue);
     }
-    
+
     /**
      * sendNotification sends a notification to the public display system.
      * 
      * @param xhbCourtRoomId parameter for sendNotification
      */
     private static void sendNotification(int xhbCourtRoomId, boolean reportingRestrictionsChanged) {
-        PublicNoticeChangeNotifier.sendNotificationtoPublicDisplays(xhbCourtRoomId,
-            reportingRestrictionsChanged);
+        PublicNoticeChangeNotifier.sendNotificationtoPublicDisplays(xhbCourtRoomId, reportingRestrictionsChanged);
     }
 
     /**
@@ -192,9 +195,7 @@ public class PublicNoticeWorkFlow {
      */
 
     private static DisplayablePublicNoticeValue[] constructDisplayablePublicNoticeValuesForCourtRoom(
-        int xhbCourtRoomId) {
-        Integer courtRoomId = Integer.valueOf(xhbCourtRoomId);
-        Optional<XhbCourtRoomDao> courtRoom = PddaEntityHelper.xcrtFindByPrimaryKey(courtRoomId);
+        Integer courtRoomId, Optional<XhbCourtRoomDao> courtRoom) {
         if (!courtRoom.isPresent()) {
             throw new PublicNoticeCourtRoomUnknownException(courtRoomId);
         }
@@ -204,12 +205,10 @@ public class PublicNoticeWorkFlow {
         ArrayList<Object> displayablePublicNotices = new ArrayList<>();
         Iterator<?> iterator = configuredPublicNotices.iterator();
         while (iterator.hasNext()) {
-            displayablePublicNotices
-                .add(createDisplayablePublicNotice((XhbConfiguredPublicNoticeDao) iterator.next()));
+            displayablePublicNotices.add(createDisplayablePublicNotice((XhbConfiguredPublicNoticeDao) iterator.next()));
         }
 
-        return displayablePublicNotices
-            .toArray(new DisplayablePublicNoticeValue[0]);
+        return displayablePublicNotices.toArray(new DisplayablePublicNoticeValue[0]);
     }
 
     private static DisplayablePublicNoticeValue createDisplayablePublicNotice(
@@ -220,20 +219,16 @@ public class PublicNoticeWorkFlow {
         }
 
         XhbPublicNoticeDao publicNotice = configuredPublicNotice.getXhbPublicNotice();
-        XhbDefinitivePublicNoticeDao definitivePublicNotice =
-            publicNotice.getXhbDefinitivePublicNotice();
+        XhbDefinitivePublicNoticeDao definitivePublicNotice = publicNotice.getXhbDefinitivePublicNotice();
 
         boolean isActive = false;
-        if (configuredPublicNotice.getIsActive() != null
-            && configuredPublicNotice.getIsActive().equals("1")) {
+        if (configuredPublicNotice.getIsActive() != null && configuredPublicNotice.getIsActive().equals("1")) {
             isActive = true;
         }
 
-        return new DisplayablePublicNoticeValue(
-            configuredPublicNotice.getConfiguredPublicNoticeId(),
+        return new DisplayablePublicNoticeValue(configuredPublicNotice.getConfiguredPublicNoticeId(),
             publicNotice.getPublicNoticeDesc(), isActive, configuredPublicNotice.getVersion(),
-            definitivePublicNotice.getDefinitivePnId(),
-            definitivePublicNotice.getPriority().intValue());
+            definitivePublicNotice.getDefinitivePnId(), definitivePublicNotice.getPriority().intValue());
     }
 
 }
