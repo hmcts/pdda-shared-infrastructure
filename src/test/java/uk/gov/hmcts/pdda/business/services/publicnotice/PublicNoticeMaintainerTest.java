@@ -1,23 +1,21 @@
 package uk.gov.hmcts.pdda.business.services.publicnotice;
 
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 import uk.gov.hmcts.DummyPdNotifierUtil;
-import uk.gov.hmcts.pdda.business.entities.PddaEntityHelper;
 import uk.gov.hmcts.pdda.business.entities.xhbconfiguredpublicnotice.XhbConfiguredPublicNoticeDao;
 import uk.gov.hmcts.pdda.business.vos.services.publicnotice.DefinitivePublicNoticeStatusValue;
 import uk.gov.hmcts.pdda.business.vos.services.publicnotice.DisplayablePublicNoticeValue;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -31,12 +29,12 @@ class PublicNoticeMaintainerTest {
 
     @BeforeAll
     public static void setUp() throws Exception {
-        Mockito.mockStatic(PddaEntityHelper.class);
+        // No setup required
     }
 
     @AfterAll
     public static void tearDown() throws Exception {
-        Mockito.clearAllCaches();
+        // No teardown required
     }
 
     @Test
@@ -45,12 +43,10 @@ class PublicNoticeMaintainerTest {
         boolean result = false;
         DisplayablePublicNoticeValue displayablePublicNoticeValue =
             DummyPdNotifierUtil.getDisplayablePublicNoticeValue();
-        // Expects
-        Mockito.when(PddaEntityHelper.xcpnFindByPrimaryKey(displayablePublicNoticeValue.getId()))
-            .thenReturn(Optional.of(DummyPdNotifierUtil.getXhbConfiguredPublicNoticeDao("0")));
         // Run
         try {
-            PublicNoticeMaintainer.updateIsActive(displayablePublicNoticeValue);
+            PublicNoticeMaintainer.updateIsActive(displayablePublicNoticeValue,
+                DummyPdNotifierUtil.getXhbConfiguredPublicNoticeDao("0"));
             result = true;
         } catch (Exception exception) {
             fail(exception);
@@ -78,13 +74,9 @@ class PublicNoticeMaintainerTest {
         // Setup
         DefinitivePublicNoticeStatusValue definitivePublicNoticeStatusValue =
             DummyPdNotifierUtil.getDefinitivePublicNoticeStatusValue();
-        // Expects
-        Mockito
-            .when(PddaEntityHelper.xcpnFindByDefinitivePnCourtRoomValue(COURT_ROOM_ID,
-                definitivePublicNoticeStatusValue.getDefinitivePublicNoticeId()))
-            .thenReturn(xhbConfiguredPublicNoticeDaos);
         // Run
-        PublicNoticeMaintainer.updateActiveStatus(COURT_ROOM_ID, definitivePublicNoticeStatusValue, true);
+        PublicNoticeMaintainer.updateActiveStatus(COURT_ROOM_ID, definitivePublicNoticeStatusValue, true,
+            xhbConfiguredPublicNoticeDaos);
 
         return true;
     }

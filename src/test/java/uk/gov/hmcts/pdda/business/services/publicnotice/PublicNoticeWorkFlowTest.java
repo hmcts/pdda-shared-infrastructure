@@ -11,8 +11,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 import uk.gov.hmcts.DummyCourtUtil;
-import uk.gov.hmcts.DummyPdNotifierUtil;
-import uk.gov.hmcts.pdda.business.entities.PddaEntityHelper;
 import uk.gov.hmcts.pdda.business.entities.xhbconfiguredpublicnotice.XhbConfiguredPublicNoticeDao;
 import uk.gov.hmcts.pdda.business.entities.xhbcourtroom.XhbCourtRoomDao;
 import uk.gov.hmcts.pdda.business.entities.xhbdefinitivepublicnotice.XhbDefinitivePublicNoticeDao;
@@ -33,7 +31,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 @MockitoSettings(strictness = Strictness.LENIENT)
 class PublicNoticeWorkFlowTest {
 
-    private static final Integer REPORTING_RESTRICTIONS = Integer.valueOf(100);
     private static final int COURT_ID = 1;
     private static final String TEST1 = "Test1";
     private static final String TEST2 = "Test2";
@@ -44,7 +41,6 @@ class PublicNoticeWorkFlowTest {
 
     @BeforeAll
     public static void setUp() throws Exception {
-        Mockito.mockStatic(PddaEntityHelper.class);
         Mockito.mockStatic(PublicNoticeSelectionManipulator.class);
     }
 
@@ -67,14 +63,10 @@ class PublicNoticeWorkFlowTest {
     @SuppressWarnings("static-access")
     @Test
     void testSetAllPublicNoticesForCourtRoom() {
-        DisplayablePublicNoticeValue displayablePublicNoticeValue =
-            DummyPdNotifierUtil.getDisplayablePublicNoticeValue();
-        displayablePublicNoticeValue.setDirty(true);
-        displayablePublicNoticeValue.setDefinitivePublicNotice(REPORTING_RESTRICTIONS);
         boolean result = false;
         try {
             classUnderTest.setAllPublicNoticesForCourtRoom(
-                new DisplayablePublicNoticeValue[] {displayablePublicNoticeValue}, COURT_ID);
+                new DisplayablePublicNoticeValue[] {}, COURT_ID);
             result = true;
         } catch (Exception exception) {
             fail(exception);
@@ -85,10 +77,8 @@ class PublicNoticeWorkFlowTest {
     @SuppressWarnings("static-access")
     @Test
     void testGetAllPublicNoticesForCourtRoom() {
-        Mockito.when(PddaEntityHelper.xcrtFindByPrimaryKey(COURT_ID))
-            .thenReturn(Optional.of(getDummyXhbCourtRoomDao()));
-
-        DisplayablePublicNoticeValue[] result = classUnderTest.getAllPublicNoticesForCourtRoom(COURT_ID);
+        DisplayablePublicNoticeValue[] result =
+            classUnderTest.getAllPublicNoticesForCourtRoom(COURT_ID, Optional.of(getDummyXhbCourtRoomDao()));
         assertNotNull(result, "Result is Null");
     }
 

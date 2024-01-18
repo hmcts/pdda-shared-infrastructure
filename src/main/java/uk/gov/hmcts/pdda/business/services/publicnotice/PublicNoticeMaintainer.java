@@ -27,11 +27,11 @@ import java.util.Optional;
  * @version $Id: PublicNoticeMaintainer.java,v 1.1 2005/02/15 14:58:36 sz0t7n Exp $
  */
 public final class PublicNoticeMaintainer {
-    
+
     private static final String PN_ACTIVE = "1";
     private static final String PN_INACTIVE = "0";
     private static final String INVALID_PN_FOR_COURTROOM = "publicnotice.invalid_pn_for_courtroom";
-    
+
     /**
      * Empty private constructor so that class can not be instantiated.
      */
@@ -42,14 +42,18 @@ public final class PublicNoticeMaintainer {
     public static void updateIsActive(DisplayablePublicNoticeValue value) {
         Optional<XhbConfiguredPublicNoticeDao> basicValue = PddaEntityHelper.xcpnFindByPrimaryKey(value.getId());
         if (basicValue.isPresent()) {
-            basicValue.get()
-                .setIsActive(value.isActive() ? PN_ACTIVE : PN_INACTIVE);
-
-            // Set the version for optimistic lock checking.
-            basicValue.get().setVersion(value.getVersion());
-
-            PddaEntityHelper.cpnUpdate(basicValue.get());
+            XhbConfiguredPublicNoticeDao updatedBasicValue = updateIsActive(value, basicValue.get());
+            PddaEntityHelper.cpnUpdate(updatedBasicValue);
         }
+    }
+
+    public static XhbConfiguredPublicNoticeDao updateIsActive(DisplayablePublicNoticeValue value,
+        XhbConfiguredPublicNoticeDao basicValue) {
+        basicValue.setIsActive(value.isActive() ? PN_ACTIVE : PN_INACTIVE);
+
+        // Set the version for optimistic lock checking.
+        basicValue.setVersion(value.getVersion());
+        return basicValue;
     }
 
     public static void updateActiveStatus(Integer courtRoomId, DefinitivePublicNoticeStatusValue value,
@@ -57,20 +61,26 @@ public final class PublicNoticeMaintainer {
         // DisplayablePublicNoticeValue value)
         List<XhbConfiguredPublicNoticeDao> basicValues =
             PddaEntityHelper.xcpnFindByDefinitivePnCourtRoomValue(courtRoomId, value.getDefinitivePublicNoticeId());
+        XhbConfiguredPublicNoticeDao updatedBasicValue =
+            updateActiveStatus(courtRoomId, value, checkOptimisticLock, basicValues);
+        PddaEntityHelper.cpnUpdate(updatedBasicValue);
+    }
+
+    public static XhbConfiguredPublicNoticeDao updateActiveStatus(Integer courtRoomId,
+        DefinitivePublicNoticeStatusValue value, boolean checkOptimisticLock,
+        List<XhbConfiguredPublicNoticeDao> basicValues) {
         if (basicValues.isEmpty()) {
             throw new PublicNoticeException(INVALID_PN_FOR_COURTROOM, "Cannot find configuredPN with XhbCourtRoomId "
                 + courtRoomId + " & definitivePNId" + value.getDefinitivePublicNoticeId());
         }
         XhbConfiguredPublicNoticeDao basicValue = basicValues.get(0);
-        basicValue
-            .setIsActive(value.isActive() ? PN_ACTIVE : PN_INACTIVE);
+        basicValue.setIsActive(value.isActive() ? PN_ACTIVE : PN_INACTIVE);
 
         if (checkOptimisticLock) {
             // Set the version for optimistic lock checking.
             basicValue.setVersion(value.getVersion());
         }
-
-        PddaEntityHelper.cpnUpdate(basicValue);
+        return basicValue;
     }
 
 }
