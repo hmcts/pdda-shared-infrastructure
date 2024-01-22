@@ -155,7 +155,7 @@ dependencies {
     implementation 'xerces:xercesImpl:2.12.2'
     implementation 'org.codehaus.castor:castor-codegen:1.4.1'
     implementation 'xalan:serializer:2.7.3'
-    implementation 'org.apache.yoko:yoko-rmi-spec:1.4'
+    implementation 'org.jboss.spec.javax.rmi:jboss-rmi-api_1.0_spec:1.0.2.Final'
     implementation 'org.springframework:spring-core:6.0.14'
     implementation 'org.springframework:spring-beans:6.0.14'
     implementation 'org.springframework:spring-context:6.0.14'
