@@ -171,7 +171,7 @@ dependencies {
     implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
     implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0'
     implementation 'jakarta.el:jakarta.el-api:5.0.1'
-    implementation 'org.apache.activemq:activemq-spring:5.17.6'
+    implementation 'org.apache.activemq:activemq-spring:5.18.3'
     implementation 'org.apache.tomee:openejb-core:9.1.2'
     implementation 'org.slf4j:slf4j-api:2.0.7'
     implementation 'org.apache.hadoop:hadoop-hdfs-client:3.3.6'
