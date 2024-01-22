@@ -38,7 +38,8 @@ public final class MergeDateUtils {
             String[] dateSplit = date.split("/");
 
             int year = Integer.parseInt(dateSplit[2]);
-            int month = Integer.parseInt(dateSplit[1]);
+            // January = 0.
+            int month = Integer.parseInt(dateSplit[1]) - 1;
             int day = Integer.parseInt(dateSplit[0]);
             int hourOfDay = Integer.parseInt(timeSplit[0]);
             int minute = Integer.parseInt(timeSplit[1]);
@@ -73,10 +74,8 @@ public final class MergeDateUtils {
                 return "Friday";
             case Calendar.SATURDAY:
                 return "Saturday";
-            case Calendar.SUNDAY:
-                return "Sunday";
             default:
-                return null;
+                return "Sunday";
         }
     }
 
