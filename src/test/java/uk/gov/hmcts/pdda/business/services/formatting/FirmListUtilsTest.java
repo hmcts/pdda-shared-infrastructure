@@ -1,0 +1,61 @@
+package uk.gov.hmcts.pdda.business.services.formatting;
+
+import org.easymock.EasyMockExtension;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+/**
+ * <p>
+ * Title: FirmListUtils Test.
+ * </p>
+ * <p>
+ * Description:
+ * </p>
+ * <p>
+ * Copyright: Copyright (c) 2024
+ * </p>
+ * <p>
+ * Company: CGI
+ * </p>
+ * 
+ * @author Luke Gittins
+ */
+@ExtendWith(EasyMockExtension.class)
+class FirmListUtilsTest {
+
+    private static final String EQUAL = "Result is Equal";
+    private static final String NULL = "Result is Null";
+    
+    private static final String KEY_1 = "Key1";
+    private static final String KEY_2 = "Key2";
+    
+    @BeforeAll
+    public static void setUp() throws Exception {
+        // Do nothing
+    }
+
+    @AfterAll
+    public static void tearDown() throws Exception {
+        // Do nothing
+    }
+
+    @Test
+    void testGetNodeUniqueKeySameKey() {
+        assertEquals(KEY_1, FirmListUtils.getNodeUniqueKey(KEY_1, KEY_1), EQUAL);
+    }
+    
+    @Test
+    void testGetNodeUniqueKey() {
+        assertEquals(KEY_2, FirmListUtils.getNodeUniqueKey(KEY_1, KEY_2), EQUAL);
+    }
+    
+    @Test
+    void testGetNodeUniqueKeyNullKey() {
+        assertNull(FirmListUtils.getNodeUniqueKey(null, null), NULL);
+    }
+}
