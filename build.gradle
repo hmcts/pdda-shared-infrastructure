@@ -143,7 +143,7 @@ dependencies {
     implementation 'org.springframework:spring-expression:6.0.14'
     implementation 'org.springframework.boot:spring-boot-starter-web:3.1.6'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.1.6'
-    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:10.1.14'
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:10.1.18'
     implementation 'org.springframework.boot:spring-boot-starter-activemq:3.1.6'
     implementation 'org.apache.activemq:activemq-broker:5.18.3'
     implementation 'org.apache.activemq:activemq-kahadb-store:5.18.3'
