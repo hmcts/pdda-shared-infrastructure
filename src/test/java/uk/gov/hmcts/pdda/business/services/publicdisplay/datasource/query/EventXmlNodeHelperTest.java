@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import uk.gov.hmcts.framework.services.CsServices;
 
@@ -57,7 +56,6 @@ class EventXmlNodeHelperTest {
     
     private Node getDummyNode() {
         Document doc = CsServices.getXmlServices().createDocFromString(TEST_XML);
-        Element element = doc.getDocumentElement();
-        return element;
+        return doc.getDocumentElement();
     }
 }
