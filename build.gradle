@@ -171,13 +171,19 @@ dependencies {
     implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
     implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0'
     implementation 'jakarta.el:jakarta.el-api:5.0.1'
-    implementation 'org.apache.activemq:activemq-spring:5.17.6'
-    implementation 'org.apache.tomee:openejb-core:9.1.2'
+    implementation 'org.apache.activemq:activemq-spring:5.18.3'
+    implementation 'org.apache.tomee:openejb-core:9.1.2', {
+      exclude group: "org.apache.geronimo.mail", module: "geronimo-mail_2.1_provider"
+      exclude group: "org.apache.geronimo.components", module: "geronimo-connector"
+    }
     implementation 'org.slf4j:slf4j-api:2.0.7'
     implementation 'org.apache.hadoop:hadoop-hdfs-client:3.3.6'
     implementation 'org.hsqldb:hsqldb:2.7.2'
     implementation 'org.yaml:snakeyaml:2.2'
-    implementation group: 'org.apache.tomee', name: 'jakartaee-api', version: '10.0-M2'
+    implementation group: 'org.apache.tomee', name: 'jakartaee-api', version: '10.0-M2', {
+      exclude group: "org.apache.geronimo.mail", module: "geronimo-mail_2.1_provider"
+      exclude group: "org.apache.geronimo.components", module: "geronimo-connector"
+    }
     implementation 'ch.qos.logback:logback-core:1.4.14'
     implementation 'ch.qos.logback:logback-classic:1.4.14'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
