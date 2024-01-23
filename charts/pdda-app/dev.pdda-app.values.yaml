@@ -1,0 +1,16 @@
+name: tomee-app
+deployment:
+  replicas: '2'
+  image: 'pddacontainerregistry.azurecr.io/pdda'
+  tag:  '1.0.1'
+  containerPort: '8080'
+configMap:
+  dbhost: '10.100.34.5'
+  dbport: '5432'
+  dbsid: 'pdda'
+secret:
+  dbuser: 'YWRtaW4K'
+  dbpass: 'cGFzc3dvcmQK'
+service:
+  port: '80'
+  targetPort: '8080'
