@@ -7,12 +7,17 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
-
+import org.xml.sax.SAXException;
+import uk.gov.hmcts.framework.services.CsServices;
+import uk.gov.hmcts.pdda.web.publicdisplay.rendering.compiled.DocumentUtils;
+import java.io.IOException;
 import java.io.StringReader;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
@@ -174,6 +179,23 @@ class FirmListXmlMergeUtilsTest {
     @Test
     void testFirmTagFailure() {
         assertFalse(FirmTag.HEARING == FirmTag.fromString("XXX"), "Result is not False");
+    }
+    
+    @Test
+    void testMergeNode() throws SAXException, IOException, ParserConfigurationException {
+        String firmListNode = "<cs:FirmList></cs:FirmList>";
+        String reserveNode = "<cs:ReserveList></cs:ReserveList>";
+        
+        classUnderTest.mergeNode(getDummyDoc(firmListNode), getDummyNode(firmListNode), getDummyNode(reserveNode));
+    }
+    
+    private Node getDummyNode(String xml) {
+        Document doc = CsServices.getXmlServices().createDocFromString(xml);
+        return doc.getDocumentElement();
+    }
+    
+    private Document getDummyDoc(String xml) throws SAXException, IOException, ParserConfigurationException {
+        return DocumentUtils.createInputDocument(xml);
     }
 
 }
