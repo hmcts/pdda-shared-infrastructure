@@ -52,8 +52,8 @@ class FirmListXmlMergeUtilsNodesTest {
 
     @Test
     void testMergeNode() throws SAXException, IOException, ParserConfigurationException {
-        String documentXml = "<cs:FirmList></cs:FirmList>";
-        String documentXmlToMerge = "<cs:FirmList><cs:ReserveList></cs:ReserveList></cs:FirmList>";
+        String documentXml = "<cs:CourtList><cs:FirmList><cs:HearingDate>01/01/2024</cs:HearingDate></cs:FirmList></cs:CourtList>";
+        String documentXmlToMerge = "<cs:FirmList><cs:ReserveList><cs:HearingDate>01/01/2024</cs:HearingDate></cs:ReserveList></cs:FirmList>";
         boolean result = true;
         
         Document baseDocument = getDummyDoc(documentXml);
@@ -65,8 +65,22 @@ class FirmListXmlMergeUtilsNodesTest {
     }
     
     @Test
-    void testMergeNodeReserved() throws SAXException, IOException, ParserConfigurationException {
+    void testMergeNodeSecondNodeReserved() throws SAXException, IOException, ParserConfigurationException {
         String documentXml = "<cs:FirmList></cs:FirmList>";
+        String documentXmlToMerge = "<cs:ReserveList></cs:ReserveList>";
+        boolean result = true;
+        
+        Document baseDocument = getDummyDoc(documentXml);
+        Node node = baseDocument.getDocumentElement();
+        Node nodeToMerge = getDummyDoc(documentXmlToMerge).getDocumentElement();
+        
+        classUnderTest.mergeNode(baseDocument,  node, nodeToMerge);
+        assertTrue(result, TRUE);
+    }
+    
+    @Test
+    void testMergeNodeFirstNodeReserved() throws SAXException, IOException, ParserConfigurationException {
+        String documentXml = "<cs:ReserveList></cs:ReserveList>";
         String documentXmlToMerge = "<cs:ReserveList></cs:ReserveList>";
         boolean result = true;
         
