@@ -52,8 +52,14 @@ public class DisplayConfigurationHelper {
 
     public static DisplayConfiguration getDisplayConfiguration(final Integer displayId,
         final EntityManager entityManager) {
-        Optional<XhbDisplayDao> display =
-            new XhbDisplayRepository(entityManager).findById(displayId);
+        return getDisplayConfiguration(displayId, entityManager,
+            new XhbDisplayRepository(entityManager));
+    }
+
+    public static DisplayConfiguration getDisplayConfiguration(final Integer displayId,
+        final EntityManager entityManager, XhbDisplayRepository xhbDisplayRepository) {
+
+        Optional<XhbDisplayDao> display = xhbDisplayRepository.findById(displayId);
         if (!display.isPresent()) {
             throw new DisplayNotFoundException(displayId);
         }
