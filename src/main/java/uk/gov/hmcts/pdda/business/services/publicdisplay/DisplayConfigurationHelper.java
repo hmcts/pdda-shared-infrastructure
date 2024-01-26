@@ -52,30 +52,30 @@ public class DisplayConfigurationHelper {
 
     public static DisplayConfiguration getDisplayConfiguration(final Integer displayId,
         final EntityManager entityManager) {
-        return getDisplayConfiguration(displayId, entityManager,
-            new XhbDisplayRepository(entityManager));
+        return getDisplayConfiguration(displayId, new XhbDisplayRepository(entityManager),
+            new XhbCourtRepository(entityManager));
     }
 
     public static DisplayConfiguration getDisplayConfiguration(final Integer displayId,
-        final EntityManager entityManager, XhbDisplayRepository xhbDisplayRepository) {
+        XhbDisplayRepository xhbDisplayRepository, XhbCourtRepository xhbCourtRepository) {
 
         Optional<XhbDisplayDao> display = xhbDisplayRepository.findById(displayId);
         if (!display.isPresent()) {
             throw new DisplayNotFoundException(displayId);
         }
         return new DisplayConfiguration(display.get(), display.get().getXhbRotationSet(),
-            getDisplayCourtRooms(display.get(), entityManager));
+            getDisplayCourtRooms(display.get(), xhbCourtRepository));
     }
 
     private static XhbCourtRoomDao[] getDisplayCourtRooms(final XhbDisplayDao display,
-        final EntityManager entityManager) {
+        XhbCourtRepository xhbCourtRepository) {
         boolean isMultiSite = false;
 
         ArrayList<XhbCourtRoomDao> rooms = (ArrayList<XhbCourtRoomDao>) display.getXhbCourtRooms();
 
         if (!rooms.isEmpty()) {
             Integer courtId = rooms.iterator().next().getXhbCourtSite().getCourtId();
-            isMultiSite = isCourtMultiSite(courtId, entityManager);
+            isMultiSite = isCourtMultiSite(courtId, xhbCourtRepository);
         }
         if (isMultiSite) {
             return getMultiSiteCourtRoomData(display.getXhbCourtRooms());
@@ -101,8 +101,8 @@ public class DisplayConfigurationHelper {
     }
 
     private static boolean isCourtMultiSite(final Integer courtId,
-        final EntityManager entityManager) {
-        Optional<XhbCourtDao> dao = new XhbCourtRepository(entityManager).findById(courtId);
+        XhbCourtRepository xhbCourtRepository) {
+        Optional<XhbCourtDao> dao = xhbCourtRepository.findById(courtId);
         return dao.isPresent() && dao.get().getXhbCourtSites().size() > 1;
     }
 
