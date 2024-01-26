@@ -54,34 +54,6 @@ class FirmListXmlMergeUtilsNodesTest {
     }
 
     @Test
-    void testMergeNodeEmptyParentNode()
-        throws SAXException, IOException, ParserConfigurationException {
-        String documentXml =
-            "<cs:FirmList><cs:ReserveList></cs:ReserveList><cs:CourtList></cs:CourtList></cs:FirmList>";
-        String documentXmlToMerge =
-            "<cs:FirmList><cs:ReserveList><cs:HearingDate>01/01/2024</cs:HearingDate></cs:ReserveList><cs:CourtList>"
-                + "<cs:CourtHouse>SNARESBROOK</cs:CourtHouse></cs:CourtList></cs:FirmList>";
-        boolean result = true;
-
-        Document baseDocument = getDummyDoc(documentXml);
-        NodeList baseNodes = baseDocument.getFirstChild().getChildNodes();
-        Document documentToMerge = getDummyDoc(documentXmlToMerge);
-        NodeList nodesToMerge = documentToMerge.getFirstChild().getChildNodes();
-
-        // Reserve List Merge
-        Node node = baseNodes.item(0);
-        Node nodeToMerge = nodesToMerge.item(0);
-        classUnderTest.mergeNode(baseDocument, node, nodeToMerge);
-        assertTrue(result, TRUE);
-
-        // CourtList
-        node = baseNodes.item(1);
-        nodeToMerge = nodesToMerge.item(1);
-        classUnderTest.mergeNode(baseDocument, node, nodeToMerge);
-        assertTrue(result, TRUE);
-    }
-
-    @Test
     void testMergeNodeCombinations()
         throws SAXException, IOException, ParserConfigurationException {
         List<String> documentXmls = new ArrayList<>();
@@ -117,6 +89,66 @@ class FirmListXmlMergeUtilsNodesTest {
         classUnderTest.mergeNode(baseDocument, node, nodeToMerge);
     }
 
+    @Test
+    void testMergeNodeEmptyParentNode()
+        throws SAXException, IOException, ParserConfigurationException {
+        String documentXml =
+            "<cs:FirmList><cs:ReserveList></cs:ReserveList><cs:CourtList></cs:CourtList></cs:FirmList>";
+        String documentXmlToMerge =
+            "<cs:FirmList><cs:ReserveList><cs:HearingDate>01/01/2024</cs:HearingDate></cs:ReserveList><cs:CourtList>"
+                + "<cs:CourtHouse>SNARESBROOK</cs:CourtHouse></cs:CourtList></cs:FirmList>";
+        boolean result = true;
+
+        Document baseDocument = getDummyDoc(documentXml);
+        NodeList baseNodes = baseDocument.getFirstChild().getChildNodes();
+        Document documentToMerge = getDummyDoc(documentXmlToMerge);
+        NodeList nodesToMerge = documentToMerge.getFirstChild().getChildNodes();
+
+        // Reserve List Merge
+        Node node = baseNodes.item(0);
+        Node nodeToMerge = nodesToMerge.item(0);
+        classUnderTest.mergeNode(baseDocument, node, nodeToMerge);
+        assertTrue(result, TRUE);
+
+        // CourtList
+        node = baseNodes.item(1);
+        nodeToMerge = nodesToMerge.item(1);
+        classUnderTest.mergeNode(baseDocument, node, nodeToMerge);
+        assertTrue(result, TRUE);
+    }
+
+    @Test
+    void testMergeNodeSort() throws SAXException, IOException, ParserConfigurationException {
+        String documentXml =
+            "<cs:FirmList><cs:ReserveList></cs:ReserveList><cd:CourtLists><cs:CourtList>"
+            + "</cs:CourtList></cd:CourtLists></cs:FirmList>";
+        String documentXmlToMerge =
+            "<cs:FirmList><cs:ReserveList><cs:HearingDate>01/01/2024</cs:HearingDate></cs:ReserveList><cs:CourtList>"
+                + "<cs:CourtHouse><cs:CourtHouseName>Birmingham</cs:CourtHouseName></cs:CourtHouse>"
+                + "<cs:CourtHouse><cs:CourtHouseName>SNARESBROOK</cs:CourtHouseName>"
+                + "<cs:Sittings><cs:Sitting><cs:HearingDate>01/02/2024</cs:HearingDate></cs:Sitting></cs:Sittings>"
+                + "</cs:CourtHouse></cs:CourtList></cs:FirmList>";
+        boolean result = true;
+ 
+        Document baseDocument = getDummyDoc(documentXml);
+        NodeList baseNodes = baseDocument.getFirstChild().getChildNodes();
+        Document documentToMerge = getDummyDoc(documentXmlToMerge);
+        NodeList nodesToMerge = documentToMerge.getFirstChild().getChildNodes();
+ 
+        // Reserve List Merge
+        Node node = baseNodes.item(0);
+        Node nodeToMerge = nodesToMerge.item(0);
+        classUnderTest.mergeNode(baseDocument, node, nodeToMerge);
+        assertTrue(result, TRUE);
+ 
+        // CourtList
+        node = baseNodes.item(1);
+        nodeToMerge = nodesToMerge.item(1);
+        classUnderTest.mergeNode(baseDocument, node, nodeToMerge);
+        classUnderTest.sortFirmCourtLists(baseDocument);
+        assertTrue(result, TRUE);
+    }
+    
     private Document getDummyDoc(String xml)
         throws SAXException, IOException, ParserConfigurationException {
         return DocumentUtils.createInputDocument(xml);
