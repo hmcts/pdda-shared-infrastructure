@@ -50,6 +50,7 @@ public class DisplayConfigurationHelper {
         // Protected constructor
     }
 
+    // This one is called dynamically
     public static DisplayConfiguration getDisplayConfiguration(final Integer displayId,
         final EntityManager entityManager) {
         return getDisplayConfiguration(displayId, new XhbDisplayRepository(entityManager),
@@ -106,6 +107,14 @@ public class DisplayConfigurationHelper {
         return dao.isPresent() && dao.get().getXhbCourtSites().size() > 1;
     }
 
+    // This one is called dynamically
+    public static void updateDisplayConfiguration(final DisplayConfiguration displayConfiguration,
+        final PublicDisplayNotifier notifier, final EntityManager entityManager) {
+        updateDisplayConfiguration(displayConfiguration, notifier,
+            new XhbDisplayRepository(entityManager), new XhbRotationSetsRepository(entityManager),
+            new XhbCourtRoomRepository(entityManager));
+    }
+
     /**
      * Updates the display configuration with changes.
      * 
@@ -114,25 +123,26 @@ public class DisplayConfigurationHelper {
      * @param displayConfiguration The updated display configuration to be stored
      */
     public static void updateDisplayConfiguration(final DisplayConfiguration displayConfiguration,
-        final PublicDisplayNotifier notifier, final EntityManager entityManager) {
+        final PublicDisplayNotifier notifier, XhbDisplayRepository xhbDisplayRepository,
+        XhbRotationSetsRepository xhbRotationSetsRepository,
+        XhbCourtRoomRepository xhbCourtRoomRepository) {
 
         // Lookup the display local reference
         Integer displayId = displayConfiguration.getDisplayId();
-        XhbDisplayRepository repo = new XhbDisplayRepository(entityManager);
-        Optional<XhbDisplayDao> displayLocal = repo.findById(displayId);
+        Optional<XhbDisplayDao> displayLocal = xhbDisplayRepository.findById(displayId);
         if (!displayLocal.isPresent()) {
             throw new DisplayNotFoundException(displayId);
         }
 
         // if the rotation set has been updated write back to DB
         if (displayConfiguration.isRotationSetChanged()) {
-            setRotationSet(displayConfiguration, displayLocal.get(), entityManager);
+            setRotationSet(displayConfiguration, displayLocal.get(), xhbRotationSetsRepository);
         }
 
         // if the court rooms have been updated write back to DB
         if (displayConfiguration.isCourtRoomsChanged()) {
-            repo.update(displayConfiguration.getDisplayDao());
-            setCourtRooms(displayConfiguration, displayLocal.get(), entityManager);
+            xhbDisplayRepository.update(displayConfiguration.getDisplayDao());
+            setCourtRooms(displayConfiguration, displayLocal.get(), xhbCourtRoomRepository);
         }
 
         // if RS or courtrooms have changed send JMS message for displayId
@@ -149,9 +159,7 @@ public class DisplayConfigurationHelper {
      * @param displayLocal Display local reference
      */
     private static void setCourtRooms(final DisplayConfiguration displayConfiguration,
-        final XhbDisplayDao displayLocal, final EntityManager entityManager) {
-
-        XhbCourtRoomRepository repo = new XhbCourtRoomRepository(entityManager);
+        final XhbDisplayDao displayLocal, XhbCourtRoomRepository xhbCourtRoomRepository) {
 
         /**
          * if the courts have been changed: Delete the current ones and create with ones passed in.
@@ -169,7 +177,7 @@ public class DisplayConfigurationHelper {
         // Add new ones
         for (XhbCourtRoomDao courtRoomBasicValue : courtRoomBasicValues) {
             Integer courtRoomId = courtRoomBasicValue.getPrimaryKey();
-            Optional<XhbCourtRoomDao> room = repo.findById(courtRoomId);
+            Optional<XhbCourtRoomDao> room = xhbCourtRoomRepository.findById(courtRoomId);
             if (!room.isPresent()) {
                 throw new CourtRoomNotFoundException(courtRoomId);
             }
@@ -185,10 +193,10 @@ public class DisplayConfigurationHelper {
      * @throws RotationSetNotFoundCheckedException If the rotation set is not found
      */
     private static void setRotationSet(final DisplayConfiguration displayConfiguration,
-        final XhbDisplayDao displayLocal, final EntityManager entityManager) {
+        final XhbDisplayDao displayLocal, XhbRotationSetsRepository xhbRotationSetsRepository) {
         Integer rotationSetId = displayConfiguration.getRotationSetId();
         Optional<XhbRotationSetsDao> rotationSetLocal =
-            new XhbRotationSetsRepository(entityManager).findById(Long.valueOf(rotationSetId));
+            xhbRotationSetsRepository.findById(Long.valueOf(rotationSetId));
         if (!rotationSetLocal.isPresent()) {
             throw new RotationSetNotFoundCheckedException(rotationSetId);
         }
