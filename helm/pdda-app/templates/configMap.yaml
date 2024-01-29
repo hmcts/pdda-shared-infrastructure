@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ .Values.name }}
-data:
-  host: '{{ .Values.configMap.dbhost }}'
-  port: '{{ .Values.configMap.dbport }}'
-  sid: '{{ .Values.configMap.dbsid }}'
