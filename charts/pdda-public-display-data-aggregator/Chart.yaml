@@ -1,6 +1,7 @@
 apiVersion: v2
-name: pdda-app
-description: A Helm chart for Kubernetes
+name: pdda-public-display-data-aggregator
+description: A Helm chart for Kubernetes pdda-public-display-data-aggregator
+home: https://github.com/hmcts/pdda-shared-infrastructure
 
 # A chart can be either an 'application' or a 'library' chart.
 #
