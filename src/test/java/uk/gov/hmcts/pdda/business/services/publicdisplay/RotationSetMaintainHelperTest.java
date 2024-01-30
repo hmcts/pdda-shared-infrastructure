@@ -1,9 +1,7 @@
 package uk.gov.hmcts.pdda.business.services.publicdisplay;
 
 import jakarta.persistence.EntityManager;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -41,7 +39,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 class RotationSetMaintainHelperTest {
 
     private static final String TEST = "Test";
-    private static final String TRUE = "Result is not True";
+    private static final String TRUE = "Result is Not True";
 
     @Mock
     private EntityManager mockEntityManager;
@@ -63,16 +61,6 @@ class RotationSetMaintainHelperTest {
 
     @InjectMocks
     private final RotationSetMaintainHelper classUnderTest = new RotationSetMaintainHelper();
-
-    @BeforeAll
-    public static void setUp() throws Exception {
-        // Mockito.mockStatic(PublicDisplayActivationHelper.class);
-    }
-
-    @AfterAll
-    public static void tearDown() throws Exception {
-        // Mockito.clearAllCaches();
-    }
 
     @Test
     void testGetCourtsForPublicDisplay() {

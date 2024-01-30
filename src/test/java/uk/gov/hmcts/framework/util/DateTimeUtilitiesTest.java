@@ -1,9 +1,7 @@
 package uk.gov.hmcts.framework.util;
 
 import org.easymock.EasyMockExtension;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -30,18 +28,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @ExtendWith(EasyMockExtension.class)
 class DateTimeUtilitiesTest {
 
-    private static final String NOT_NULL = "Result is Not Null";
-    
-    @BeforeAll
-    public static void setUp() throws Exception {
-        // Do nothing
-    }
-
-    @AfterAll
-    public static void tearDown() throws Exception {
-        // Do nothing
-    }
-
+    private static final String NOT_NULL = "Result is Null";
+   
     @Test
     void testProcessOracleDateParameter() throws ParseException {
         assertNotNull(DateTimeUtilities.processOracleDateParameter("2024-01-01T00:00:00"), NOT_NULL);

@@ -1,9 +1,7 @@
 package uk.gov.hmcts.pdda.business.services.formatting;
 
 import org.easymock.EasyMockExtension;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -12,6 +10,7 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -33,24 +32,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(EasyMockExtension.class)
 class MergeListUtilsTest {
 
-    private static final String EQUAL = "Result is Equal";
-    private static final String FALSE = "Result is False";
+    private static final String EQUAL = "Result is Not Equal";
+    private static final String FALSE = "Result is Not False";
 
     private static final String[] DAILYLISTROOTNODES = {"DailyList/CourtLists"};
     private static final String[] FIRMLISTROOTNODES = {"FirmList/CourtLists", "FirmList/ReserveList"};
     private static final String[] WARNEDLISTROOTNODES = {"WarnedList/CourtLists/CourtList"};
     
     private static final String INVALID = "Invalid";
-
-    @BeforeAll
-    public static void setUp() throws Exception {
-        // Do nothing
-    }
-
-    @AfterAll
-    public static void tearDown() throws Exception {
-        // Do nothing
-    }
 
     @Test
     void testGetListRootNodesDailyList() throws XPathExpressionException, IOException {
@@ -74,7 +63,7 @@ class MergeListUtilsTest {
     }
     
     @Test
-    void testGetListRootNodesInvalid() throws XPathExpressionException, IOException {
+    void testGetListRootNodesInvalid() {
         Assertions.assertThrows(IOException.class, () -> {
             String invalidEntry = "";
             MergeListUtils.getListRootNodes(invalidEntry.getClass());
@@ -82,15 +71,15 @@ class MergeListUtilsTest {
     }
     
     @Test
-    void testIsFirmListRootNodesFalseResult() throws XPathExpressionException, IOException {
+    void testIsFirmListRootNodesFalseResult() {
         String[] invalidNodes = {INVALID, INVALID};
-        assertTrue(!MergeListUtils.isFirmListRootNodes(invalidNodes), FALSE);
+        assertFalse(MergeListUtils.isFirmListRootNodes(invalidNodes), FALSE);
     }
     
     @Test
-    void testIsWarnedListRootNodesFalseResult() throws XPathExpressionException, IOException {
+    void testIsWarnedListRootNodesFalseResult() {
         String[] invalidNodes = {INVALID, INVALID};
-        assertTrue(!MergeListUtils.isWarnedListRootNodes(invalidNodes), FALSE);
+        assertFalse(MergeListUtils.isWarnedListRootNodes(invalidNodes), FALSE);
     }
     
     @Test

@@ -5,9 +5,7 @@ import org.easymock.EasyMock;
 import org.easymock.EasyMockExtension;
 import org.easymock.Mock;
 import org.easymock.TestSubject;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import uk.gov.hmcts.DummyCourtUtil;
@@ -39,8 +37,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 @ExtendWith(EasyMockExtension.class)
 class DisplayConfigurationHelperTest {
 
-    private static final String TRUE = "Result is not True";
-    private static final String NOT_NULL = "Result is Not Null";
+    private static final String TRUE = "Result is Not True";
+    private static final String NOT_NULL = "Result is Null";
 
     @Mock
     private EntityManager mockEntityManager;
@@ -62,16 +60,6 @@ class DisplayConfigurationHelperTest {
 
     @TestSubject
     private final DisplayConfigurationHelper classUnderTest = new DisplayConfigurationHelper();
-
-    @BeforeAll
-    public static void setUp() throws Exception {
-        // Do nothing
-    }
-
-    @AfterAll
-    public static void tearDown() throws Exception {
-        // Do nothing
-    }
 
     @Test
     void testDefaultConstructor() {

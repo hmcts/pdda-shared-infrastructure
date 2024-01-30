@@ -1,8 +1,6 @@
 package uk.gov.hmcts.pdda.business.services.formatting;
 
 import org.easymock.EasyMockExtension;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.w3c.dom.Document;
@@ -30,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(EasyMockExtension.class)
 class MergeIwpUtilsTest {
 
-    private static final String TRUE = "Result is True";
+    private static final String TRUE = "Result is Not True";
     
     private static final String TEST_CHILD_NODE_XML =
         "<courtroomname><cases>testCourtRoom<date>01/01/2024</date><time>10:00:00</time></cases></courtroomname>";
@@ -39,16 +37,6 @@ class MergeIwpUtilsTest {
     private static final String TEST_NODE_XML =
         "<testNode>testNodeValue</testNode>";
 
-    @BeforeAll
-    public static void setUp() throws Exception {
-        // Do nothing
-    }
-
-    @AfterAll
-    public static void tearDown() throws Exception {
-        // Do nothing
-    }
-  
     @Test
     void testReplaceIwp() {
         boolean result = true;

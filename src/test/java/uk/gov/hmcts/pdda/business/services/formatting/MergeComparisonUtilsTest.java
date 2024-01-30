@@ -1,8 +1,6 @@
 package uk.gov.hmcts.pdda.business.services.formatting;
 
 import org.easymock.EasyMockExtension;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -32,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ExtendWith(EasyMockExtension.class)
 class MergeComparisonUtilsTest {
 
-    private static final String EQUAL = "Result is Equal";
+    private static final String EQUAL = "Result is Not Equal";
 
     private static final int LESS_THAN = -1;
     private static final int EQUAL_TO = 0;
@@ -42,16 +40,6 @@ class MergeComparisonUtilsTest {
     private static final String NODE1 = "Node1";
     private static final String ONE = "1";
     private static final String EMPTY_STRING = "";
-
-    @BeforeAll
-    public static void setUp() throws Exception {
-        // Do nothing
-    }
-
-    @AfterAll
-    public static void tearDown() throws Exception {
-        // Do nothing
-    }
 
     @Test
     void testCompareNode1NullLessThanWarnedList() {

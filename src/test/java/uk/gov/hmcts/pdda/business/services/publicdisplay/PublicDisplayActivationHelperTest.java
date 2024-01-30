@@ -5,8 +5,6 @@ import org.easymock.EasyMock;
 import org.easymock.EasyMockExtension;
 import org.easymock.Mock;
 import org.easymock.TestSubject;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import uk.gov.hmcts.DummyCourtUtil;
@@ -32,8 +30,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 @ExtendWith(EasyMockExtension.class)
 class PublicDisplayActivationHelperTest {
 
-    private static final String TRUE = "Result is True";
-    private static final String FALSE = "Result is False";
+    private static final String TRUE = "Result is Not True";
+    private static final String FALSE = "Result is Not False";
 
     @Mock
     private EntityManager mockEntityManager;
@@ -50,16 +48,6 @@ class PublicDisplayActivationHelperTest {
     @TestSubject
     private final PublicDisplayActivationHelper classUnderTest =
         new PublicDisplayActivationHelper();
-
-    @BeforeAll
-    public static void setUp() throws Exception {
-        // Do nothing
-    }
-
-    @AfterAll
-    public static void tearDown() throws Exception {
-        // Do nothing
-    }
 
     @Test
     void testDefaultConstructor() {
@@ -132,23 +120,20 @@ class PublicDisplayActivationHelperTest {
     @Test
     void testActivatePublicDisplayActivate() {
         // Setup
-        XhbScheduledHearingDao xhbScheduledHearingDao =
-            DummyHearingUtil.getXhbScheduledHearingDao();
+        Optional<XhbScheduledHearingDao> xhbScheduledHearingDao =
+            Optional.of(DummyHearingUtil.getXhbScheduledHearingDao());
         List<XhbCrLiveDisplayDao> xhbCrLiveDisplayDaos = new ArrayList<>();
         xhbCrLiveDisplayDaos.add(DummyDisplayUtil.getXhbCrLiveDisplayDao());
         XhbCourtRoomDao xhbCourtRoomDao = DummyCourtUtil.getXhbCourtRoomDao();
         xhbCourtRoomDao.setXhbCrLiveDisplays(xhbCrLiveDisplayDaos);
-        xhbScheduledHearingDao.getXhbSitting().setXhbCourtRoom(xhbCourtRoomDao);
+        xhbScheduledHearingDao.get().getXhbSitting().setXhbCourtRoom(xhbCourtRoomDao);
         List<Integer> shIds = new ArrayList<>();
         shIds.add(1);
 
-        for (int i = 0; i < 2; i++) {
-            EasyMock.expect(mockXhbScheduledHearingRepository.findById(EasyMock.isA(Integer.class)))
-                .andReturn(Optional.of(xhbScheduledHearingDao));
-            EasyMock.expect(mockXhbScheduledHearingRepository.update(xhbScheduledHearingDao))
-                .andReturn(Optional.of(xhbScheduledHearingDao));
-        }
-
+        EasyMock.expect(mockXhbScheduledHearingRepository.findById(EasyMock.isA(Integer.class)))
+            .andReturn(xhbScheduledHearingDao).times(2);
+        EasyMock.expect(mockXhbScheduledHearingRepository.update(xhbScheduledHearingDao.get()))
+            .andReturn(xhbScheduledHearingDao).times(2);
         EasyMock.expect(mockActiveCasesInRoomQuery.getData(EasyMock.isA(Integer.class),
             EasyMock.isA(Integer.class), EasyMock.isA(Integer.class))).andReturn(shIds);
 

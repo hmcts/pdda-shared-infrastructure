@@ -1,8 +1,6 @@
 package uk.gov.hmcts.pdda.business.services.formatting;
 
 import org.easymock.EasyMockExtension;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.w3c.dom.Document;
@@ -34,24 +32,14 @@ class CompareXmlNodesTest {
 
     private static final int EQUAL_TO = 0;
 
-    private static final String EQUAL = "Result is Equal";
-    private static final String TRUE = "Result is True";
-    private static final String FALSE = "Result is False";
+    private static final String EQUAL = "Result is Not Equal";
+    private static final String TRUE = "Result is Not True";
+    private static final String FALSE = "Result is Not False";
     
     private static final String NODENAME = "NodeName";
     private static final String COURT1 = "Court 1";
     
     private static final String TEST_NODE_BLANK_XML = "<courtroomname></courtroomname>";
-
-    @BeforeAll
-    public static void setUp() throws Exception {
-        // Do nothing
-    }
-
-    @AfterAll
-    public static void tearDown() throws Exception {
-        // Do nothing
-    }
 
     @Test
     void testCompareCourtHouseNodes() {
