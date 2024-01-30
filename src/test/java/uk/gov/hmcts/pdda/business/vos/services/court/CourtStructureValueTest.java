@@ -2,8 +2,6 @@ package uk.gov.hmcts.pdda.business.vos.services.court;
 
 import org.easymock.EasyMockExtension;
 import org.easymock.TestSubject;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import uk.gov.hmcts.pdda.business.entities.xhbcourt.XhbCourtDao;
@@ -32,22 +30,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(EasyMockExtension.class)
 class CourtStructureValueTest {
 
-    private static final String TRUE = "Result is True";
-    private static final String EQUAL = "Result is Equal";
+    private static final String TRUE = "Result is Not True";
+    private static final String EQUAL = "Result is Not Equal";
 
     @TestSubject
     private final CourtStructureValue classUnderTest = new CourtStructureValue();
-
-
-    @BeforeAll
-    public static void setUp() throws Exception {
-        // Do nothing
-    }
-
-    @AfterAll
-    public static void tearDown() throws Exception {
-        // Do nothing
-    }
 
     @Test
     void testSetAndGetCourt() {

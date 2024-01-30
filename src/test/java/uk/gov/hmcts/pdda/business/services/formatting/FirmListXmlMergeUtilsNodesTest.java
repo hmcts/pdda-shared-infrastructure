@@ -2,7 +2,6 @@ package uk.gov.hmcts.pdda.business.services.formatting;
 
 import org.easymock.EasyMockExtension;
 import org.easymock.TestSubject;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(EasyMockExtension.class)
 class FirmListXmlMergeUtilsNodesTest {
 
-    private static final String TRUE = "Result is True";
+    private static final String TRUE = "Result is Not True";
 
     @TestSubject
     private static FirmListXmlMergeUtils classUnderTest;
@@ -46,11 +45,6 @@ class FirmListXmlMergeUtilsNodesTest {
     @BeforeAll
     public static void setUp() throws Exception {
         classUnderTest = new FirmListXmlMergeUtils();
-    }
-
-    @AfterAll
-    public static void tearDown() throws Exception {
-        // Do nothing
     }
 
     @Test

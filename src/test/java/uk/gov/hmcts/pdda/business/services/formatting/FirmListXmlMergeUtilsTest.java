@@ -43,7 +43,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 @ExtendWith(EasyMockExtension.class)
 class FirmListXmlMergeUtilsTest {
 
-    private static final String EQUALS = "Results are not Equal";
+    private static final String EQUALS = "Results are Not Equal";
 
     @TestSubject
     private static FirmListXmlMergeUtils classUnderTest;

@@ -1,8 +1,6 @@
 package uk.gov.hmcts.pdda.business.services.formatting;
 
 import org.easymock.EasyMockExtension;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -31,9 +29,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 @ExtendWith(EasyMockExtension.class)
 class MergeDateUtilsTest {
 
-    private static final String EQUAL = "Result is Equal";
-    private static final String NULL = "Result is Null";
-    private static final String NOT_NULL = "Result is Not Null";
+    private static final String EQUAL = "Result is Not Equal";
+    private static final String NULL = "Result is Not Null";
+    private static final String NOT_NULL = "Result is Null";
 
     public static final String SUNDAY = "Sunday";
     public static final String MONDAY = "Monday";
@@ -55,16 +53,6 @@ class MergeDateUtilsTest {
     public static final String OCTOBER = "October";
     public static final String NOVEMBER = "November";
     public static final String DECEMBER = "December";
-
-    @BeforeAll
-    public static void setUp() throws Exception {
-        // Do nothing
-    }
-
-    @AfterAll
-    public static void tearDown() throws Exception {
-        // Do nothing
-    }
 
     @Test
     void testSetupCalendarNull() {
