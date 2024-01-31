@@ -28,18 +28,18 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @ExtendWith(EasyMockExtension.class)
 class EventXmlNodeHelperTest {
 
-    private static final String NOT_NULL = "Result is Null";
+    private static final String NULL = "Result is Null";
     
     private static final String TEST_XML = "<testNode><testChildNode>courtroomname</testChildNode></testNode>";
 
     @Test
     void testBuildEventNode() {
-        assertNotNull(EventXmlNodeHelper.buildEventNode(TEST_XML), NOT_NULL);
+        assertNotNull(EventXmlNodeHelper.buildEventNode(TEST_XML), NULL);
     }
     
     @Test
     void testBuildEventNodeWithNodeParam() {
-        assertNotNull(EventXmlNodeHelper.buildEventNode(getDummyNode()), NOT_NULL);
+        assertNotNull(EventXmlNodeHelper.buildEventNode(getDummyNode()), NULL);
     }
     
     private Node getDummyNode() {

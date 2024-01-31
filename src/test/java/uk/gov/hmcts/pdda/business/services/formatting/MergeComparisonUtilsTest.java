@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ExtendWith(EasyMockExtension.class)
 class MergeComparisonUtilsTest {
 
-    private static final String EQUAL = "Result is Not Equal";
+    private static final String NOT_EQUAL = "Result is Not Equal";
 
     private static final int LESS_THAN = -1;
     private static final int EQUAL_TO = 0;
@@ -44,25 +44,25 @@ class MergeComparisonUtilsTest {
     @Test
     void testCompareNode1NullLessThanWarnedList() {
         assertEquals(LESS_THAN, MergeComparisonUtils.compareNode1Null("cs:FixedDate", false, true),
-            EQUAL);
+            NOT_EQUAL);
     }
 
     @Test
     void testCompareNode1NullLessThanFirmList() {
         assertEquals(LESS_THAN, MergeComparisonUtils.compareNode1Null("cs:SittingAt", true, false),
-            EQUAL);
+            NOT_EQUAL);
     }
 
     @Test
     void testCompareNode2NullLessThanWarnedList() {
         assertEquals(GREATER_THAN,
-            MergeComparisonUtils.compareNode2Null("cs:FixedDate", false, true), EQUAL);
+            MergeComparisonUtils.compareNode2Null("cs:FixedDate", false, true), NOT_EQUAL);
     }
 
     @Test
     void testCompareNode2NullLessThanFirmList() {
         assertEquals(GREATER_THAN,
-            MergeComparisonUtils.compareNode2Null("cs:SittingAt", true, false), EQUAL);
+            MergeComparisonUtils.compareNode2Null("cs:SittingAt", true, false), NOT_EQUAL);
     }
 
     @Test
@@ -74,7 +74,7 @@ class MergeComparisonUtilsTest {
         List<String> nodesToMatch = new ArrayList<>();
         nodesToMatch.add(NODE1);
         assertEquals(EQUAL_TO,
-            MergeComparisonUtils.compareNodes(map1, map2, IWP, nodesToMatch, false, true), EQUAL);
+            MergeComparisonUtils.compareNodes(map1, map2, IWP, nodesToMatch, false, true), NOT_EQUAL);
     }
 
     @Test
@@ -86,7 +86,7 @@ class MergeComparisonUtilsTest {
         List<String> nodesToMatch = new ArrayList<>();
         nodesToMatch.add(NODE1);
         assertEquals(GREATER_THAN,
-            MergeComparisonUtils.compareNodes(map1, map2, IWP, nodesToMatch, false, true), EQUAL);
+            MergeComparisonUtils.compareNodes(map1, map2, IWP, nodesToMatch, false, true), NOT_EQUAL);
     }
 
     @Test
@@ -98,7 +98,7 @@ class MergeComparisonUtilsTest {
         List<String> nodesToMatch = new ArrayList<>();
         nodesToMatch.add(NODE1);
         assertEquals(LESS_THAN,
-            MergeComparisonUtils.compareNodes(map1, map2, IWP, nodesToMatch, false, true), EQUAL);
+            MergeComparisonUtils.compareNodes(map1, map2, IWP, nodesToMatch, false, true), NOT_EQUAL);
     }
 
     @Test
@@ -108,7 +108,7 @@ class MergeComparisonUtilsTest {
         List<String> nodesToMatch = new ArrayList<>();
         nodesToMatch.add(NODE1);
         assertEquals(EQUAL_TO,
-            MergeComparisonUtils.compareNodes(map1, map2, IWP, nodesToMatch, false, true), EQUAL);
+            MergeComparisonUtils.compareNodes(map1, map2, IWP, nodesToMatch, false, true), NOT_EQUAL);
     }
 
     @Test
@@ -120,6 +120,6 @@ class MergeComparisonUtilsTest {
         List<String> nodesToMatch = new ArrayList<>();
         nodesToMatch.add(NODE1);
         assertEquals(EQUAL_TO,
-            MergeComparisonUtils.compareNodes(map1, map2, IWP, nodesToMatch, false, true), EQUAL);
+            MergeComparisonUtils.compareNodes(map1, map2, IWP, nodesToMatch, false, true), NOT_EQUAL);
     }
 }

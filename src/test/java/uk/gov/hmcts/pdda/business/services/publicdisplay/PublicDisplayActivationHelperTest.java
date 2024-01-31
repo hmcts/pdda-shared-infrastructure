@@ -30,8 +30,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 @ExtendWith(EasyMockExtension.class)
 class PublicDisplayActivationHelperTest {
 
-    private static final String TRUE = "Result is Not True";
-    private static final String FALSE = "Result is Not False";
+    private static final String NOT_TRUE = "Result is Not True";
+    private static final String NOT_FALSE = "Result is Not False";
 
     @Mock
     private EntityManager mockEntityManager;
@@ -58,7 +58,7 @@ class PublicDisplayActivationHelperTest {
         } catch (Exception exception) {
             fail(exception);
         }
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
@@ -67,7 +67,7 @@ class PublicDisplayActivationHelperTest {
         boolean result = classUnderTest.isPublicDisplayActive(0, mockEntityManager);
 
         // Checks
-        assertFalse(result, FALSE);
+        assertFalse(result, NOT_FALSE);
     }
     
     @Test
@@ -84,7 +84,7 @@ class PublicDisplayActivationHelperTest {
 
         // Checks
         EasyMock.verify(mockXhbScheduledHearingRepository);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
@@ -102,7 +102,7 @@ class PublicDisplayActivationHelperTest {
 
         // Checks
         EasyMock.verify(mockXhbScheduledHearingRepository);
-        assertFalse(result, FALSE);
+        assertFalse(result, NOT_FALSE);
     }
 
     @Test
@@ -114,7 +114,7 @@ class PublicDisplayActivationHelperTest {
         classUnderTest.activatePublicDisplay(mockPublicDisplayNotifier, 0, new Date(), true, mockEntityManager);
         
         // Checks
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
     
     @Test
@@ -148,7 +148,7 @@ class PublicDisplayActivationHelperTest {
         // Checks
         EasyMock.verify(mockXhbScheduledHearingRepository);
         EasyMock.verify(mockActiveCasesInRoomQuery);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
     
     @Test
@@ -185,6 +185,6 @@ class PublicDisplayActivationHelperTest {
         // Checks
         EasyMock.verify(mockXhbScheduledHearingRepository);
         EasyMock.verify(mockActiveCasesInRoomQuery);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 }

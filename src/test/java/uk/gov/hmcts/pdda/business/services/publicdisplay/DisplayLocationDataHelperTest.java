@@ -37,8 +37,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 @MockitoSettings(strictness = Strictness.LENIENT)
 class DisplayLocationDataHelperTest {
 
-    private static final String TRUE = "Result is not True";
-    private static final String NOTNULL = "Result is Null";
+    private static final String NOT_TRUE = "Result is not True";
+    private static final String NULL = "Result is Null";
 
     private static final Integer COURT_ID = Integer.valueOf(-1);
 
@@ -72,7 +72,7 @@ class DisplayLocationDataHelperTest {
         } catch (Exception exception) {
             fail(exception);
         }
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
@@ -96,7 +96,7 @@ class DisplayLocationDataHelperTest {
         } catch (Exception exception) {
             fail(exception);
         }
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
@@ -122,7 +122,7 @@ class DisplayLocationDataHelperTest {
         } catch (Exception exception) {
             fail(exception);
         }
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
@@ -153,7 +153,7 @@ class DisplayLocationDataHelperTest {
         DisplayLocationDataHelper.getRotationSetsDetailForCourt(COURT_ID, mockResourceBundle,
             mockXhbRotationSetsRepository, mockXhbDisplayRepository);
 
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
@@ -163,7 +163,7 @@ class DisplayLocationDataHelperTest {
             .thenReturn(mockQuery);
         CourtSitePdComplexValue[] results =
             DisplayLocationDataHelper.getDisplaysForCourt(courtId, mockEntityManager);
-        assertNotNull(results, NOTNULL);
+        assertNotNull(results, NULL);
     }
 
     @Test
@@ -179,7 +179,7 @@ class DisplayLocationDataHelperTest {
         } catch (Exception exception) {
             fail(exception);
         }
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
@@ -191,6 +191,6 @@ class DisplayLocationDataHelperTest {
         } catch (Exception exception) {
             fail(exception);
         }
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 }

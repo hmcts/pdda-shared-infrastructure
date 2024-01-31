@@ -30,8 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(EasyMockExtension.class)
 class CourtStructureValueTest {
 
-    private static final String TRUE = "Result is Not True";
-    private static final String EQUAL = "Result is Not Equal";
+    private static final String NOT_TRUE = "Result is Not True";
+    private static final String NOT_EQUAL = "Result is Not Equal";
 
     @TestSubject
     private final CourtStructureValue classUnderTest = new CourtStructureValue();
@@ -42,8 +42,8 @@ class CourtStructureValueTest {
         boolean result;
         classUnderTest.setCourt(xhbCourtDao);
         result = true;
-        assertTrue(result, TRUE);
-        assertEquals(xhbCourtDao, classUnderTest.getCourt(), EQUAL);
+        assertTrue(result, NOT_TRUE);
+        assertEquals(xhbCourtDao, classUnderTest.getCourt(), NOT_EQUAL);
     }
 
     @Test
@@ -51,7 +51,7 @@ class CourtStructureValueTest {
         boolean result;
         classUnderTest.getCourtRoomsForSite(0);
         result = true;
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
@@ -60,8 +60,8 @@ class CourtStructureValueTest {
         boolean result;
         classUnderTest.setCourtSites(xhbCourtSiteDaoArray);
         result = true;
-        assertTrue(result, TRUE);
-        assertEquals(xhbCourtSiteDaoArray.length, classUnderTest.getCourtSites().length, EQUAL);
+        assertTrue(result, NOT_TRUE);
+        assertEquals(xhbCourtSiteDaoArray.length, classUnderTest.getCourtSites().length, NOT_EQUAL);
     }
  
     @Test
@@ -69,7 +69,7 @@ class CourtStructureValueTest {
         XhbCourtSiteDao[] xhbCourtSiteDaoArray = {};
         classUnderTest.setCourtSites(xhbCourtSiteDaoArray);
         XhbCourtRoomDao[] result = classUnderTest.getAllCourtRooms();
-        assertEquals(0, result.length, EQUAL);
+        assertEquals(0, result.length, NOT_EQUAL);
     }
     
     @Test
@@ -80,7 +80,7 @@ class CourtStructureValueTest {
         classUnderTest.setCourtSites(xhbCourtSiteDaoArray);
         classUnderTest.addCourtRooms(xhbCourtSiteDao1.getCourtSiteId(), xhbCourtRoomDaoArray);
         XhbCourtRoomDao[] result = classUnderTest.getAllCourtRooms();
-        assertEquals(1, result.length, EQUAL);
+        assertEquals(1, result.length, NOT_EQUAL);
     }
     
     @Test
@@ -93,7 +93,7 @@ class CourtStructureValueTest {
         classUnderTest.addCourtRooms(xhbCourtSiteDao1.getCourtSiteId(), xhbCourtRoomDaoArray);
         classUnderTest.addCourtRooms(xhbCourtSiteDao2.getCourtSiteId(), xhbCourtRoomDaoArray);
         XhbCourtRoomDao[] result = classUnderTest.getAllCourtRooms();
-        assertEquals(2, result.length, EQUAL);
+        assertEquals(2, result.length, NOT_EQUAL);
     }
     
     private XhbCourtSiteDao getDummyXhbCourtSiteDao(Integer courtSiteId) {

@@ -28,11 +28,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @ExtendWith(EasyMockExtension.class)
 class DateTimeUtilitiesTest {
 
-    private static final String NOT_NULL = "Result is Null";
+    private static final String NULL = "Result is Null";
    
     @Test
     void testProcessOracleDateParameter() throws ParseException {
-        assertNotNull(DateTimeUtilities.processOracleDateParameter("2024-01-01T00:00:00"), NOT_NULL);
+        assertNotNull(DateTimeUtilities.processOracleDateParameter("2024-01-01T00:00:00"), NULL);
     }
     
     @Test
@@ -44,6 +44,6 @@ class DateTimeUtilitiesTest {
     
     @Test
     void testProcessOracleDateParameterForDate() throws ParseException {
-        assertNotNull(DateTimeUtilities.processOracleDateParameterForDate("2024-01-01T00:00:00"), NOT_NULL);
+        assertNotNull(DateTimeUtilities.processOracleDateParameterForDate("2024-01-01T00:00:00"), NULL);
     }
 }
