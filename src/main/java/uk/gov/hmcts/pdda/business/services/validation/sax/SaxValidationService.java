@@ -48,16 +48,15 @@ public class SaxValidationService implements ValidationService {
     }
 
     @Override
-    public ValidationResult validate(final String xml, final String schemaName)
-        throws ValidationException {
+    public ValidationResult validate(final String xml, final String schemaName) throws ValidationException {
         LOG.debug("entered validate method");
 
         try {
             SAXParserFactory factory = getSaxParserFactory();
             factory.setNamespaceAware(true);
 
-            factory.setSchema(getSchemaFactory()
-                .newSchema(new SAXSource(entityResolver.resolveEntity(schemaName, schemaName))));
+            factory.setSchema(
+                getSchemaFactory(false).newSchema(new SAXSource(entityResolver.resolveEntity(schemaName, schemaName))));
             SAXParser parser = factory.newSAXParser();
 
 
@@ -65,11 +64,9 @@ public class SaxValidationService implements ValidationService {
             ErrorHandlerValidationResult result = new ErrorHandlerValidationResult();
             reader.setErrorHandler(result);
             reader.parse(new InputSource(new StringReader(xml)));
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("Valid: {}", result.isValid());
-                if (!result.isValid()) {
-                    LOG.debug("Validation Failed: {}", result);
-                }
+            LOG.debug("Valid: {}", result.isValid());
+            if (!result.isValid()) {
+                LOG.debug("Validation Failed: {}", result);
             }
             return result;
 
@@ -78,21 +75,22 @@ public class SaxValidationService implements ValidationService {
         }
     }
 
-    private SchemaFactory getSchemaFactory()
-        throws SAXNotRecognizedException, SAXNotSupportedException {
+    protected SchemaFactory getSchemaFactory(boolean test) throws SAXNotRecognizedException, SAXNotSupportedException {
         if (schemaFactory == null) {
             SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             // to be compliant, completely disable DOCTYPE declaration:
             factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
             // or prohibit the use of all protocols by external entities:
-            factory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-            factory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+            if (!test) {
+                factory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+                factory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+            }
             return factory;
         }
         return schemaFactory;
     }
 
-    private SAXParserFactory getSaxParserFactory() {
+    protected SAXParserFactory getSaxParserFactory() {
         if (saxParserFactory == null) {
             return SAXParserFactory.newInstance();
         }
