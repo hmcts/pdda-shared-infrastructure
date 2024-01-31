@@ -117,10 +117,10 @@ class SaxValidationServiceTest {
 
     @Test
     void testSaxFactories() {
-        SaxValidationService localClassUnderTest = new SaxValidationService(dummyFileEntityResolver, null, null);
-        assertNotNull(localClassUnderTest.getSaxParserFactory(),"SaxParserFactory IS NULL");
+        SaxValidationService localClassUnderTest = new SaxValidationService(dummyFileEntityResolver, null, null);  
         try {
-            assertNotNull(localClassUnderTest.getSchemaFactory(true),"SchemaFactory IS NULL");
+            assertNotNull(localClassUnderTest.getSaxParserFactory(),"SaxParserFactory IS NULL");
+            assertNotNull(localClassUnderTest.getSchemaFactory(),"SchemaFactory IS NULL");
         } catch (Exception exception) {
             fail("Failed on exception" + exception.getMessage());
         }
