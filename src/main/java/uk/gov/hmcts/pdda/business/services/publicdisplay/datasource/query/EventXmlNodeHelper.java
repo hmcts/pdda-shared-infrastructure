@@ -11,11 +11,6 @@ import uk.gov.hmcts.pdda.common.publicdisplay.renderdata.nodes.BranchEventXmlNod
 import uk.gov.hmcts.pdda.common.publicdisplay.renderdata.nodes.EventXmlNode;
 import uk.gov.hmcts.pdda.common.publicdisplay.renderdata.nodes.LeafEventXmlNode;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-
 public final class EventXmlNodeHelper {
     /** Logger object. */
     private static final Logger LOG = LoggerFactory.getLogger(EventXmlNodeHelper.class);
@@ -159,81 +154,6 @@ public final class EventXmlNodeHelper {
         LOG.debug(SEPARATOR);
 
         return branchNode;
-    }
-
-    private static void printEventXmlNode(EventXmlNode nodeIn) {
-
-        LOG.debug(SEPARATOR);
-        LOG.debug("******** printEventXMLNode ENTRY********");
-        LOG.debug(SEPARATOR);
-
-        Map<?, ?> map;
-
-        if (nodeIn != null) {
-            if (nodeIn instanceof BranchEventXmlNode) {
-                map = ((BranchEventXmlNode) nodeIn).getMap();
-                if (!map.isEmpty()) {
-                    printMap(map);
-                }
-            } else if (nodeIn instanceof LeafEventXmlNode) {
-                LOG.debug(SEPARATOR);
-                LOG.debug("LeafEventXMLNode  " + nodeIn);
-                LOG.debug(SEPARATOR);
-            }
-        }
-        LOG.debug(SEPARATOR);
-        LOG.debug("******** printEventXMLNode EXIT********");
-        LOG.debug(SEPARATOR);
-    }
-
-    @SuppressWarnings("unchecked")
-    private static void printMap(Map<?, ?> map) {
-        Object key;
-        Object value;
-        LOG.debug("Map size: " + map.size());
-
-        Iterator<?> keySetIter = map.keySet().iterator();
-        while (keySetIter.hasNext()) {
-            key = keySetIter.next();
-            value = map.get(key);
-
-            if (value instanceof EventXmlNode) {
-                printEventXmlNode((EventXmlNode) value);
-            } else if (value instanceof List) {
-                printList((List<Integer>) value);
-            } else {
-                LOG.debug("Value not an instanceof  EventXMLNode");
-                LOG.debug("Value: " + value);
-            }
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    private static void printList(List<Integer> listIn) {
-        LOG.debug(SEPARATOR);
-        LOG.debug("******** printList ENTRY********");
-        LOG.debug(SEPARATOR);
-
-        Object listValue;
-
-        Iterator<Integer> listIter = listIn.iterator();
-
-        while (listIter.hasNext()) {
-            listValue = listIter.next();
-            if (listValue instanceof EventXmlNode) {
-
-                printEventXmlNode((EventXmlNode) listValue);
-            } else if (listValue instanceof List) {
-
-                printList((List<Integer>) listValue);
-            } else {
-                listIter.next();
-            }
-        }
-
-        LOG.debug(SEPARATOR);
-        LOG.debug("******** printList EXIT********");
-        LOG.debug(SEPARATOR);
     }
 
     private static boolean checkForWhiteSpace(Node node) {
