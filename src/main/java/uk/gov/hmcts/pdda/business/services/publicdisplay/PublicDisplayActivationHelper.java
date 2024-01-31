@@ -51,6 +51,13 @@ public class PublicDisplayActivationHelper {
         // Protected constructor
     }
 
+    // This one is called dynamically
+    public static boolean isPublicDisplayActive(final Integer schedHearingId,
+        final EntityManager entityManager) {
+        return isPublicDisplayActive(schedHearingId,
+            new XhbScheduledHearingRepository(entityManager));
+    }
+
     /**
      * Check the Public display activation status for this particular scheduled hearing.
      * 
@@ -58,14 +65,23 @@ public class PublicDisplayActivationHelper {
      * @return boolean true if scheduled hearing is active
      */
     public static boolean isPublicDisplayActive(final Integer schedHearingId,
-        final EntityManager entityManager) {
+        XhbScheduledHearingRepository xhbScheduledHearingRepository) {
         boolean result = false;
         Optional<XhbScheduledHearingDao> scheduledHearing =
-            new XhbScheduledHearingRepository(entityManager).findById(schedHearingId);
+            xhbScheduledHearingRepository.findById(schedHearingId);
         if (scheduledHearing.isPresent()) {
             result = DISPLAY_ACTIVE.equals(scheduledHearing.get().getIsCaseActive());
         }
         return result;
+    }
+
+    // This one is called dynamically
+    public static void activatePublicDisplay(final PublicDisplayNotifier notifier,
+        final Integer schedHearingId, final Date activationDeactivationDate, final boolean activate,
+        final EntityManager entityManager) {
+        activatePublicDisplay(notifier, schedHearingId, activationDeactivationDate, activate,
+            new XhbScheduledHearingRepository(entityManager),
+            new ActiveCasesInRoomQuery(entityManager));
     }
 
     /**
@@ -75,11 +91,12 @@ public class PublicDisplayActivationHelper {
      */
     public static void activatePublicDisplay(final PublicDisplayNotifier notifier,
         final Integer schedHearingId, final Date activationDeactivationDate, final boolean activate,
-        final EntityManager entityManager) {
+        XhbScheduledHearingRepository xhbScheduledHearingRepository,
+        ActiveCasesInRoomQuery activeCasesInRoomQuery) {
         LOG.debug("activatePublicDisplay() with schedHearingId: " + schedHearingId);
 
         Optional<XhbScheduledHearingDao> scheduledHearing =
-            new XhbScheduledHearingRepository(entityManager).findById(schedHearingId);
+            xhbScheduledHearingRepository.findById(schedHearingId);
         if (scheduledHearing.isPresent()) {
             if (activate) {
                 CrLiveStatusHelper.activatePublicDisplay(scheduledHearing.get(),
@@ -89,10 +106,12 @@ public class PublicDisplayActivationHelper {
                     activationDeactivationDate);
             }
 
-            setActivationOfPDforSchedHearing(scheduledHearing.get(), activate, entityManager);
+            setActivationOfPDforSchedHearing(scheduledHearing.get(), activate,
+                xhbScheduledHearingRepository);
 
             // make sure no other sched hearings are active in this court room
-            deactivateOtherSchedHearings(scheduledHearing.get(), entityManager);
+            deactivateOtherSchedHearings(scheduledHearing.get(), xhbScheduledHearingRepository,
+                activeCasesInRoomQuery);
 
             // Notify Public display listener
             Integer courtRoomId = scheduledHearing.get().getXhbSitting().getCourtRoomId();
@@ -125,9 +144,9 @@ public class PublicDisplayActivationHelper {
      * @param isActive boolean
      */
     private static void setActivationOfPDforSchedHearing(XhbScheduledHearingDao schedHearing,
-        final boolean isActive, final EntityManager entityManager) {
+        final boolean isActive, XhbScheduledHearingRepository xhbScheduledHearingRepository) {
         schedHearing.setIsCaseActive(isActive ? DISPLAY_ACTIVE : DISPLAY_INACTIVE);
-        new XhbScheduledHearingRepository(entityManager).update(schedHearing);
+        xhbScheduledHearingRepository.update(schedHearing);
     }
 
     /**
@@ -138,27 +157,26 @@ public class PublicDisplayActivationHelper {
      * @throws PublicDisplayControllerException Exception
      */
     private static void deactivateOtherSchedHearings(XhbScheduledHearingDao schedHearing,
-        final EntityManager entityManager) {
+        final XhbScheduledHearingRepository xhbScheduledHearingRepository,
+        ActiveCasesInRoomQuery activeCasesInRoomQuery) {
         LOG.debug(
             "deactivateOtherSchedHearings() with schedHearingId: " + schedHearing.getPrimaryKey());
-
-        XhbScheduledHearingRepository repo = new XhbScheduledHearingRepository(entityManager);
 
         Integer courtRoomId = schedHearing.getXhbSitting().getCourtRoomId();
         Integer hearingListId = schedHearing.getXhbSitting().getListId();
 
-        ActiveCasesInRoomQuery query = new ActiveCasesInRoomQuery(entityManager);
-        Collection<?> shIds =
-            query.getData(hearingListId, courtRoomId, schedHearing.getScheduledHearingId());
+        Collection<?> shIds = activeCasesInRoomQuery.getData(hearingListId, courtRoomId,
+            schedHearing.getScheduledHearingId());
         LOG.debug("Active Cases found: " + shIds.size());
         Iterator<?> iter = shIds.iterator();
         while (iter.hasNext()) {
             Integer thisSchedHearingId = (Integer) iter.next();
             LOG.debug("Deactivating SH ID: " + thisSchedHearingId);
 
-            Optional<XhbScheduledHearingDao> xsh = repo.findById(thisSchedHearingId);
+            Optional<XhbScheduledHearingDao> xsh =
+                xhbScheduledHearingRepository.findById(thisSchedHearingId);
             if (xsh.isPresent()) {
-                setActivationOfPDforSchedHearing(xsh.get(), false, entityManager);
+                setActivationOfPDforSchedHearing(xsh.get(), false, xhbScheduledHearingRepository);
             }
         }
     }
