@@ -29,6 +29,7 @@ import javax.xml.validation.SchemaFactory;
 public class SaxValidationService implements ValidationService {
 
     private static final Logger LOG = LoggerFactory.getLogger(SaxValidationService.class);
+    private static final String DISALLOW_DECL = "http://apache.org/xml/features/disallow-doctype-decl";
 
     private final EntityResolver entityResolver;
 
@@ -56,7 +57,7 @@ public class SaxValidationService implements ValidationService {
             factory.setNamespaceAware(true);
 
             factory.setSchema(
-                getSchemaFactory(false).newSchema(new SAXSource(entityResolver.resolveEntity(schemaName, schemaName))));
+                getSchemaFactory().newSchema(new SAXSource(entityResolver.resolveEntity(schemaName, schemaName))));
             SAXParser parser = factory.newSAXParser();
 
 
@@ -75,25 +76,25 @@ public class SaxValidationService implements ValidationService {
         }
     }
 
-    protected SchemaFactory getSchemaFactory(boolean isTest)
-        throws SAXNotRecognizedException, SAXNotSupportedException {
+    protected SchemaFactory getSchemaFactory() throws SAXNotRecognizedException, SAXNotSupportedException {
         if (schemaFactory == null) {
             SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             // to be compliant, completely disable DOCTYPE declaration:
-            factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+            factory.setFeature(DISALLOW_DECL, true);
             // or prohibit the use of all protocols by external entities:
-            if (!isTest) {
-                factory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-                factory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
-            }
+            factory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            factory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
             return factory;
         }
         return schemaFactory;
     }
 
-    protected SAXParserFactory getSaxParserFactory() {
+    protected SAXParserFactory getSaxParserFactory()
+        throws SAXNotRecognizedException, SAXNotSupportedException, ParserConfigurationException {
         if (saxParserFactory == null) {
-            return SAXParserFactory.newInstance();
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+            factory.setFeature(DISALLOW_DECL, true);
+            return factory;
         }
         return saxParserFactory;
     }
