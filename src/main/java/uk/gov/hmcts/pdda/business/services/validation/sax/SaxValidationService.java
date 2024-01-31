@@ -1,6 +1,5 @@
 package uk.gov.hmcts.pdda.business.services.validation.sax;
 
-import org.apache.xerces.jaxp.SAXParserFactoryImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.EntityResolver;
@@ -95,7 +94,7 @@ public class SaxValidationService implements ValidationService {
 
     private SAXParserFactory getSaxParserFactory() {
         if (saxParserFactory == null) {
-            return new SAXParserFactoryImpl();
+            return SAXParserFactory.newInstance();
         }
         return saxParserFactory;
     }
