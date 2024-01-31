@@ -32,6 +32,5 @@ public final class MergeIwpUtils {
                 node.replaceChild(childNodeToMerge, insertBeforeNode);
             }
         }
-
     }
 }

@@ -43,7 +43,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 @ExtendWith(EasyMockExtension.class)
 class FirmListXmlMergeUtilsTest {
 
-    private static final String EQUALS = "Results are not Equal";
+    private static final String NOT_EQUAL = "Results are Not Equal";
 
     @TestSubject
     private static FirmListXmlMergeUtils classUnderTest;
@@ -67,7 +67,7 @@ class FirmListXmlMergeUtilsTest {
         final String[] stringArr = classUnderTest.getRootNodes();
 
         // Checks
-        assertArrayEquals(expectedArray, stringArr, EQUALS);
+        assertArrayEquals(expectedArray, stringArr, NOT_EQUAL);
     }
 
     @Test
@@ -79,7 +79,7 @@ class FirmListXmlMergeUtilsTest {
         final String[] stringArr = classUnderTest.getNodePositionArray();
 
         // Checks
-        assertArrayEquals(expectedArray, stringArr, EQUALS);
+        assertArrayEquals(expectedArray, stringArr, NOT_EQUAL);
     }
 
     @Test
@@ -91,7 +91,7 @@ class FirmListXmlMergeUtilsTest {
         final String[] stringArr = classUnderTest.getNodeMatchArray();
 
         // Checks
-        assertArrayEquals(expectedArray, stringArr, EQUALS);
+        assertArrayEquals(expectedArray, stringArr, NOT_EQUAL);
     }
 
     @Test
@@ -103,7 +103,7 @@ class FirmListXmlMergeUtilsTest {
         final String actualString = classUnderTest.getMergeType();
 
         // Checks
-        assertEquals(expectedString, actualString, EQUALS);
+        assertEquals(expectedString, actualString, NOT_EQUAL);
     }
 
     @Test
@@ -123,7 +123,7 @@ class FirmListXmlMergeUtilsTest {
             NodeList nodeList = (NodeList) rootNodeExpression.evaluate(sortedDoc, XPathConstants.NODESET);
             for (int nodeNo = 0; nodeNo < nodeList.getLength(); nodeNo++) {
                 String sittingDate = nodeList.item(nodeNo).getAttributes().getNamedItem("SittingDate").getNodeValue();
-                assertEquals(expectedOrder[nodeNo], sittingDate, EQUALS);
+                assertEquals(expectedOrder[nodeNo], sittingDate, NOT_EQUAL);
             }
         } catch (XPathExpressionException exception) {
             fail(exception);
@@ -175,5 +175,4 @@ class FirmListXmlMergeUtilsTest {
     void testFirmTagFailure() {
         assertFalse(FirmTag.HEARING == FirmTag.fromString("XXX"), "Result is not False");
     }
-
 }
