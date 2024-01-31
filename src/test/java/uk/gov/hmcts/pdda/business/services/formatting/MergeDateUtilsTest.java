@@ -29,9 +29,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 @ExtendWith(EasyMockExtension.class)
 class MergeDateUtilsTest {
 
-    private static final String EQUAL = "Result is Not Equal";
-    private static final String NULL = "Result is Not Null";
-    private static final String NOT_NULL = "Result is Null";
+    private static final String NOT_EQUAL = "Result is Not Equal";
+    private static final String NOT_NULL = "Result is Not Null";
+    private static final String NULL = "Result is Null";
 
     public static final String SUNDAY = "Sunday";
     public static final String MONDAY = "Monday";
@@ -56,58 +56,58 @@ class MergeDateUtilsTest {
 
     @Test
     void testSetupCalendarNull() {
-        assertNull(MergeDateUtils.setupCalendar(null, null), NULL);
+        assertNull(MergeDateUtils.setupCalendar(null, null), NOT_NULL);
     }
 
     @Test
     void testSetupCalendarNotNull() {
-        assertNotNull(MergeDateUtils.setupCalendar("10:00:00", "01/01/2024"), NOT_NULL);
+        assertNotNull(MergeDateUtils.setupCalendar("10:00:00", "01/01/2024"), NULL);
     }
 
     @Test
     void testReturnDay() {
         Calendar day1 = MergeDateUtils.setupCalendar("10:00:00", "29/02/2024");
-        assertEquals(THURSDAY, MergeDateUtils.returnDay(day1), EQUAL);
+        assertEquals(THURSDAY, MergeDateUtils.returnDay(day1), NOT_EQUAL);
         Calendar day2 = addOneDay(day1);
-        assertEquals(FRIDAY, MergeDateUtils.returnDay(day2), EQUAL);
+        assertEquals(FRIDAY, MergeDateUtils.returnDay(day2), NOT_EQUAL);
         Calendar day3 = addOneDay(day2);
-        assertEquals(SATURDAY, MergeDateUtils.returnDay(day3), EQUAL);
+        assertEquals(SATURDAY, MergeDateUtils.returnDay(day3), NOT_EQUAL);
         Calendar day4 = addOneDay(day3);
-        assertEquals(SUNDAY, MergeDateUtils.returnDay(day4), EQUAL);
+        assertEquals(SUNDAY, MergeDateUtils.returnDay(day4), NOT_EQUAL);
         Calendar day5 = addOneDay(day4);
-        assertEquals(MONDAY, MergeDateUtils.returnDay(day5), EQUAL);
+        assertEquals(MONDAY, MergeDateUtils.returnDay(day5), NOT_EQUAL);
         Calendar day6 = addOneDay(day5);
-        assertEquals(TUESDAY, MergeDateUtils.returnDay(day6), EQUAL);
+        assertEquals(TUESDAY, MergeDateUtils.returnDay(day6), NOT_EQUAL);
         Calendar day7 = addOneDay(day6);
-        assertEquals(WEDNESDAY, MergeDateUtils.returnDay(day7), EQUAL);
+        assertEquals(WEDNESDAY, MergeDateUtils.returnDay(day7), NOT_EQUAL);
     }
 
     @Test
     void testReturnMonth() {
         Calendar month1 = MergeDateUtils.setupCalendar("10:00:00", "01/01/2024");
-        assertEquals(JANUARY, MergeDateUtils.returnMonth(month1), EQUAL);
+        assertEquals(JANUARY, MergeDateUtils.returnMonth(month1), NOT_EQUAL);
         Calendar month2 = addOneMonth(month1);
-        assertEquals(FEBRUARY, MergeDateUtils.returnMonth(month2), EQUAL);
+        assertEquals(FEBRUARY, MergeDateUtils.returnMonth(month2), NOT_EQUAL);
         Calendar month3 = addOneMonth(month2);
-        assertEquals(MARCH, MergeDateUtils.returnMonth(month3), EQUAL);
+        assertEquals(MARCH, MergeDateUtils.returnMonth(month3), NOT_EQUAL);
         Calendar month4 = addOneMonth(month3);
-        assertEquals(APRIL, MergeDateUtils.returnMonth(month4), EQUAL);
+        assertEquals(APRIL, MergeDateUtils.returnMonth(month4), NOT_EQUAL);
         Calendar month5 = addOneMonth(month4);
-        assertEquals(MAY, MergeDateUtils.returnMonth(month5), EQUAL);
+        assertEquals(MAY, MergeDateUtils.returnMonth(month5), NOT_EQUAL);
         Calendar month6 = addOneMonth(month5);
-        assertEquals(JUNE, MergeDateUtils.returnMonth(month6), EQUAL);
+        assertEquals(JUNE, MergeDateUtils.returnMonth(month6), NOT_EQUAL);
         Calendar month7 = addOneMonth(month6);
-        assertEquals(JULY, MergeDateUtils.returnMonth(month7), EQUAL);
+        assertEquals(JULY, MergeDateUtils.returnMonth(month7), NOT_EQUAL);
         Calendar month8 = addOneMonth(month7);
-        assertEquals(AUGUST, MergeDateUtils.returnMonth(month8), EQUAL);
+        assertEquals(AUGUST, MergeDateUtils.returnMonth(month8), NOT_EQUAL);
         Calendar month9 = addOneMonth(month8);
-        assertEquals(SEPTEMBER, MergeDateUtils.returnMonth(month9), EQUAL);
+        assertEquals(SEPTEMBER, MergeDateUtils.returnMonth(month9), NOT_EQUAL);
         Calendar month10 = addOneMonth(month9);
-        assertEquals(OCTOBER, MergeDateUtils.returnMonth(month10), EQUAL);
+        assertEquals(OCTOBER, MergeDateUtils.returnMonth(month10), NOT_EQUAL);
         Calendar month11 = addOneMonth(month10);
-        assertEquals(NOVEMBER, MergeDateUtils.returnMonth(month11), EQUAL);
+        assertEquals(NOVEMBER, MergeDateUtils.returnMonth(month11), NOT_EQUAL);
         Calendar month12 = addOneMonth(month11);
-        assertEquals(DECEMBER, MergeDateUtils.returnMonth(month12), EQUAL);
+        assertEquals(DECEMBER, MergeDateUtils.returnMonth(month12), NOT_EQUAL);
     }
 
     private Calendar addOneDay(Calendar day) {

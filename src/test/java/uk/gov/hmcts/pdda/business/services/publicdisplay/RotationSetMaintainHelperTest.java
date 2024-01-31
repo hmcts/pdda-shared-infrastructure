@@ -39,7 +39,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 class RotationSetMaintainHelperTest {
 
     private static final String TEST = "Test";
-    private static final String TRUE = "Result is Not True";
+    private static final String NOT_TRUE = "Result is Not True";
 
     @Mock
     private EntityManager mockEntityManager;
@@ -82,7 +82,7 @@ class RotationSetMaintainHelperTest {
         } catch (Exception exception) {
             fail(exception);
         }
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
@@ -106,7 +106,7 @@ class RotationSetMaintainHelperTest {
         } catch (PublicDisplayCheckedException exception) {
             fail(exception);
         }
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
@@ -142,7 +142,7 @@ class RotationSetMaintainHelperTest {
         } catch (PublicDisplayCheckedException exception) {
             fail(exception);
         }
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
@@ -206,7 +206,7 @@ class RotationSetMaintainHelperTest {
 
         boolean result = true;
         classUnderTest.deleteRotationSet(mockRotationSetComplexValue, mockEntityManager);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private RotationSetComplexValue getDummyRotationSetComplexValue() {

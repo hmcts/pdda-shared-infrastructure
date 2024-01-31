@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(EasyMockExtension.class)
 class MergeIwpUtilsTest {
 
-    private static final String TRUE = "Result is Not True";
+    private static final String NOT_TRUE = "Result is Not True";
     
     private static final String TEST_CHILD_NODE_XML =
         "<courtroomname><cases>testCourtRoom<date>01/01/2024</date><time>10:00:00</time></cases></courtroomname>";
@@ -44,7 +44,7 @@ class MergeIwpUtilsTest {
         Node testInsertBeforeNode = getDummyNode(TEST_INSERTBEFORE_NODE_XML);
         Node testNode = getDummyNode(TEST_NODE_XML);
         MergeIwpUtils.replaceIwp(testChildNode, testInsertBeforeNode, testNode);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private Node getDummyNode(String xml) {

@@ -37,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(EasyMockExtension.class)
 class FirmListXmlMergeUtilsNodesTest {
 
-    private static final String TRUE = "Result is Not True";
+    private static final String NOT_TRUE = "Result is Not True";
 
     @TestSubject
     private static FirmListXmlMergeUtils classUnderTest;
@@ -69,7 +69,7 @@ class FirmListXmlMergeUtilsNodesTest {
 
         for (int i = 0; i < documentXmls.size(); i++) {
             testMergeNode(documentXmls.get(i), documentXmlsToMerge.get(i));
-            assertTrue(result, TRUE);
+            assertTrue(result, NOT_TRUE);
         }
     }
 
@@ -102,13 +102,13 @@ class FirmListXmlMergeUtilsNodesTest {
         Node node = baseNodes.item(0);
         Node nodeToMerge = nodesToMerge.item(0);
         classUnderTest.mergeNode(baseDocument, node, nodeToMerge);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
 
         // CourtList
         node = baseNodes.item(1);
         nodeToMerge = nodesToMerge.item(1);
         classUnderTest.mergeNode(baseDocument, node, nodeToMerge);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
@@ -133,14 +133,14 @@ class FirmListXmlMergeUtilsNodesTest {
         Node node = baseNodes.item(0);
         Node nodeToMerge = nodesToMerge.item(0);
         classUnderTest.mergeNode(baseDocument, node, nodeToMerge);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
  
         // CourtList
         node = baseNodes.item(1);
         nodeToMerge = nodesToMerge.item(1);
         classUnderTest.mergeNode(baseDocument, node, nodeToMerge);
         classUnderTest.sortFirmCourtLists(baseDocument);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
     
     private Document getDummyDoc(String xml)

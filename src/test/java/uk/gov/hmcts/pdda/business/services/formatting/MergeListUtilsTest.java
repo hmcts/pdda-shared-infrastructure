@@ -32,8 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(EasyMockExtension.class)
 class MergeListUtilsTest {
 
-    private static final String EQUAL = "Result is Not Equal";
-    private static final String FALSE = "Result is Not False";
+    private static final String NOT_EQUAL = "Result is Not Equal";
+    private static final String NOT_FALSE = "Result is Not False";
 
     private static final String[] DAILY_LIST_ROOT_NODES = {"DailyList/CourtLists"};
     private static final String[] FIRM_LIST_ROOT_NODES = {"FirmList/CourtLists", "FirmList/ReserveList"};
@@ -45,21 +45,21 @@ class MergeListUtilsTest {
     void testGetListRootNodesDailyList() throws XPathExpressionException, IOException {
         DailyListXmlMergeUtils dailyListXmlMergeUtils = new DailyListXmlMergeUtils();
         String[] result = MergeListUtils.getListRootNodes(dailyListXmlMergeUtils.getClass());
-        assertEquals(DAILY_LIST_ROOT_NODES[0], result[0], EQUAL);
+        assertEquals(DAILY_LIST_ROOT_NODES[0], result[0], NOT_EQUAL);
     }
     
     @Test
     void testGetListRootNodesFirmList() throws XPathExpressionException, IOException {
         FirmListXmlMergeUtils firmListXmlMergeUtils = new FirmListXmlMergeUtils();
         String[] result = MergeListUtils.getListRootNodes(firmListXmlMergeUtils.getClass());
-        assertEquals(FIRM_LIST_ROOT_NODES[0], result[0], EQUAL);
+        assertEquals(FIRM_LIST_ROOT_NODES[0], result[0], NOT_EQUAL);
     }
     
     @Test
     void testGetListRootNodesWarnedList() throws XPathExpressionException, IOException {
         WarnedListXmlMergeUtils warnedListXmlMergeUtils = new WarnedListXmlMergeUtils();
         String[] result = MergeListUtils.getListRootNodes(warnedListXmlMergeUtils.getClass());
-        assertEquals(WARNED_LIST_ROOT_NODES[0], result[0], EQUAL);
+        assertEquals(WARNED_LIST_ROOT_NODES[0], result[0], NOT_EQUAL);
     }
     
     @Test
@@ -73,19 +73,19 @@ class MergeListUtilsTest {
     @Test
     void testIsFirmListRootNodesFalseResult() {
         String[] invalidNodes = {INVALID, INVALID};
-        assertFalse(MergeListUtils.isFirmListRootNodes(invalidNodes), FALSE);
+        assertFalse(MergeListUtils.isFirmListRootNodes(invalidNodes), NOT_FALSE);
     }
     
     @Test
     void testIsWarnedListRootNodesFalseResult() {
         String[] invalidNodes = {INVALID, INVALID};
-        assertFalse(MergeListUtils.isWarnedListRootNodes(invalidNodes), FALSE);
+        assertFalse(MergeListUtils.isWarnedListRootNodes(invalidNodes), NOT_FALSE);
     }
     
     @Test
     void testGetlistRootNodeExpression() throws XPathExpressionException {
         String[] testValues = {INVALID, INVALID};
-        assertTrue(MergeListUtils.getlistRootNodeExpression(testValues) instanceof XPathExpression[], EQUAL);
-        assertEquals(2, MergeListUtils.getlistRootNodeExpression(testValues).length, EQUAL);
+        assertTrue(MergeListUtils.getlistRootNodeExpression(testValues) instanceof XPathExpression[], NOT_EQUAL);
+        assertEquals(2, MergeListUtils.getlistRootNodeExpression(testValues).length, NOT_EQUAL);
     }
 }
