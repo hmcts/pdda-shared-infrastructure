@@ -37,8 +37,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 @ExtendWith(EasyMockExtension.class)
 class DisplayConfigurationHelperTest {
 
-    private static final String TRUE = "Result is Not True";
-    private static final String NOT_NULL = "Result is Null";
+    private static final String NOT_TRUE = "Result is Not True";
+    private static final String NULL = "Result is Null";
 
     @Mock
     private EntityManager mockEntityManager;
@@ -70,7 +70,7 @@ class DisplayConfigurationHelperTest {
         } catch (Exception exception) {
             fail(exception);
         }
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
@@ -85,7 +85,7 @@ class DisplayConfigurationHelperTest {
             mockXhbDisplayRepository, mockXhbCourtRepository);
         // Checks
         EasyMock.verify(mockXhbDisplayRepository);
-        assertNotNull(result, NOT_NULL);
+        assertNotNull(result, NULL);
     }
 
     @Test
@@ -127,7 +127,7 @@ class DisplayConfigurationHelperTest {
         // Checks
         EasyMock.verify(mockXhbDisplayRepository);
         EasyMock.verify(mockXhbCourtRepository);
-        assertNotNull(result, NOT_NULL);
+        assertNotNull(result, NULL);
     }
 
     @Test
@@ -167,7 +167,7 @@ class DisplayConfigurationHelperTest {
         EasyMock.verify(mockXhbDisplayRepository);
         EasyMock.verify(mockXhbRotationSetsRepository);
         EasyMock.verify(xhbCourtRoomRepository);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
     
     @Test
@@ -199,7 +199,7 @@ class DisplayConfigurationHelperTest {
         // Checks
         EasyMock.verify(mockXhbDisplayRepository);
         EasyMock.verify(mockXhbRotationSetsRepository);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
