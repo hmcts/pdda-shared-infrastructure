@@ -115,6 +115,17 @@ class SaxValidationServiceTest {
         });
     }
 
+    @Test
+    void testSAXFactories() {
+        SaxValidationService localClassUnderTest = new SaxValidationService(dummyFileEntityResolver, null, null);
+        assertNotNull(localClassUnderTest.getSaxParserFactory());
+        try {
+            assertNotNull(localClassUnderTest.getSchemaFactory(true));
+        } catch (Exception exception) {
+            fail();
+        }
+    }
+
     private FileEntityResolver getDummyFileEntityResolver() {
         return new FileEntityResolver();
     }
