@@ -10,8 +10,6 @@ variable "env" {}
 
 variable "subscription" {}
 
-variable "business_area" {}
-
 variable "aks_subscription_id" {} # provided by the Jenkins library, ADO users will need to specify this
 
 variable "common_tags" {
