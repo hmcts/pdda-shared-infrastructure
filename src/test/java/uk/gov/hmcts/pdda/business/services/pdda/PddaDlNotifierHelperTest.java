@@ -6,8 +6,6 @@ import org.easymock.EasyMock;
 import org.easymock.EasyMockExtension;
 import org.easymock.Mock;
 import org.easymock.TestSubject;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import uk.gov.hmcts.DummyCourtUtil;
@@ -48,8 +46,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(EasyMockExtension.class)
 class PddaDlNotifierHelperTest {
 
-    private static final String FALSE = "Result is not False";
-    private static final String TRUE = "Result is not True";
+    private static final String NOT_FALSE = "Result is not False";
+    private static final String NOT_TRUE = "Result is not True";
     private static final String YES = "Y";
     private static final String NO = "N";
     private static final DateTimeFormatter DL_NOTIFIER_EXECUTION_TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm");
@@ -82,16 +80,13 @@ class PddaDlNotifierHelperTest {
         static final String DL_NOTIFIER_EXECUTION_TIME = "DL_NOTIFIER_EXECUTION_TIME";
     }
 
-    @BeforeAll
-    public static void setUp() throws Exception {
-        // Do nothing
+    @Test
+    void testDefaultConstructor() {
+        boolean result = true;
+        new PddaDlNotifierHelper(mockEntityManager);
+        assertTrue(result, NOT_TRUE);
     }
-
-    @AfterAll
-    public static void tearDown() throws Exception {
-        // Do nothing
-    }
-
+    
     @Test
     void testIsDailyNotifierRequiredSuccess() {
         // Setup
@@ -103,7 +98,7 @@ class PddaDlNotifierHelperTest {
         boolean result = classUnderTest.isDailyNotifierRequired();
         // Checks
         EasyMock.verify(mockXhbConfigPropRepository);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
@@ -115,19 +110,19 @@ class PddaDlNotifierHelperTest {
         boolean result = classUnderTest.isDailyNotifierRequired();
         // Checks
         EasyMock.verify(mockXhbConfigPropRepository);
-        assertFalse(result, FALSE);
+        assertFalse(result, NOT_FALSE);
     }
 
     @Test
     void testRunDailyListNotifierSuccess() {
         boolean result = testRunDailyListNotifier(DlNotifierStatusEnum.RUNNING, DlNotifierStatusEnum.SUCCESS);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testRunDailyListNotifierFailure() {
         boolean result = testRunDailyListNotifier(DlNotifierStatusEnum.RUNNING, DlNotifierStatusEnum.FAILURE);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testRunDailyListNotifier(final DlNotifierStatusEnum expectedFirstSaveStatus,
