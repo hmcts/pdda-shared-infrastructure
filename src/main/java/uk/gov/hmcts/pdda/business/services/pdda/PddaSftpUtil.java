@@ -22,7 +22,7 @@ public final class PddaSftpUtil {
     private static final String SLASH_WINDOWS = "\\";
     private static final String SLASH_LINUX = "/";
 
-    private PddaSftpUtil() {
+    protected PddaSftpUtil() {
         throw new IllegalStateException("Utility class");
     }
     
