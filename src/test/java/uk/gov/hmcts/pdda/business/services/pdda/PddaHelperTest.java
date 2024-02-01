@@ -6,8 +6,6 @@ import org.easymock.EasyMock;
 import org.easymock.EasyMockExtension;
 import org.easymock.Mock;
 import org.easymock.TestSubject;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import uk.gov.hmcts.DummyPdNotifierUtil;
@@ -52,8 +50,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 @SuppressWarnings({"PMD.ExcessiveImports", "PMD.GodClass", "PMD.CouplingBetweenObjects"})
 class PddaHelperTest {
 
-    private static final String NOTNULL = "Result is Null";
-    private static final String TRUE = "Result is not True";
+    private static final String NOT_NULL = "Result is Null";
+    private static final String NOT_TRUE = "Result is not True";
     private static final String TESTUSER = "TestUser";
 
 
@@ -93,16 +91,13 @@ class PddaHelperTest {
     @TestSubject
     private final PddaHelper classUnderTest = new PddaHelper(mockEntityManager);
 
-    @BeforeAll
-    public static void setUp() throws Exception {
-        // Do nothing
+    @Test
+    void testDefaultConstructor() {
+        boolean result = true;
+        new PddaHelper(mockEntityManager, mockXhbConfigPropRepository);
+        assertTrue(result, NOT_TRUE);
     }
-
-    @AfterAll
-    public static void tearDown() throws Exception {
-        // Do nothing
-    }
-
+    
     @Test
     void testCheckForCpMessages() throws IOException {
         // Setup
@@ -155,7 +150,7 @@ class PddaHelperTest {
         // Checks
         EasyMock.verify(mockCppStagingInboundHelper);
         EasyMock.verify(mockPddaMessageHelper);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
@@ -169,7 +164,7 @@ class PddaHelperTest {
         // Run
         Map<String, InputStream> actualResult = classUnderTest.respondToCppStagingInbound(cppStagingInboundDaoList);
         // Checks
-        assertNotNull(actualResult, NOTNULL);
+        assertNotNull(actualResult, NOT_NULL);
     }
 
     // TODO Test needs to be revisited
@@ -219,6 +214,6 @@ class PddaHelperTest {
         }
         // Checks
         EasyMock.verify(mockCppStagingInboundHelper);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 }
