@@ -9,7 +9,7 @@ module "postgresql" {
 
   product       = var.product
   component     = var.component
-  business_area = "sds" # sds or cft
+  business_area = var.business_area
 
   # The original subnet is full, this is required to use the new subnet for new databases
   subnet_suffix = "expanded"
