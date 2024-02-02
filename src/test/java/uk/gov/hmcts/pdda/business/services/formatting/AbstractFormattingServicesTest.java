@@ -55,7 +55,6 @@ class AbstractFormattingServicesTest {
     private final AbstractFormattingServices classUnderTest =
         new AbstractFormattingServices(mockEntityManager);
 
-
     @Test
     void testGetXhbFormattingDao() {
         // Setup
