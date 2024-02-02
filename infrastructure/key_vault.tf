@@ -6,7 +6,7 @@ module "pdda_key_vault" {
   env                     = var.env
   object_id               = var.jenkins_AAD_objectId
   resource_group_name     = azurerm_resource_group.pdda_resource_group.name
-  product_group_name      = "PDDA"
+  product_group_name      = "DTS SDS PDDA"
   create_managed_identity = true
 
   common_tags = var.common_tags
