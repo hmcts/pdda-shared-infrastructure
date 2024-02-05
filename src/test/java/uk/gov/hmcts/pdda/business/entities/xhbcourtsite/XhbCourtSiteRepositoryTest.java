@@ -26,6 +26,8 @@ import static org.mockito.ArgumentMatchers.isA;
 @MockitoSettings(strictness = Strictness.LENIENT)
 class XhbCourtSiteRepositoryTest extends AbstractRepositoryTest<XhbCourtSiteDao> {
 
+    public static final String NULL = "Result is Null";
+    
     private static final Integer BYCRESTCOURTID = 1;
     private static final Integer BYCOURTID = 2;
     private static final Integer BYCOURTCODE = 3;
@@ -122,6 +124,11 @@ class XhbCourtSiteRepositoryTest extends AbstractRepositoryTest<XhbCourtSiteDao>
         return true;
     }
 
+    @Test
+    void testXhbCourtSiteDaoSecondConstructor() {
+        XhbCourtSiteDao result =  new XhbCourtSiteDao(getDummyDao());
+        assertNotNull(result, NULL);
+    }
 
     @Override
     protected XhbCourtSiteDao getDummyDao() {
