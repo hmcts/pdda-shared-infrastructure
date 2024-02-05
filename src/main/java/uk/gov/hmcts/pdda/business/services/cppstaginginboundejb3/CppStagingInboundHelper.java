@@ -36,7 +36,7 @@ import java.util.Optional;
  */
 public class CppStagingInboundHelper implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(CppStagingInboundHelper.class);
-    
+
     private static final long serialVersionUID = 1L;
 
     public static final String VALIDATION_STATUS_SUCCESS = "VS";
@@ -70,15 +70,22 @@ public class CppStagingInboundHelper implements Serializable {
      * Default constructor that instantiate the necessary maintainers.
      */
     public CppStagingInboundHelper() {
-        // Default constructor 
+        // Default constructor
         super();
     }
 
+    // This is called dynamically
     public CppStagingInboundHelper(EntityManager entityManager) {
+        this(entityManager, new XhbConfigPropRepository(entityManager));
+    }
+
+    public CppStagingInboundHelper(EntityManager entityManager,
+        XhbConfigPropRepository xhbConfigPropRepository) {
+        this();
         LOG.debug("Constructor...");
         ArrayList<XhbConfigPropDao> properties = null;
         try {
-            properties = (ArrayList<XhbConfigPropDao>) new XhbConfigPropRepository(entityManager)
+            properties = (ArrayList<XhbConfigPropDao>) xhbConfigPropRepository
                 .findByPropertyName("STAGING_DOCS_TO_PROCESS");
         } catch (Exception e) {
             LOG.debug("Error...{}", e.getMessage());
@@ -86,9 +93,8 @@ public class CppStagingInboundHelper implements Serializable {
 
         try {
             if (properties == null) {
-                properties =
-                    (ArrayList<XhbConfigPropDao>) new XhbConfigPropRepository(entityManager)
-                        .findByPropertyName("STAGING_DOCS_TO_PROCESS");
+                properties = (ArrayList<XhbConfigPropDao>) xhbConfigPropRepository
+                    .findByPropertyName("STAGING_DOCS_TO_PROCESS");
             }
         } catch (Exception e) {
             LOG.debug("Error2...{}", e.getMessage());
@@ -142,6 +148,7 @@ public class CppStagingInboundHelper implements Serializable {
 
     /**
      * findUnrespondedCPPMessages.
+     * 
      * @return List
      */
     public List<XhbCppStagingInboundDao> findUnrespondedCppMessages() {
