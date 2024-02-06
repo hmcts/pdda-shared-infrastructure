@@ -54,30 +54,6 @@ public class CppFormattingHelper {
         return repo.getLatestDocumentByCourtIdAndType(courtId, DOC_TYPE_PUBLIC_DISPLAY,
             LocalDateTime.now());
     }
-
-    /**
-     * Description: Updates the XHB_CPP_FORMATTING object provided with a new status.
-     * 
-     * @param cppFormattingDao XhbCppFormattingDao
-     * @param newStatus String
-     */
-    public void updateCppFormattingStatus(XhbCppFormattingDao cppFormattingDao, String newStatus,
-        final EntityManager entityManager) {
-        String methodName = "updateCppFormattingStatus(" + cppFormattingDao + ") - ";
-        LOG.debug(methodName + " called");
-
-        // Validate the XhbCppFormattingDAO record has an Id
-        if (cppFormattingDao.getPrimaryKey() == null) {
-            throw new IllegalArgumentException("cppFormattingId cannot be null");
-        }
-        // Update the Format Status with the new value
-        cppFormattingDao.setFormatStatus(newStatus);
-
-        // Update the database record
-        XhbCppFormattingRepository repo = new XhbCppFormattingRepository(entityManager);
-        repo.update(cppFormattingDao);
-    }
-    
     
     public static XhbFormattingDao createXhbFormattingRecord(Integer courtId, LocalDateTime dateIn,
         String documentType, String language) {
