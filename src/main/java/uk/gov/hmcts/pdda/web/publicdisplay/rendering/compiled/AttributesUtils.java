@@ -10,9 +10,7 @@ import uk.gov.hmcts.pdda.common.publicdisplay.renderdata.CourtListValue;
 import uk.gov.hmcts.pdda.common.publicdisplay.renderdata.DefendantName;
 import uk.gov.hmcts.pdda.common.publicdisplay.renderdata.JudgeName;
 import uk.gov.hmcts.pdda.common.publicdisplay.renderdata.JuryStatusDailyListValue;
-import uk.gov.hmcts.pdda.common.publicdisplay.renderdata.PublicDisplayValue;
 import uk.gov.hmcts.pdda.common.publicdisplay.renderdata.SummaryByNameValue;
-import uk.gov.hmcts.pdda.common.publicdisplay.renderdata.nodes.BranchEventXmlNode;
 import uk.gov.hmcts.pdda.web.publicdisplay.types.document.DisplayDocument;
 
 import java.util.ArrayList;
@@ -178,15 +176,4 @@ public final class AttributesUtils {
         }
         return null;
     }
-
-    public static BranchEventXmlNode getEvent(Object item) {
-        if (item instanceof PublicDisplayValue) {
-            Object event = ((PublicDisplayValue) item).getEvent();
-            if (event != null) {
-                return (BranchEventXmlNode) event;
-            }
-        }
-        return null;
-    }
-
 }
