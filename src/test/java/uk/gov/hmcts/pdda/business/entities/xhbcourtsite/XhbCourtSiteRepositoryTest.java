@@ -54,37 +54,37 @@ class XhbCourtSiteRepositoryTest extends AbstractRepositoryTest<XhbCourtSiteDao>
     @Test
     void testFindByCrestCourtIdValueSuccess() {
         boolean result = testFind(getDummyDao(), BYCRESTCOURTID);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByCrestCourtIdValueFailure() {
         boolean result = testFind(null, BYCRESTCOURTID);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByCourtCodeAndListTypeAndListDateSuccess() {
         boolean result = testFind(getDummyDao(), BYCOURTCODE);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByCourtCodeAndListTypeAndListDateFailure() {
         boolean result = testFind(null, BYCOURTCODE);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByCourtIdSuccess() {
         boolean result = testFind(getDummyDao(), BYCOURTID);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByCourtIdFailure() {
         boolean result = testFind(null, BYCOURTID);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFind(XhbCourtSiteDao dao, Integer whichTest) {

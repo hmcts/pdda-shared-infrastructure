@@ -50,13 +50,13 @@ class XhbCppFormattingRepositoryTest extends AbstractRepositoryTest<XhbCppFormat
     @Test
     void testFindLatestByCourtDateInDocSuccess() {
         boolean result = testFindLatestByCourtDateInDoc(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindLatestByCourtDateInDocFailure() {
         boolean result = testFindLatestByCourtDateInDoc(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFindLatestByCourtDateInDoc(XhbCppFormattingDao dao) {
@@ -89,25 +89,25 @@ class XhbCppFormattingRepositoryTest extends AbstractRepositoryTest<XhbCppFormat
     @Test
     void testFindAllNewByDocTypeSuccess() {
         boolean result = testFind(getDummyDao(), BYDOCTYPE);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindAllNewByDocTypeFailure() {
         boolean result = testFind(null, BYDOCTYPE);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testGetLatestDocumentByCourtIdAndTypeSuccess() {
         boolean result = testFind(getDummyDao(), LATESTDOCBYCOURTID);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testGetLatestDocumentByCourtIdAndTypeFailure() {
         boolean result = testFind(null, LATESTDOCBYCOURTID);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFind(XhbCppFormattingDao dao, Integer whichTest) {

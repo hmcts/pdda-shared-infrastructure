@@ -46,13 +46,13 @@ class XhbCourtLogEntryRepositoryTest extends AbstractRepositoryTest<XhbCourtLogE
     @Test
     void testfindByCaseIdSuccess() {
         boolean result = testfindByCaseId(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testfindByCaseIdFailure() {
         boolean result = testfindByCaseId(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testfindByCaseId(XhbCourtLogEntryDao dao) {

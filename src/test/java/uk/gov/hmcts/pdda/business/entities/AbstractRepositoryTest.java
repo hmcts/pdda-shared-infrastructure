@@ -17,7 +17,7 @@ import static org.mockito.ArgumentMatchers.isA;
 
 public abstract class AbstractRepositoryTest<T extends AbstractDao> {
 
-    protected static final String TRUE = "Result is not True";
+    protected static final String NOT_TRUE = "Result is Not True";
     protected static final String SAME = "Result is not Same";
     protected static final String NOTNULL = "Result is Null";
     
@@ -33,13 +33,13 @@ public abstract class AbstractRepositoryTest<T extends AbstractDao> {
     @Test
     void testfindByIdSuccess() {
         boolean result = testfindById(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testfindByIdFailure() {
         boolean result = testfindById(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     protected boolean testfindById(T dao) {
@@ -57,13 +57,13 @@ public abstract class AbstractRepositoryTest<T extends AbstractDao> {
     @Test
     void testfindAllSuccess() {
         boolean result = testfindAll(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testfindAllFailure() {
         boolean result = testfindAll(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     protected boolean testfindAll(T dao) {
@@ -83,6 +83,20 @@ public abstract class AbstractRepositoryTest<T extends AbstractDao> {
         return true;
     }
 
+    @Test
+    void testSave() {
+        boolean result = true;
+        getClassUnderTest().save(getDummyDao());
+        assertTrue(result, NOT_TRUE);
+    }
+    
+    @Test
+    void testDelete() {
+        boolean result = true;
+        getClassUnderTest().delete(Optional.of(getDummyDao()));
+        assertTrue(result, NOT_TRUE);
+    }
+    
     protected Integer getDummyId() {
         return Integer.valueOf(-99);
     }

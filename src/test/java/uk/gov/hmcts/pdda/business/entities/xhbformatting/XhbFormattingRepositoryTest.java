@@ -48,13 +48,13 @@ class XhbFormattingRepositoryTest extends AbstractRepositoryTest<XhbFormattingDa
     @Test
     void testFindByFormatStatusSuccess() {
         boolean result = testFindByFormatStatus(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByFormatStatusFailure() {
         boolean result = testFindByFormatStatus(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFindByFormatStatus(XhbFormattingDao dao) {
@@ -78,13 +78,13 @@ class XhbFormattingRepositoryTest extends AbstractRepositoryTest<XhbFormattingDa
     @Test
     void testFindByDocumentAndClobSuccess() {
         boolean result = testFindByDocumentAndClob(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByDocumentAndClobFailure() {
         boolean result = testFindByDocumentAndClob(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFindByDocumentAndClob(XhbFormattingDao dao) {

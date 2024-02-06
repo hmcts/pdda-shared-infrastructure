@@ -46,13 +46,13 @@ class XhbSittingRepositoryTest extends AbstractRepositoryTest<XhbSittingDao> {
     @Test
     void testFindByNonFloatingHearingListSuccess() {
         boolean result = testFindByNonFloatingHearingList(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByNonFloatingHearingListFailure() {
         boolean result = testFindByNonFloatingHearingList(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFindByNonFloatingHearingList(XhbSittingDao dao) {
@@ -76,13 +76,13 @@ class XhbSittingRepositoryTest extends AbstractRepositoryTest<XhbSittingDao> {
     @Test
     void testFindByListIdSuccess() {
         boolean result = testFindByListId(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByListIdFailure() {
         boolean result = testFindByListId(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFindByListId(XhbSittingDao dao) {

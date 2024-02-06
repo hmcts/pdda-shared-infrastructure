@@ -47,13 +47,13 @@ class XhbRefPddaMessageTypeRepositoryTest extends AbstractRepositoryTest<XhbRefP
     @Test
     void testFindByMessageTypeSuccess() {
         boolean result = testFindByMessageType(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByMessageTypeFailure() {
         boolean result = testFindByMessageType(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFindByMessageType(XhbRefPddaMessageTypeDao dao) {

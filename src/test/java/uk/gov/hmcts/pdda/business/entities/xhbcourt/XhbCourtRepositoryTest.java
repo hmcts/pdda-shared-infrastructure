@@ -53,49 +53,49 @@ class XhbCourtRepositoryTest extends AbstractRepositoryTest<XhbCourtDao> {
     @Test
     void testFindByCrestCourtIdValueSuccess() {
         boolean result = testFind(getDummyDao(), BYCRESTCOURTID);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByCrestCourtIdValueFailure() {
         boolean result = testFind(null, BYCRESTCOURTID);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindNonObsoleteByCrestCourtIdValueSuccess() {
         boolean result = testFind(getDummyDao(), BYNONOBSCRESTCOURTID);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindNonObsoleteByCrestCourtIdValueFailure() {
         boolean result = testFind(null, BYNONOBSCRESTCOURTID);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByShortNameValueSuccess() {
         boolean result = testFind(getDummyDao(), BYSHORTNAME);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByShortNameValueFailure() {
         boolean result = testFind(null, BYSHORTNAME);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindNonObsoleteByShortNameValueSuccess() {
         boolean result = testFind(getDummyDao(), BYNONOBSSHORTNAME);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindNonObsoleteByShortNameValueFailure() {
         boolean result = testFind(null, BYNONOBSSHORTNAME);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFind(XhbCourtDao dao, Integer whichTest) {
