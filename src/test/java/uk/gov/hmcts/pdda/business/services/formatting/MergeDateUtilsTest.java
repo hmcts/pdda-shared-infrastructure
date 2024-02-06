@@ -3,12 +3,20 @@ package uk.gov.hmcts.pdda.business.services.formatting;
 import org.easymock.EasyMockExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
+import uk.gov.hmcts.pdda.web.publicdisplay.rendering.compiled.DocumentUtils;
 
+import java.io.IOException;
 import java.util.Calendar;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * <p>
@@ -32,6 +40,7 @@ class MergeDateUtilsTest {
     private static final String NOT_EQUAL = "Result is Not Equal";
     private static final String NOT_NULL = "Result is Not Null";
     private static final String NULL = "Result is Null";
+    private static final String NOT_TRUE = "Result is Not True";
 
     public static final String SUNDAY = "Sunday";
     public static final String MONDAY = "Monday";
@@ -82,6 +91,12 @@ class MergeDateUtilsTest {
         assertEquals(WEDNESDAY, MergeDateUtils.returnDay(day7), NOT_EQUAL);
     }
 
+    private Calendar addOneDay(Calendar day) {
+        Calendar result = (Calendar) day.clone();
+        result.add(Calendar.DAY_OF_MONTH, 1);
+        return result;
+    }
+
     @Test
     void testReturnMonth() {
         Calendar month1 = MergeDateUtils.setupCalendar("10:00:00", "01/01/2024");
@@ -110,15 +125,46 @@ class MergeDateUtilsTest {
         assertEquals(DECEMBER, MergeDateUtils.returnMonth(month12), NOT_EQUAL);
     }
 
-    private Calendar addOneDay(Calendar day) {
-        Calendar result = (Calendar) day.clone();
-        result.add(Calendar.DAY_OF_MONTH, 1);
-        return result;
-    }
-
     private Calendar addOneMonth(Calendar month) {
         Calendar result = (Calendar) month.clone();
         result.add(Calendar.MONTH, 1);
         return result;
+    }
+
+    @Test
+    void testReplaceDateTime()
+        throws SAXException, IOException, ParserConfigurationException, XPathExpressionException {
+        // Setup
+        String xml = "<datetimestamp><dayofweek></dayofweek><date></date><month></month>"
+            + "<year></year><hour></hour><min></min></datetimestamp>";
+        Document testDocument = getDummyDoc(xml);
+        boolean result = true;
+        // Run
+        MergeDateUtils.replaceDateTime(testDocument);
+        // Checks
+        assertTrue(result, NOT_TRUE);
+    }
+
+    @Test
+    void testIsCppAfterXhibit() throws SAXException, IOException, ParserConfigurationException {
+        // Setup
+        String origionalXml = "<courtroomname><cases>testCourtRoom<date>01/01/2024</date>"
+            + "<time>10:00:00</time></cases></courtroomname>";
+        String insertXml = "<courtroomname><cases>testCourtRoom<date>02/01/2024</date>"
+            + "<time>11:00:00</time></cases></courtroomname>";
+
+        Document origionalDocument = getDummyDoc(origionalXml);
+        Node origionalNode = origionalDocument.getFirstChild().getChildNodes().item(0);
+        Document insertBeforeDocument = getDummyDoc(insertXml);
+        Node insertBeforeNode = insertBeforeDocument.getFirstChild().getChildNodes().item(0);
+        // Run
+        boolean result = MergeDateUtils.isCppAfterXhibit(origionalNode, insertBeforeNode);
+        // Checks
+        assertTrue(result, NOT_TRUE);
+    }
+
+    private Document getDummyDoc(String xml)
+        throws SAXException, IOException, ParserConfigurationException {
+        return DocumentUtils.createInputDocument(xml);
     }
 }
