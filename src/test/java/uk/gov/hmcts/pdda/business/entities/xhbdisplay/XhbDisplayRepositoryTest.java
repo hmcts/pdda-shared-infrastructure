@@ -49,13 +49,13 @@ class XhbDisplayRepositoryTest extends AbstractRepositoryTest<XhbDisplayDao> {
     @Test
     void testFindByRotationSetIdSuccess() {
         boolean result = testFindByRotationSetId(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByRotationSetIdFailure() {
         boolean result = testFindByRotationSetId(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFindByRotationSetId(XhbDisplayDao dao) {
@@ -79,13 +79,13 @@ class XhbDisplayRepositoryTest extends AbstractRepositoryTest<XhbDisplayDao> {
     @Test
     void testFindByDisplayLocationIdSuccess() {
         boolean result = testFindByDisplayLocationId(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByDisplayLocationIdFailure() {
         boolean result = testFindByDisplayLocationId(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFindByDisplayLocationId(XhbDisplayDao dao) {

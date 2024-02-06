@@ -47,13 +47,13 @@ class XhbRotationSetDdRepositoryTest extends AbstractRepositoryTest<XhbRotationS
     @Test
     void testFindByRotationSetIdSuccess() {
         boolean result = testFindByRotationSetId(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByRotationSetIdFailure() {
         boolean result = testFindByRotationSetId(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFindByRotationSetId(XhbRotationSetDdDao dao) {

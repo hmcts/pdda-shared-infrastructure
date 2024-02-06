@@ -46,13 +46,13 @@ class XhbCourtRoomRepositoryTest extends AbstractRepositoryTest<XhbCourtRoomDao>
     @Test
     void testFindByCourtSiteIdSuccess() {
         boolean result = testFindByCourtSiteId(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByCourtSiteIdFailure() {
         boolean result = testFindByCourtSiteId(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFindByCourtSiteId(XhbCourtRoomDao dao) {
@@ -76,13 +76,13 @@ class XhbCourtRoomRepositoryTest extends AbstractRepositoryTest<XhbCourtRoomDao>
     @Test
     void testFindVipMultiSiteSuccess() {
         boolean result = testFindVipMultiSite(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindVipMultiSiteFailure() {
         boolean result = testFindVipMultiSite(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFindVipMultiSite(XhbCourtRoomDao dao) {
@@ -106,13 +106,13 @@ class XhbCourtRoomRepositoryTest extends AbstractRepositoryTest<XhbCourtRoomDao>
     @Test
     void testFindVipMNoSiteSuccess() {
         boolean result = testFindVipMNoSite(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindVipMNoSiteFailure() {
         boolean result = testFindVipMNoSite(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFindVipMNoSite(XhbCourtRoomDao dao) {

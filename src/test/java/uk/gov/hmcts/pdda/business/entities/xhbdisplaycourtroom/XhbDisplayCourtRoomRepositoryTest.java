@@ -45,13 +45,13 @@ class XhbDisplayCourtRoomRepositoryTest extends AbstractRepositoryTest<XhbDispla
     @Test
     void testFindByDisplayIdSuccess() {
         boolean result = testFindByDisplayId(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByDisplayIdFailure() {
         boolean result = testFindByDisplayId(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFindByDisplayId(XhbDisplayCourtRoomDao dao) {

@@ -50,37 +50,37 @@ class XhbPddaMessageRepositoryTest extends AbstractRepositoryTest<XhbPddaMessage
     @Test
     void testFindByCpDocumentNameSuccess() {
         boolean result = testFind(getDummyDao(), BYCPDOCUMENTNAME);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByCpDocumentNameFailure() {
         boolean result = testFind(null, BYCPDOCUMENTNAME);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByLighthouseSuccess() {
         boolean result = testFind(getDummyDao(), BYLIGHTHOUSE);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByLighthouseFailure() {
         boolean result = testFind(null, BYLIGHTHOUSE);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindUnrespondedCpMessagesSuccess() {
         boolean result = testFind(getDummyDao(), UNRESPONDED);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindUnrespondedCpMessagesFailure() {
         boolean result = testFind(null, UNRESPONDED);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFind(XhbPddaMessageDao dao, Integer whichTest) {

@@ -47,13 +47,13 @@ class XhbDisplayStoreRepositoryTest extends AbstractRepositoryTest<XhbDisplaySto
     @Test
     void testFindByRetrievalCodeSuccess() {
         boolean result = testFindByRetrievalCode(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByRetrievalCodeFailure() {
         boolean result = testFindByRetrievalCode(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFindByRetrievalCode(XhbDisplayStoreDao dao) {
