@@ -49,7 +49,7 @@ public abstract class FormattingServicesProcessing extends AbstractFormattingSer
     private static final String DELIMITER = " : ";
     private static final String IP = "IP";
     protected static final String IWP = "IWP";
-    private static final String MERGING_ERROR = "An error occurred during merging xhibit document ";
+    // private static final String MERGING_ERROR = "An error occurred during merging xhibit document ";
     private static final String MERGING_EXCEPTION_STRING = "Error Merging: ";
     protected static final String TRANSFORMATION_ERROR = " An error has occured during the transformation process";
 
@@ -90,7 +90,7 @@ public abstract class FormattingServicesProcessing extends AbstractFormattingSer
             // We should not get a finder exception as all the values we are searching on
             // should not come back with a finder exception
         } catch (XPathExpressionException ex) {
-            LOG.error(MERGING_ERROR + val.getCppFormattingId() + ":" + ex.getMessage());
+            // LOG.error(MERGING_ERROR + val.getCppFormattingId() + ":" + ex.getMessage());
             val.setErrorMessage(MERGING_EXCEPTION_STRING + val.getCppFormattingId() + DELIMITER + ex.getMessage());
             throw new FormattingException(
                 MERGING_EXCEPTION_STRING + val.getCppFormattingId() + DELIMITER + ex.getMessage(), ex);
@@ -182,7 +182,7 @@ public abstract class FormattingServicesProcessing extends AbstractFormattingSer
 
             } catch (IOException | XPathExpressionException | ParserConfigurationException | TransformerException
                 | SAXException ex) {
-                LOG.error(MERGING_ERROR + val.getCppFormattingId() + ":" + ex.getMessage());
+                // LOG.error(MERGING_ERROR + val.getCppFormattingId() + ":" + ex.getMessage());
                 val.setErrorMessage(MERGING_EXCEPTION_STRING + val.getCppFormattingId() + DELIMITER + ex.getMessage());
                 throw new FormattingException(
                     MERGING_EXCEPTION_STRING + val.getCppFormattingId() + DELIMITER + ex.getMessage(), ex);
@@ -230,7 +230,7 @@ public abstract class FormattingServicesProcessing extends AbstractFormattingSer
             // We should not get a finder exception as all the values we are searching on
             // should not come back with a finder exception
         } catch (EJBException ex) {
-            LOG.error("Failed to processListDocument: {}", ex.getMessage());
+            // LOG.error("Failed to processListDocument: {}", ex.getMessage());
             throw new FormattingException(TRANSFORMATION_ERROR, ex);
         }
     }
