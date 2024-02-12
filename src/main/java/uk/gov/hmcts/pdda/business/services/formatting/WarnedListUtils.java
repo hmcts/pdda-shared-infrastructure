@@ -74,7 +74,7 @@ public final class WarnedListUtils {
                 if (MergeComparisonUtils.compareNodes(nodeMatchArray, cppListNodesInXhibit, nodeToMerge2, mergeType,
                     isFirmList, isWarnedList) == 0) {
                     // get all with/withouts of cpp
-                    WarnedListUtils.mergeWarnedNode(baseDocument, cppListNodesInXhibit, nodeToMerge2.getChildNodes(),
+                    mergeWarnedNode(baseDocument, cppListNodesInXhibit, nodeToMerge2.getChildNodes(),
                         nodesToMerge);
                 }
             }
