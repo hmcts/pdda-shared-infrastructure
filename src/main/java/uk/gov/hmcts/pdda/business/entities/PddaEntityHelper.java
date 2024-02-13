@@ -95,7 +95,4 @@ public class PddaEntityHelper {
     public static Optional<XhbScheduledHearingDao> xshFindByPrimaryKey(Integer scheduledHearingId) {
         return getXshRepo().findById(scheduledHearingId);
     }
-
-
-
 }
