@@ -1,8 +1,12 @@
 package uk.gov.hmcts.pdda.business.entities;
 
-import org.easymock.EasyMockExtension;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import uk.gov.hmcts.pdda.business.entities.xhbconfiguredpublicnotice.XhbConfiguredPublicNoticeDao;
 import uk.gov.hmcts.pdda.business.entities.xhbcourtroom.XhbCourtRoomDao;
 import uk.gov.hmcts.pdda.business.entities.xhbcrlivedisplay.XhbCrLiveDisplayDao;
@@ -12,12 +16,17 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@SuppressWarnings("static-access")
-@ExtendWith(EasyMockExtension.class)
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 class PddaEntityHelperTest {
 
     private static final String NOT_TRUE = "Result is not True";
 
+    @AfterEach
+    public void clearCaches() {
+        Mockito.clearAllCaches();
+    }
+    
     @Test
     void testDefaultConstructor() {
         boolean result = true;
