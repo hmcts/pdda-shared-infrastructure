@@ -14,6 +14,7 @@ import uk.gov.hmcts.pdda.business.entities.xhbscheduledhearing.XhbScheduledHeari
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
@@ -21,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class PddaEntityHelperTest {
 
     private static final String NOT_TRUE = "Result is not True";
+    private static final String NULL = "Result is Null";
 
     @AfterEach
     public void clearCaches() {
@@ -29,9 +31,8 @@ class PddaEntityHelperTest {
     
     @Test
     void testDefaultConstructor() {
-        boolean result = true;
-        new PddaEntityHelper();
-        assertTrue(result, NOT_TRUE);
+        PddaEntityHelper classUnderTest = new PddaEntityHelper();
+        assertNotNull(classUnderTest, NULL);
     }
     
     @Test
