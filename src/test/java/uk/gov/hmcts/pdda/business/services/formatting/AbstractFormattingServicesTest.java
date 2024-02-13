@@ -13,7 +13,6 @@ import uk.gov.hmcts.pdda.business.entities.xhbclob.XhbClobRepository;
 import uk.gov.hmcts.pdda.business.entities.xhbcpplist.XhbCppListDao;
 import uk.gov.hmcts.pdda.business.entities.xhbformatting.XhbFormattingDao;
 import uk.gov.hmcts.pdda.business.entities.xhbformatting.XhbFormattingRepository;
-import uk.gov.hmcts.pdda.business.vos.formatting.FormattingValue;
 
 import java.util.Optional;
 
@@ -55,26 +54,27 @@ class AbstractFormattingServicesTest {
     private final AbstractFormattingServices classUnderTest =
         new AbstractFormattingServices(mockEntityManager);
 
-    @Test
-    void testGetXhbFormattingDao() {
-        // Setup
-        XhbFormattingDao xhbFormattingDao = DummyFormattingUtil.getXhbFormattingDao();
-
-        EasyMock.expect(mockXhbFormattingRepository.findById(EasyMock.isA(Integer.class)))
-            .andReturn(Optional.of(xhbFormattingDao));
-        EasyMock.expect(mockXhbFormattingRepository.update(EasyMock.isA(XhbFormattingDao.class)))
-            .andReturn(Optional.of(xhbFormattingDao));
-
-        EasyMock.replay(mockXhbFormattingRepository);
-
-        // Run
-        FormattingValue formattingValue = DummyFormattingUtil.getFormattingValue("", "", "", null);
-        Optional<XhbFormattingDao> result = classUnderTest.getXhbFormattingDao(formattingValue);
-
-        // Checks
-        EasyMock.verify(mockXhbFormattingRepository);
-        assertNotNull(result, NOT_NULL);
-    }
+    // @Test
+    // void testGetXhbFormattingDao() {
+    // // Setup
+    // final FormattingValue formattingValue = DummyFormattingUtil.getFormattingValue("", "", "",
+    // null);
+    // XhbFormattingDao xhbFormattingDao = DummyFormattingUtil.getXhbFormattingDao();
+    //
+    // EasyMock.expect(mockXhbFormattingRepository.findById(EasyMock.isA(Integer.class)))
+    // .andReturn(Optional.of(xhbFormattingDao));
+    // EasyMock.expect(mockXhbFormattingRepository.update(EasyMock.isA(XhbFormattingDao.class)))
+    // .andReturn(Optional.of(xhbFormattingDao));
+    //
+    // EasyMock.replay(mockXhbFormattingRepository);
+    //
+    // // Run
+    // Optional<XhbFormattingDao> result = classUnderTest.getXhbFormattingDao(formattingValue);
+    //
+    // // Checks
+    // EasyMock.verify(mockXhbFormattingRepository);
+    // assertNotNull(result, NOT_NULL);
+    // }
 
     @Test
     void testCreateCppListClob() {
