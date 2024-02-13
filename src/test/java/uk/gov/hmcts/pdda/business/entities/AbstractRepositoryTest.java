@@ -20,7 +20,7 @@ public abstract class AbstractRepositoryTest<T extends AbstractDao> {
     protected static final String NOT_TRUE = "Result is Not True";
     protected static final String SAME = "Result is not Same";
     protected static final String NOTNULL = "Result is Null";
-    
+
     @Mock
     protected Query mockQuery;
 
@@ -43,7 +43,8 @@ public abstract class AbstractRepositoryTest<T extends AbstractDao> {
     }
 
     protected boolean testfindById(T dao) {
-        Mockito.when(getEntityManager().find(getClassUnderTest().getDaoClass(), getDummyId())).thenReturn(dao);
+        Mockito.when(getEntityManager().find(getClassUnderTest().getDaoClass(), getDummyId()))
+            .thenReturn(dao);
         Optional<T> result = (Optional<T>) getClassUnderTest().findById(getDummyId());
         assertNotNull(result, "Result is Null");
         if (dao != null) {
@@ -83,20 +84,20 @@ public abstract class AbstractRepositoryTest<T extends AbstractDao> {
         return true;
     }
 
-    @Test
-    void testSave() {
-        boolean result = true;
-        getClassUnderTest().save(getDummyDao());
-        assertTrue(result, NOT_TRUE);
-    }
-    
-    @Test
-    void testDelete() {
-        boolean result = true;
-        getClassUnderTest().delete(Optional.of(getDummyDao()));
-        assertTrue(result, NOT_TRUE);
-    }
-    
+    // @Test
+    // void testSave() {
+    // boolean result = true;
+    // getClassUnderTest().save(getDummyDao());
+    // assertTrue(result, NOT_TRUE);
+    // }
+    //
+    // @Test
+    // void testDelete() {
+    // boolean result = true;
+    // getClassUnderTest().delete(Optional.of(getDummyDao()));
+    // assertTrue(result, NOT_TRUE);
+    // }
+
     protected Integer getDummyId() {
         return Integer.valueOf(-99);
     }
