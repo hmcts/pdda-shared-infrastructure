@@ -3,8 +3,6 @@ package uk.gov.hmcts.pdda.business.entities;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import uk.gov.hmcts.pdda.business.entities.xhbconfiguredpublicnotice.XhbConfiguredPublicNoticeDao;
 import uk.gov.hmcts.pdda.business.entities.xhbconfiguredpublicnotice.XhbConfiguredPublicNoticeRepository;
 import uk.gov.hmcts.pdda.business.entities.xhbcourtroom.XhbCourtRoomDao;
@@ -21,7 +19,6 @@ public class PddaEntityHelper {
 
     private static final String DATABASENAME = "PDDA"; 
 
-    private static final Logger LOG = LoggerFactory.getLogger(PddaEntityHelper.class);
     private static final EntityManagerFactory ENTITYMANAGERFACTORY;
 
     static {
@@ -29,7 +26,6 @@ public class PddaEntityHelper {
             ENTITYMANAGERFACTORY = Persistence.createEntityManagerFactory(DATABASENAME);
 
         } catch (RuntimeException ex) {
-            LOG.error("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);
         }
     }

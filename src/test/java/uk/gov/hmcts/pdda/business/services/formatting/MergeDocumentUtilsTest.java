@@ -41,7 +41,7 @@ class MergeDocumentUtilsTest {
 
     private static final String BASE_XML =
         "<cs:CourtList><cs:ReserveList>TestCourtHouse</cs:ReserveList></cs:CourtList>";
-    
+
     private static final String PATH_TO_MATCH = "CourtList/ReserveList";
 
     @Test
@@ -59,13 +59,13 @@ class MergeDocumentUtilsTest {
     @Test
     void testGetNodesToMergeAtParentLevelException()
         throws SAXException, IOException, ParserConfigurationException, XPathExpressionException {
+        // Setup
+        Document document = getDummyDoc(BASE_XML);
+        String pathToMatchOn = "InvalidPath";
+        XPathExpression rootNodeExpression =
+            XPathFactory.newInstance().newXPath().compile(pathToMatchOn);
+        XPathExpression[] expressions = {rootNodeExpression};
         Assertions.assertThrows(IOException.class, () -> {
-            // Setup
-            Document document = getDummyDoc(BASE_XML);
-            String pathToMatchOn = "InvalidPath";
-            XPathExpression rootNodeExpression =
-                XPathFactory.newInstance().newXPath().compile(pathToMatchOn);
-            XPathExpression[] expressions = {rootNodeExpression};
             // Run & Check
             MergeDocumentUtils.getNodesToMergeAtParentLevel(expressions, document);
         });

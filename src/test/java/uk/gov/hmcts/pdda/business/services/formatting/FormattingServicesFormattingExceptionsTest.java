@@ -239,7 +239,7 @@ class FormattingServicesFormattingExceptionsTest {
     private static final String XML = "XML";
 
     private static final String MERGE_CUT_OFF_TIME = "MERGE_CUT_OFF_TIME";
-    
+
     @Mock
     private EntityManager mockEntityManager;
 
@@ -305,124 +305,130 @@ class FormattingServicesFormattingExceptionsTest {
 
     @Test
     void testProcessDocumentFirstFormattingException() {
+        // Setup
+        XhbClobDao xhbClobDao = DummyFormattingUtil.getXhbClobDao(Long.valueOf(1), CPP_LIST);
+        XhbCppListDao xhbCppListDao = DummyFormattingUtil.getXhbCppListDao();
+        xhbCppListDao.setListClobId(xhbClobDao.getClobId());
+        xhbCppListDao.setListClob(xhbClobDao);
+        xhbCppListDao.setListType(DOCTYPE_DAILY_LIST);
+        xhbCppListDao.setCppListId(null);
+        FormattingValue formattingValue = DummyFormattingUtil
+            .getFormattingValue(xhbClobDao.getClobData(), DOCTYPE_DAILY_LIST, XML, xhbCppListDao);
+        formattingValue.setXmlDocumentClobId(xhbClobDao.getPrimaryKey());
+        Mockito.when(mockXhbCppListRepository.findByClobId(Mockito.isA(Long.class)))
+            .thenReturn(xhbCppListDao);
+        AbstractXmlMergeUtils abstractXmlMergeUtils =
+            FormattingServices.getXmlUtils(DOCTYPE_DAILY_LIST);
         Assertions.assertThrows(FormattingException.class, () -> {
-            // Setup
-            XhbClobDao xhbClobDao = DummyFormattingUtil.getXhbClobDao(Long.valueOf(1), CPP_LIST);
-            XhbCppListDao xhbCppListDao = DummyFormattingUtil.getXhbCppListDao();
-            xhbCppListDao.setListClobId(xhbClobDao.getClobId());
-            xhbCppListDao.setListClob(xhbClobDao);
-            xhbCppListDao.setListType(DOCTYPE_DAILY_LIST);
-            xhbCppListDao.setCppListId(null);
-            FormattingValue formattingValue = DummyFormattingUtil.getFormattingValue(
-                xhbClobDao.getClobData(), DOCTYPE_DAILY_LIST, XML, xhbCppListDao);
-            formattingValue.setXmlDocumentClobId(xhbClobDao.getPrimaryKey());
-            Mockito.when(mockXhbCppListRepository.findByClobId(Mockito.isA(Long.class)))
-                .thenReturn(xhbCppListDao);
             // Run
-            testProcessDocuments(FormattingServices.getXmlUtils(DOCTYPE_DAILY_LIST),
-                formattingValue);
+            testProcessDocuments(abstractXmlMergeUtils, formattingValue);
         });
     }
 
     @Test
-    void testProcessDocumentSecondFormattingExcpetion() {
+    void testProcessDocumentSecondFormattingExcpetion()
+        throws TransformerConfigurationException, IOException {
+        // Setup
+        XhbClobDao xhbClobDao = DummyFormattingUtil.getXhbClobDao(Long.valueOf(1), CPP_LIST);
+        XhbCppListDao xhbCppListDao = DummyFormattingUtil.getXhbCppListDao();
+        xhbCppListDao.setListClobId(xhbClobDao.getClobId());
+        xhbCppListDao.setListClob(xhbClobDao);
+        xhbCppListDao.setListType(DOCTYPE_DAILY_LIST);
+        FormattingValue formattingValue = DummyFormattingUtil
+            .getFormattingValue(xhbClobDao.getClobData(), DOCTYPE_DAILY_LIST, XML, xhbCppListDao);
+        formattingValue.setXmlDocumentClobId(xhbClobDao.getPrimaryKey());
+        List<XhbCppListDao> existingList = new ArrayList<>();
+        existingList.add(xhbCppListDao);
+        Mockito.when(mockXhbCppListRepository.findByClobId(Mockito.isA(Long.class)))
+            .thenReturn(xhbCppListDao);
+        Mockito.when(mockXhbCppListRepository.findById(Mockito.isA(Integer.class)))
+            .thenReturn(Optional.empty());
+        Mockito.when(mockXhbCppListRepository.update(Mockito.isA(XhbCppListDao.class)))
+            .thenReturn(Optional.of(existingList.get(0)));
+        Mockito.when(mockXhbCppListRepository.update(Mockito.isA(XhbCppListDao.class)))
+            .thenReturn(Optional.of(existingList.get(0)));
+        expectTransformer();
+        AbstractXmlMergeUtils abstractXmlMergeUtils =
+            FormattingServices.getXmlUtils(DOCTYPE_DAILY_LIST);
         Assertions.assertThrows(FormattingException.class, () -> {
-            // Setup
-            XhbClobDao xhbClobDao = DummyFormattingUtil.getXhbClobDao(Long.valueOf(1), CPP_LIST);
-            XhbCppListDao xhbCppListDao = DummyFormattingUtil.getXhbCppListDao();
-            xhbCppListDao.setListClobId(xhbClobDao.getClobId());
-            xhbCppListDao.setListClob(xhbClobDao);
-            xhbCppListDao.setListType(DOCTYPE_DAILY_LIST);
-            FormattingValue formattingValue = DummyFormattingUtil.getFormattingValue(
-                xhbClobDao.getClobData(), DOCTYPE_DAILY_LIST, XML, xhbCppListDao);
-            formattingValue.setXmlDocumentClobId(xhbClobDao.getPrimaryKey());
-            List<XhbCppListDao> existingList = new ArrayList<>();
-            existingList.add(xhbCppListDao);
-            Mockito.when(mockXhbCppListRepository.findByClobId(Mockito.isA(Long.class)))
-                .thenReturn(xhbCppListDao);
-            Mockito.when(mockXhbCppListRepository.findById(Mockito.isA(Integer.class)))
-                .thenReturn(Optional.empty());
-            Mockito.when(mockXhbCppListRepository.update(Mockito.isA(XhbCppListDao.class)))
-                .thenReturn(Optional.of(existingList.get(0)));
-            Mockito.when(mockXhbCppListRepository.update(Mockito.isA(XhbCppListDao.class)))
-                .thenReturn(Optional.of(existingList.get(0)));
-            expectTransformer();
             // Run
-            testProcessDocuments(FormattingServices.getXmlUtils(DOCTYPE_DAILY_LIST),
-                formattingValue);
+            testProcessDocuments(abstractXmlMergeUtils, formattingValue);
         });
     }
 
     @Test
     void testProcessDocumentEjbException() {
+        // Setup
+        XhbClobDao xhbClobDao = DummyFormattingUtil.getXhbClobDao(Long.valueOf(1), CPP_LIST);
+        XhbCppListDao xhbCppListDao = DummyFormattingUtil.getXhbCppListDao();
+        xhbCppListDao.setListClobId(xhbClobDao.getClobId());
+        xhbCppListDao.setListClob(xhbClobDao);
+        xhbCppListDao.setListType(DOCTYPE_DAILY_LIST);
+        FormattingValue formattingValue = DummyFormattingUtil
+            .getFormattingValue(xhbClobDao.getClobData(), DOCTYPE_DAILY_LIST, XML, xhbCppListDao);
+        formattingValue.setXmlDocumentClobId(xhbClobDao.getPrimaryKey());
+        Mockito.when(mockXhbCppListRepository.findByClobId(Mockito.isA(Long.class)))
+            .thenThrow(new EJBException());
+        AbstractXmlMergeUtils abstractXmlMergeUtils =
+            FormattingServices.getXmlUtils(DOCTYPE_DAILY_LIST);
         Assertions.assertThrows(FormattingException.class, () -> {
-            // Setup
-            XhbClobDao xhbClobDao = DummyFormattingUtil.getXhbClobDao(Long.valueOf(1), CPP_LIST);
-            XhbCppListDao xhbCppListDao = DummyFormattingUtil.getXhbCppListDao();
-            xhbCppListDao.setListClobId(xhbClobDao.getClobId());
-            xhbCppListDao.setListClob(xhbClobDao);
-            xhbCppListDao.setListType(DOCTYPE_DAILY_LIST);
-            FormattingValue formattingValue = DummyFormattingUtil.getFormattingValue(
-                xhbClobDao.getClobData(), DOCTYPE_DAILY_LIST, XML, xhbCppListDao);
-            formattingValue.setXmlDocumentClobId(xhbClobDao.getPrimaryKey());
-            Mockito.when(mockXhbCppListRepository.findByClobId(Mockito.isA(Long.class)))
-                .thenThrow(new EJBException());
             // Run
-            testProcessDocuments(FormattingServices.getXmlUtils(DOCTYPE_DAILY_LIST),
-                formattingValue);
+            testProcessDocuments(abstractXmlMergeUtils, formattingValue);
         });
     }
 
     @Test
-    void testProcessIwpDocumentFormattingException() {
+    void testProcessIwpDocumentFormattingException()
+        throws TransformerConfigurationException, IOException {
+        // Setup
+        XhbClobDao xhbClobDao =
+            DummyFormattingUtil.getXhbClobDao(Long.valueOf(1), INTERNET_WEBPAGE);
+        XhbCppListDao xhbCppListDao = DummyFormattingUtil.getXhbCppListDao();
+        xhbCppListDao.setListClobId(xhbClobDao.getClobId());
+        xhbCppListDao.setListClob(xhbClobDao);
+        xhbCppListDao.setListType(DOCTYPE_DAILY_LIST);
+        XhbFormattingDao xhbFormattingDao = DummyFormattingUtil.getXhbFormattingDao();
+        xhbFormattingDao.setXmlDocumentClobId(xhbClobDao.getClobId());
+        XhbCppFormattingDao xhbCppFormattingDao = DummyFormattingUtil.getXhbCppFormattingDao();
+        xhbCppFormattingDao.setXmlDocumentClobId(xhbClobDao.getClobId());
+        List<XhbFormattingDao> formattingDaoLatestClobList = new ArrayList<>();
+        formattingDaoLatestClobList.add(xhbFormattingDao);
+        List<XhbConfigPropDao> propertyList = new ArrayList<>();
+        propertyList.add(DummyServicesUtil.getXhbConfigPropDao(MERGE_CUT_OFF_TIME, "23:59:59"));
+        Mockito.when(mockXhbConfigPropRepository.findByPropertyName(MERGE_CUT_OFF_TIME))
+            .thenReturn(propertyList);
+        Mockito.when(
+            mockXhbCppFormattingRepository.findLatestByCourtDateInDoc(Mockito.isA(Integer.class),
+                Mockito.isA(String.class), Mockito.isA(LocalDateTime.class)))
+            .thenReturn(xhbCppFormattingDao);
+        Mockito.when(mockXhbClobRepository.findById(Mockito.isA(Long.class)))
+            .thenReturn(Optional.of(xhbClobDao));
+        Mockito.when(mockXhbClobRepository.update(Mockito.isA(XhbClobDao.class)))
+            .thenReturn(Optional.of(xhbClobDao));
+        Mockito.when(mockXhbFormattingRepository.findById(Mockito.isA(Integer.class)))
+            .thenReturn(Optional.of(xhbFormattingDao));
+        Mockito.when(mockXhbCppFormattingRepository.findById(Mockito.isA(Integer.class)))
+            .thenReturn(Optional.of(xhbCppFormattingDao));
+        Mockito.when(mockXhbFormattingRepository.update(Mockito.isA(XhbFormattingDao.class)))
+            .thenReturn(Optional.of(xhbFormattingDao));
+        Mockito.when(mockXhbCppFormattingRepository.update(Mockito.isA(XhbCppFormattingDao.class)))
+            .thenReturn(Optional.of(xhbCppFormattingDao));
+        mockXhbCppFormattingMergeRepository.save(Mockito.isA(XhbCppFormattingMergeDao.class));
+        Mockito
+            .when(mockXhbFormattingRepository.findByDocumentAndClob(Mockito.isA(Integer.class),
+                Mockito.isA(String.class), Mockito.isA(String.class), Mockito.isA(String.class)))
+            .thenReturn(new ArrayList<>(0));
+        expectTransformer();
+        AbstractXmlMergeUtils abstractXmlMergeUtils =
+            FormattingServices.getXmlUtils(DOCTYPE_DAILY_LIST);
+        FormattingValue formattingValue = DummyFormattingUtil.getFormattingValue(
+            xhbClobDao.getClobData(), DOCTYPE_INTERNET_WEBPAGE, XML, xhbCppListDao);
         Assertions.assertThrows(FormattingException.class, () -> {
-            // Setup
-            XhbClobDao xhbClobDao =
-                DummyFormattingUtil.getXhbClobDao(Long.valueOf(1), INTERNET_WEBPAGE);
-            XhbCppListDao xhbCppListDao = DummyFormattingUtil.getXhbCppListDao();
-            xhbCppListDao.setListClobId(xhbClobDao.getClobId());
-            xhbCppListDao.setListClob(xhbClobDao);
-            xhbCppListDao.setListType(DOCTYPE_DAILY_LIST);
-            XhbFormattingDao xhbFormattingDao = DummyFormattingUtil.getXhbFormattingDao();
-            xhbFormattingDao.setXmlDocumentClobId(xhbClobDao.getClobId());
-            XhbCppFormattingDao xhbCppFormattingDao = DummyFormattingUtil.getXhbCppFormattingDao();
-            xhbCppFormattingDao.setXmlDocumentClobId(xhbClobDao.getClobId());
-            List<XhbFormattingDao> formattingDaoLatestClobList = new ArrayList<>();
-            formattingDaoLatestClobList.add(xhbFormattingDao);
-            List<XhbConfigPropDao> propertyList = new ArrayList<>();
-            propertyList.add(DummyServicesUtil.getXhbConfigPropDao(MERGE_CUT_OFF_TIME, "23:59:59"));
-            Mockito.when(mockXhbConfigPropRepository.findByPropertyName(MERGE_CUT_OFF_TIME))
-                .thenReturn(propertyList);
-            Mockito.when(mockXhbCppFormattingRepository.findLatestByCourtDateInDoc(
-                Mockito.isA(Integer.class), Mockito.isA(String.class),
-                Mockito.isA(LocalDateTime.class))).thenReturn(xhbCppFormattingDao);
-            Mockito.when(mockXhbClobRepository.findById(Mockito.isA(Long.class)))
-                .thenReturn(Optional.of(xhbClobDao));
-            Mockito.when(mockXhbClobRepository.update(Mockito.isA(XhbClobDao.class)))
-                .thenReturn(Optional.of(xhbClobDao));
-            Mockito.when(mockXhbFormattingRepository.findById(Mockito.isA(Integer.class)))
-                .thenReturn(Optional.of(xhbFormattingDao));
-            Mockito.when(mockXhbCppFormattingRepository.findById(Mockito.isA(Integer.class)))
-                .thenReturn(Optional.of(xhbCppFormattingDao));
-            Mockito.when(mockXhbFormattingRepository.update(Mockito.isA(XhbFormattingDao.class)))
-                .thenReturn(Optional.of(xhbFormattingDao));
-            Mockito
-                .when(mockXhbCppFormattingRepository.update(Mockito.isA(XhbCppFormattingDao.class)))
-                .thenReturn(Optional.of(xhbCppFormattingDao));
-            mockXhbCppFormattingMergeRepository.save(Mockito.isA(XhbCppFormattingMergeDao.class));
-            Mockito
-                .when(mockXhbFormattingRepository.findByDocumentAndClob(Mockito.isA(Integer.class),
-                    Mockito.isA(String.class), Mockito.isA(String.class),
-                    Mockito.isA(String.class)))
-                .thenReturn(new ArrayList<>(0));
-            expectTransformer();
             // Run
-            testProcessDocuments(FormattingServices.getXmlUtils(DOCTYPE_INTERNET_WEBPAGE),
-                DummyFormattingUtil.getFormattingValue(xhbClobDao.getClobData(),
-                    DOCTYPE_INTERNET_WEBPAGE, XML, xhbCppListDao));
+            testProcessDocuments(abstractXmlMergeUtils, formattingValue);
         });
     }
-    
+
     @Test
     void testProcessIwpCppFormattingNoDocs() {
         Assertions.assertThrows(FormattingException.class, () -> {
