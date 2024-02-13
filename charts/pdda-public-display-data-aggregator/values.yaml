@@ -4,3 +4,10 @@ java:
   ingressHost: pdda-public-display-data-aggregator.{{ .Values.global.environment }}.platform.hmcts.net
   environment:
     A_KEY: 'a value'
+  startupPath: '/health/liveness'
+  livenessPath: /health/liveness
+  livenessDelay: 0
+  startupDelay: 5
+  startupTimeout: 3
+  startupPeriod: 120
+  startupFailureThreshold: 3
