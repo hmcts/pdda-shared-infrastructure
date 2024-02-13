@@ -58,7 +58,6 @@ class AbstractFormattingServicesTest {
     @Test
     void testGetXhbFormattingDao() {
         // Setup
-        final FormattingValue formattingValue = DummyFormattingUtil.getFormattingValue("", "", "", null);
         XhbFormattingDao xhbFormattingDao = DummyFormattingUtil.getXhbFormattingDao();
 
         EasyMock.expect(mockXhbFormattingRepository.findById(EasyMock.isA(Integer.class)))
@@ -69,6 +68,7 @@ class AbstractFormattingServicesTest {
         EasyMock.replay(mockXhbFormattingRepository);
 
         // Run
+        FormattingValue formattingValue = DummyFormattingUtil.getFormattingValue("", "", "", null);
         Optional<XhbFormattingDao> result = classUnderTest.getXhbFormattingDao(formattingValue);
 
         // Checks

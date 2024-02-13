@@ -84,20 +84,6 @@ public abstract class AbstractRepositoryTest<T extends AbstractDao> {
         return true;
     }
 
-    // @Test
-    // void testSave() {
-    // boolean result = true;
-    // getClassUnderTest().save(getDummyDao());
-    // assertTrue(result, NOT_TRUE);
-    // }
-    //
-    // @Test
-    // void testDelete() {
-    // boolean result = true;
-    // getClassUnderTest().delete(Optional.of(getDummyDao()));
-    // assertTrue(result, NOT_TRUE);
-    // }
-
     protected Integer getDummyId() {
         return Integer.valueOf(-99);
     }
