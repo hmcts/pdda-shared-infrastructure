@@ -54,28 +54,6 @@ class AbstractFormattingServicesTest {
     private final AbstractFormattingServices classUnderTest =
         new AbstractFormattingServices(mockEntityManager);
 
-    // @Test
-    // void testGetXhbFormattingDao() {
-    // // Setup
-    // final FormattingValue formattingValue = DummyFormattingUtil.getFormattingValue("", "", "",
-    // null);
-    // XhbFormattingDao xhbFormattingDao = DummyFormattingUtil.getXhbFormattingDao();
-    //
-    // EasyMock.expect(mockXhbFormattingRepository.findById(EasyMock.isA(Integer.class)))
-    // .andReturn(Optional.of(xhbFormattingDao));
-    // EasyMock.expect(mockXhbFormattingRepository.update(EasyMock.isA(XhbFormattingDao.class)))
-    // .andReturn(Optional.of(xhbFormattingDao));
-    //
-    // EasyMock.replay(mockXhbFormattingRepository);
-    //
-    // // Run
-    // Optional<XhbFormattingDao> result = classUnderTest.getXhbFormattingDao(formattingValue);
-    //
-    // // Checks
-    // EasyMock.verify(mockXhbFormattingRepository);
-    // assertNotNull(result, NOT_NULL);
-    // }
-
     @Test
     void testCreateCppListClob() {
         // Setup
