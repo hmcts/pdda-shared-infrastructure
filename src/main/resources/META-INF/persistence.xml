@@ -52,11 +52,11 @@
 			<property name="javax.persistence.jdbc.driver"
 				value="org.postgresql.Driver" />
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:postgresql://localhost:4550/pdda" />
+				value="jdbc:postgresql:${DB_HOST}:4550/pdda" />
 			<property name="javax.persistence.jdbc.user"
-				value="postgres" />
+				value="${DB_USER_NAME}" />
 			<property name="javax.persistence.jdbc.password"
-				value="password" />
+				value="${DB_PASSWORD}" />
 			<property name="hibernate.connection.pool_size" value="20" />
 			<property name="hibernate.dialect"
 				value="org.hibernate.dialect.PostgreSQLDialect" />
