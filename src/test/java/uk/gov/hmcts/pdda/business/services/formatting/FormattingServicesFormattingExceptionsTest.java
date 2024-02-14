@@ -74,7 +74,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
 @SuppressWarnings({"PMD.ExcessiveImports", "PMD.TooManyFields"})
-class FormattingServicesFormattingExceptionsTest {
+class FormattingServicesFormattingExceptionsTest extends FormattingServicesTestHelper {
 
     private static final String COURTSITE_END_TAG = "      </courtsite>\r\n";
     private static final String COURTROOMS_END_TAG = "        </courtrooms>\r\n";
@@ -288,8 +288,6 @@ class FormattingServicesFormattingExceptionsTest {
     public static class PddaSwitcher {
         static final String PDDA_SWITCH = "PDDA_SWITCHER";
         static final String PDDA_ONLY = "1";
-        static final String PDDA_AND_XHIBIT = "2";
-        static final String XHIBIT_ONLY = "3";
     }
 
     @BeforeEach
@@ -307,10 +305,7 @@ class FormattingServicesFormattingExceptionsTest {
     void testProcessDocumentFirstFormattingException() {
         // Setup
         XhbClobDao xhbClobDao = DummyFormattingUtil.getXhbClobDao(Long.valueOf(1), CPP_LIST);
-        XhbCppListDao xhbCppListDao = DummyFormattingUtil.getXhbCppListDao();
-        xhbCppListDao.setListClobId(xhbClobDao.getClobId());
-        xhbCppListDao.setListClob(xhbClobDao);
-        xhbCppListDao.setListType(DOCTYPE_DAILY_LIST);
+        XhbCppListDao xhbCppListDao = getXhbCppListDao(xhbClobDao);
         xhbCppListDao.setCppListId(null);
         FormattingValue formattingValue = DummyFormattingUtil
             .getFormattingValue(xhbClobDao.getClobData(), DOCTYPE_DAILY_LIST, XML, xhbCppListDao);
@@ -330,10 +325,7 @@ class FormattingServicesFormattingExceptionsTest {
         throws TransformerConfigurationException, IOException {
         // Setup
         XhbClobDao xhbClobDao = DummyFormattingUtil.getXhbClobDao(Long.valueOf(1), CPP_LIST);
-        XhbCppListDao xhbCppListDao = DummyFormattingUtil.getXhbCppListDao();
-        xhbCppListDao.setListClobId(xhbClobDao.getClobId());
-        xhbCppListDao.setListClob(xhbClobDao);
-        xhbCppListDao.setListType(DOCTYPE_DAILY_LIST);
+        XhbCppListDao xhbCppListDao = getXhbCppListDao(xhbClobDao);
         FormattingValue formattingValue = DummyFormattingUtil
             .getFormattingValue(xhbClobDao.getClobData(), DOCTYPE_DAILY_LIST, XML, xhbCppListDao);
         formattingValue.setXmlDocumentClobId(xhbClobDao.getPrimaryKey());
@@ -360,10 +352,7 @@ class FormattingServicesFormattingExceptionsTest {
     void testProcessDocumentEjbException() {
         // Setup
         XhbClobDao xhbClobDao = DummyFormattingUtil.getXhbClobDao(Long.valueOf(1), CPP_LIST);
-        XhbCppListDao xhbCppListDao = DummyFormattingUtil.getXhbCppListDao();
-        xhbCppListDao.setListClobId(xhbClobDao.getClobId());
-        xhbCppListDao.setListClob(xhbClobDao);
-        xhbCppListDao.setListType(DOCTYPE_DAILY_LIST);
+        XhbCppListDao xhbCppListDao = getXhbCppListDao(xhbClobDao);
         FormattingValue formattingValue = DummyFormattingUtil
             .getFormattingValue(xhbClobDao.getClobData(), DOCTYPE_DAILY_LIST, XML, xhbCppListDao);
         formattingValue.setXmlDocumentClobId(xhbClobDao.getPrimaryKey());
@@ -383,10 +372,7 @@ class FormattingServicesFormattingExceptionsTest {
         // Setup
         XhbClobDao xhbClobDao =
             DummyFormattingUtil.getXhbClobDao(Long.valueOf(1), INTERNET_WEBPAGE);
-        XhbCppListDao xhbCppListDao = DummyFormattingUtil.getXhbCppListDao();
-        xhbCppListDao.setListClobId(xhbClobDao.getClobId());
-        xhbCppListDao.setListClob(xhbClobDao);
-        xhbCppListDao.setListType(DOCTYPE_DAILY_LIST);
+        final XhbCppListDao xhbCppListDao = getXhbCppListDao(xhbClobDao);
         XhbFormattingDao xhbFormattingDao = DummyFormattingUtil.getXhbFormattingDao();
         xhbFormattingDao.setXmlDocumentClobId(xhbClobDao.getClobId());
         XhbCppFormattingDao xhbCppFormattingDao = DummyFormattingUtil.getXhbCppFormattingDao();
