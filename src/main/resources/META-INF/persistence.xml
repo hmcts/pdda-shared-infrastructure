@@ -52,7 +52,7 @@
 			<property name="javax.persistence.jdbc.driver"
 				value="org.postgresql.Driver" />
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:postgresql:." />
+				value="jdbc:postgresql:${DB_HOST}:5432/pdda" />
 			<property name="javax.persistence.jdbc.user"
 				value="${DB_USER_NAME}" />
 			<property name="javax.persistence.jdbc.password"

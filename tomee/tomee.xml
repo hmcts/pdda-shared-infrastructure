@@ -28,7 +28,7 @@
     JdbcUrl jdbc:postgresql://localhost:5432/pdda
     Username scottatwell
     PasswordCipher PlainText
-    Password 
+    Password
     JtaManaged true
     InitialSize 5
     MaxActive 50
@@ -50,7 +50,7 @@
     JdbcUrl jdbc:postgresql://localhost:5432/pdda
     Username scottatwell
     PasswordCipher PlainText
-    Password 
+    Password
     JtaManaged false
     InitialSize 5
     MaxActive 50
