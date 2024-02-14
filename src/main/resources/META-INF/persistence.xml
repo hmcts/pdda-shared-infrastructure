@@ -54,9 +54,9 @@
 			<property name="javax.persistence.jdbc.url"
 				value="jdbc:postgresql://pdda-public-display-data-aggregator-pr-42-postgresql:5432/pdda" />
 			<property name="javax.persistence.jdbc.user"
-				value="${DB_USER_NAME}" />
+				value="javapostgres" />
 			<property name="javax.persistence.jdbc.password"
-				value="${DB_PASSWORD}" />
+				value="javapassword" />
 			<property name="hibernate.connection.pool_size" value="20" />
 			<property name="hibernate.dialect"
 				value="org.hibernate.dialect.PostgreSQLDialect" />
