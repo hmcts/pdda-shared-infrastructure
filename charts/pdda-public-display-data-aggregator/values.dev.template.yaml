@@ -7,5 +7,6 @@ java:
     DB_NAME: "pdda"
     DB_USER_NAME: "{{ .Values.postgresql.auth.username}}"
     DB_PASSWORD: "{{ .Values.postgresql.auth.password}}"
+    POSTGRES_NAME: "pdda"
   postgresql:
     enabled: true
