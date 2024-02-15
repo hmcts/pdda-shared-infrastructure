@@ -11,7 +11,7 @@ import uk.gov.hmcts.pdda.business.entities.xhbconfigprop.XhbConfigPropRepository
 import uk.gov.hmcts.pdda.business.entities.xhbcpplist.XhbCppListRepository;
 import uk.gov.hmcts.pdda.business.entities.xhbformatting.XhbFormattingRepository;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 /**
  * <p>
@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(EasyMockExtension.class)
 class AbstractControllerBeanTest {
 
-    private static final String NOT_TRUE = "Result is not True";
+    private static final String NOT_INSTANCE = "Result is Not An Instance of";
 
     @Mock
     private EntityManager mockEntityManager;
@@ -43,24 +43,25 @@ class AbstractControllerBeanTest {
 
     @Test
     void testGetXhbClobRepository() {
-        assertTrue(classUnderTest.getXhbClobRepository() instanceof XhbClobRepository, NOT_TRUE);
+        assertInstanceOf(XhbClobRepository.class, classUnderTest.getXhbClobRepository(),
+            NOT_INSTANCE);
     }
 
     @Test
     void testGetXhbConfigPropRepository() {
-        assertTrue(classUnderTest.getXhbConfigPropRepository() instanceof XhbConfigPropRepository,
-            NOT_TRUE);
+        assertInstanceOf(XhbConfigPropRepository.class, classUnderTest.getXhbConfigPropRepository(),
+            NOT_INSTANCE);
     }
 
     @Test
     void testGetXhbCppListRepository() {
-        assertTrue(classUnderTest.getXhbCppListRepository() instanceof XhbCppListRepository,
-            NOT_TRUE);
+        assertInstanceOf(XhbCppListRepository.class, classUnderTest.getXhbCppListRepository(),
+            NOT_INSTANCE);
     }
 
     @Test
     void testGetXhbFormattingRepository() {
-        assertTrue(classUnderTest.getXhbFormattingRepository() instanceof XhbFormattingRepository,
-            NOT_TRUE);
+        assertInstanceOf(XhbFormattingRepository.class, classUnderTest.getXhbFormattingRepository(),
+            NOT_INSTANCE);
     }
 }

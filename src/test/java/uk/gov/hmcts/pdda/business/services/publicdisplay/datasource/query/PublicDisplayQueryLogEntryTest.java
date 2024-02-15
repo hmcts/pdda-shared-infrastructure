@@ -10,7 +10,7 @@ import uk.gov.hmcts.pdda.business.entities.xhbcase.XhbCaseRepository;
 import uk.gov.hmcts.pdda.business.entities.xhbcourtroom.XhbCourtRoomRepository;
 import uk.gov.hmcts.pdda.business.entities.xhbcourtsite.XhbCourtSiteRepository;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 /**
  * <p>
@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(EasyMockExtension.class)
 class PublicDisplayQueryLogEntryTest {
 
-    private static final String NOT_TRUE = "Result is not True";
+    private static final String NOT_INSTANCE = "Result is Not An Instance of";
 
     @Mock
     private EntityManager mockEntityManager;
@@ -42,19 +42,20 @@ class PublicDisplayQueryLogEntryTest {
 
     @Test
     void testGetXhbCaseRepository() {
-        assertTrue(classUnderTest.getXhbCaseRepository() instanceof XhbCaseRepository, NOT_TRUE);
+        assertInstanceOf(XhbCaseRepository.class, classUnderTest.getXhbCaseRepository(),
+            NOT_INSTANCE);
     }
 
     @Test
     void testGetXhbCourtSiteRepository() {
-        assertTrue(classUnderTest.getXhbCourtSiteRepository() instanceof XhbCourtSiteRepository,
-            NOT_TRUE);
+        assertInstanceOf(XhbCourtSiteRepository.class, classUnderTest.getXhbCourtSiteRepository(),
+            NOT_INSTANCE);
     }
 
     @Test
     void testGetXhbCourtRoomRepository() {
-        assertTrue(classUnderTest.getXhbCourtRoomRepository() instanceof XhbCourtRoomRepository,
-            NOT_TRUE);
+        assertInstanceOf(XhbCourtRoomRepository.class, classUnderTest.getXhbCourtRoomRepository(),
+            NOT_INSTANCE);
     }
 
 }

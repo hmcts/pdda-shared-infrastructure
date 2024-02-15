@@ -16,7 +16,7 @@ import uk.gov.hmcts.pdda.business.entities.xhbschedhearingdefendant.XhbSchedHear
 import uk.gov.hmcts.pdda.business.entities.xhbscheduledhearing.XhbScheduledHearingRepository;
 import uk.gov.hmcts.pdda.business.entities.xhbsitting.XhbSittingRepository;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 /**
  * <p>
@@ -37,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(EasyMockExtension.class)
 class PublicDisplayQueryRepoTest {
 
-    private static final String NOT_TRUE = "Result is not True";
+    private static final String NOT_INSTANCE = "Result is Not An Instance of";
 
     @Mock
     private EntityManager mockEntityManager;
@@ -47,64 +47,55 @@ class PublicDisplayQueryRepoTest {
 
     @Test
     void testGetXhbDefendantRepository() {
-        assertTrue(classUnderTest.getXhbDefendantRepository() instanceof XhbDefendantRepository,
-            NOT_TRUE);
+        assertInstanceOf(XhbDefendantRepository.class, classUnderTest.getXhbDefendantRepository(),
+            NOT_INSTANCE);
     }
 
     @Test
     void testGetXhbRefHearingTypeRepository() {
-        assertTrue(
-            classUnderTest.getXhbRefHearingTypeRepository() instanceof XhbRefHearingTypeRepository,
-            NOT_TRUE);
+        assertInstanceOf(XhbRefHearingTypeRepository.class,
+            classUnderTest.getXhbRefHearingTypeRepository(), NOT_INSTANCE);
     }
 
     @Test
     void testGetXhbHearingRepository() {
-        assertTrue(classUnderTest.getXhbHearingRepository() instanceof XhbHearingRepository,
-            NOT_TRUE);
+        assertInstanceOf(XhbHearingRepository.class, classUnderTest.getXhbHearingRepository(),
+            NOT_INSTANCE);
     }
 
     @Test
     void testGetXhbRefJudgeRepository() {
-        assertTrue(classUnderTest.getXhbRefJudgeRepository() instanceof XhbRefJudgeRepository,
-            NOT_TRUE);
+        assertInstanceOf(XhbRefJudgeRepository.class, classUnderTest.getXhbRefJudgeRepository(),
+            NOT_INSTANCE);
     }
 
     @Test
     void testGetXhbSittingRepository() {
-        assertTrue(classUnderTest.getXhbSittingRepository() instanceof XhbSittingRepository,
-            NOT_TRUE);
+        assertInstanceOf(XhbSittingRepository.class, classUnderTest.getXhbSittingRepository(),
+            NOT_INSTANCE);
     }
 
     @Test
     void testGetXhbScheduledHearingRepository() {
-        assertTrue(
-            classUnderTest
-                .getXhbScheduledHearingRepository() instanceof XhbScheduledHearingRepository,
-            NOT_TRUE);
+        assertInstanceOf(XhbScheduledHearingRepository.class,
+            classUnderTest.getXhbScheduledHearingRepository(), NOT_INSTANCE);
     }
 
     @Test
     void testGetXhbSchedHearingDefendantRepository() {
-        assertTrue(classUnderTest
-            .getXhbSchedHearingDefendantRepository() instanceof XhbSchedHearingDefendantRepository,
-            NOT_TRUE);
+        assertInstanceOf(XhbSchedHearingDefendantRepository.class,
+            classUnderTest.getXhbSchedHearingDefendantRepository(), NOT_INSTANCE);
     }
 
     @Test
     void testGetXhbCaseReferenceRepository() {
-        assertTrue(
-            classUnderTest.getXhbCaseReferenceRepository() instanceof XhbCaseReferenceRepository,
-            NOT_TRUE);
+        assertInstanceOf(XhbCaseReferenceRepository.class,
+            classUnderTest.getXhbCaseReferenceRepository(), NOT_INSTANCE);
     }
 
     @Test
     void testGetXhbDefendantOnCaseRepository() {
-        assertTrue(
-            classUnderTest
-                .getXhbDefendantOnCaseRepository() instanceof XhbDefendantOnCaseRepository,
-            NOT_TRUE);
+        assertInstanceOf(XhbDefendantOnCaseRepository.class,
+            classUnderTest.getXhbDefendantOnCaseRepository(), NOT_INSTANCE);
     }
-
-
 }
