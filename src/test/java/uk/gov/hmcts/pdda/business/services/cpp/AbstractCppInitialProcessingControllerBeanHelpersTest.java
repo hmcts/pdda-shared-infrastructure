@@ -9,7 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import uk.gov.hmcts.pdda.business.services.cpplist.CppListControllerBean;
 import uk.gov.hmcts.pdda.business.services.cppstaginginboundejb3.CppStagingInboundControllerBean;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 /**
  * AbstractCppInitialProcessingControllerBeanHelpersTest.
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(EasyMockExtension.class)
 class AbstractCppInitialProcessingControllerBeanHelpersTest {
 
-    private static final String NOT_TRUE = "Result is Not True";
+    private static final String NOT_INSTANCE = "Result is Not An Instance of";
 
     @Mock
     protected EntityManager mockEntityManager;
@@ -28,17 +28,13 @@ class AbstractCppInitialProcessingControllerBeanHelpersTest {
 
     @Test
     void testGetCppStagingInboundControllerBean() {
-        assertTrue(
-            classUnderTest
-                .getCppStagingInboundControllerBean() instanceof CppStagingInboundControllerBean,
-            NOT_TRUE);
+        assertInstanceOf(CppStagingInboundControllerBean.class,
+            classUnderTest.getCppStagingInboundControllerBean(), NOT_INSTANCE);
     }
 
     @Test
     void testGetCppListControllerBean() {
-        assertTrue(
-            classUnderTest
-                .getCppListControllerBean() instanceof CppListControllerBean,
-            NOT_TRUE);
+        assertInstanceOf(CppListControllerBean.class, classUnderTest.getCppListControllerBean(),
+            NOT_INSTANCE);
     }
 }

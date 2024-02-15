@@ -10,7 +10,7 @@ import uk.gov.hmcts.pdda.business.entities.xhbclob.XhbClobRepository;
 import uk.gov.hmcts.pdda.business.entities.xhbcourt.XhbCourtRepository;
 import uk.gov.hmcts.pdda.business.services.cppstaginginboundejb3.CppStagingInboundHelper;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 /**
  * <p>
@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(EasyMockExtension.class)
 class PddaHelperRepositoryHelpersTest {
 
-    private static final String NOT_TRUE = "Result is not True";
+    private static final String NOT_INSTANCE = "Result is Not An Instance of";
 
     @Mock
     private EntityManager mockEntityManager;
@@ -41,27 +41,29 @@ class PddaHelperRepositoryHelpersTest {
 
     @Test
     void testGetClobRepository() {
-        assertTrue(classUnderTest.getClobRepository() instanceof XhbClobRepository, NOT_TRUE);
+        assertInstanceOf(XhbClobRepository.class, classUnderTest.getClobRepository(), NOT_INSTANCE);
     }
 
     @Test
     void testGetCourtRepository() {
-        assertTrue(classUnderTest.getCourtRepository() instanceof XhbCourtRepository, NOT_TRUE);
+        assertInstanceOf(XhbCourtRepository.class, classUnderTest.getCourtRepository(),
+            NOT_INSTANCE);
     }
 
     @Test
     void testGetPddaMessageHelper() {
-        assertTrue(classUnderTest.getPddaMessageHelper() instanceof PddaMessageHelper, NOT_TRUE);
+        assertInstanceOf(PddaMessageHelper.class, classUnderTest.getPddaMessageHelper(),
+            NOT_INSTANCE);
     }
 
     @Test
     void testGetCppStagingInboundHelper() {
-        assertTrue(classUnderTest.getCppStagingInboundHelper() instanceof CppStagingInboundHelper,
-            NOT_TRUE);
+        assertInstanceOf(CppStagingInboundHelper.class, classUnderTest.getCppStagingInboundHelper(),
+            NOT_INSTANCE);
     }
 
     @Test
     void testGetSftpHelper() {
-        assertTrue(classUnderTest.getSftpHelper() instanceof PddaSftpHelper, NOT_TRUE);
+        assertInstanceOf(PddaSftpHelper.class, classUnderTest.getSftpHelper(), NOT_INSTANCE);
     }
 }
