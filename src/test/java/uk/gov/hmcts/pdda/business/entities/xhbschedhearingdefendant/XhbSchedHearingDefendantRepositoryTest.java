@@ -47,13 +47,13 @@ class XhbSchedHearingDefendantRepositoryTest extends AbstractRepositoryTest<XhbS
     @Test
     void testFindByScheduledHearingIdSuccess() {
         boolean result = testFindByScheduledHearingId(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByScheduledHearingIdFailure() {
         boolean result = testFindByScheduledHearingId(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFindByScheduledHearingId(XhbSchedHearingDefendantDao dao) {

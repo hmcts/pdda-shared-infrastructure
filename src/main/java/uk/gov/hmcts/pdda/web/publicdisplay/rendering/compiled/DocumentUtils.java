@@ -23,10 +23,6 @@ public final class DocumentUtils {
 
     private static final Logger LOG = LoggerFactory.getLogger(DocumentUtils.class);
 
-    private static final int READING_TEXT = 0;
-    private static final int READING_WHITESPACE = 1;
-    private static final int READING_LEADING_WHITESPACE = 2;
-
     private DocumentUtils() {
 
     }
@@ -101,35 +97,4 @@ public final class DocumentUtils {
         // table header is included.
         return "evenRow".equals(rowType) ? "oddRow" : "evenRow";
     }
-
-    public static String tidyWhitespace(String text) {
-        if (text == null) {
-            return null;
-        }
-
-        char[] source = text.toCharArray();
-        char[] buffer = new char[source.length]; // Safe as must be less
-
-        int bufferIndex = 0;
-
-        int state = READING_LEADING_WHITESPACE;
-        for (char chr : source) {
-            if (state == READING_TEXT) {
-                if (Character.isWhitespace(chr)) {
-                    state = READING_WHITESPACE;
-                } else {
-                    buffer[bufferIndex++] = chr;
-                }
-            } else if (state == READING_WHITESPACE && !Character.isWhitespace(chr)) {
-                buffer[bufferIndex++] = ' ';
-                buffer[bufferIndex++] = chr;
-                state = READING_TEXT;
-            } else if (state == READING_LEADING_WHITESPACE && !Character.isWhitespace(chr)) {
-                buffer[bufferIndex++] = chr;
-                state = READING_TEXT;
-            }
-        }
-        return new String(buffer, 0, bufferIndex);
-    }
-
 }

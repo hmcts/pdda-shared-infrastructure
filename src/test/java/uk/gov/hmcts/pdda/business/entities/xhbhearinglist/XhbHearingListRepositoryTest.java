@@ -46,13 +46,13 @@ class XhbHearingListRepositoryTest extends AbstractRepositoryTest<XhbHearingList
     @Test
     void testFindByCourtIdAndDateSuccess() {
         boolean result = testFindByCourtIdAndDate(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByCourtIdAndDateFailure() {
         boolean result = testFindByCourtIdAndDate(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
         
     }
 

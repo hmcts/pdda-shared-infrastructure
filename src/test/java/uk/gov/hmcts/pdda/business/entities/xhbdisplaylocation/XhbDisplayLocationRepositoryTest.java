@@ -47,13 +47,13 @@ class XhbDisplayLocationRepositoryTest extends AbstractRepositoryTest<XhbDisplay
     @Test
     void testFindByVipCourtSiteSuccess() {
         boolean result = testFindByVipCourtSite(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByVipCourtSiteFailure() {
         boolean result = testFindByVipCourtSite(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFindByVipCourtSite(XhbDisplayLocationDao dao) {
@@ -77,13 +77,13 @@ class XhbDisplayLocationRepositoryTest extends AbstractRepositoryTest<XhbDisplay
     @Test
     void testFindByCourtSiteSuccess() {
         boolean result = testFindByCourtSite(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByCourtSiteFailure() {
         boolean result = testFindByCourtSite(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFindByCourtSite(XhbDisplayLocationDao dao) {

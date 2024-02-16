@@ -26,6 +26,8 @@ import static org.mockito.ArgumentMatchers.isA;
 @MockitoSettings(strictness = Strictness.LENIENT)
 class XhbCourtSiteRepositoryTest extends AbstractRepositoryTest<XhbCourtSiteDao> {
 
+    public static final String NULL = "Result is Null";
+    
     private static final Integer BYCRESTCOURTID = 1;
     private static final Integer BYCOURTID = 2;
     private static final Integer BYCOURTCODE = 3;
@@ -52,37 +54,37 @@ class XhbCourtSiteRepositoryTest extends AbstractRepositoryTest<XhbCourtSiteDao>
     @Test
     void testFindByCrestCourtIdValueSuccess() {
         boolean result = testFind(getDummyDao(), BYCRESTCOURTID);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByCrestCourtIdValueFailure() {
         boolean result = testFind(null, BYCRESTCOURTID);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByCourtCodeAndListTypeAndListDateSuccess() {
         boolean result = testFind(getDummyDao(), BYCOURTCODE);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByCourtCodeAndListTypeAndListDateFailure() {
         boolean result = testFind(null, BYCOURTCODE);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByCourtIdSuccess() {
         boolean result = testFind(getDummyDao(), BYCOURTID);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByCourtIdFailure() {
         boolean result = testFind(null, BYCOURTID);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFind(XhbCourtSiteDao dao, Integer whichTest) {
@@ -122,6 +124,11 @@ class XhbCourtSiteRepositoryTest extends AbstractRepositoryTest<XhbCourtSiteDao>
         return true;
     }
 
+    @Test
+    void testXhbCourtSiteDaoSecondConstructor() {
+        XhbCourtSiteDao result =  new XhbCourtSiteDao(getDummyDao());
+        assertNotNull(result, NULL);
+    }
 
     @Override
     protected XhbCourtSiteDao getDummyDao() {

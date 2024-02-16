@@ -46,13 +46,13 @@ class XhbHearingRepositoryTest extends AbstractRepositoryTest<XhbHearingDao> {
     @Test
     void testFindByCaseIdSuccess() {
         boolean result = testFindByCaseId(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByCaseIdFailure() {
         boolean result = testFindByCaseId(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFindByCaseId(XhbHearingDao dao) {

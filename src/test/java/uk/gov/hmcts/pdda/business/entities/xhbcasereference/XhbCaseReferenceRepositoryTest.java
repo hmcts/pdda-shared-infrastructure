@@ -46,13 +46,13 @@ class XhbCaseReferenceRepositoryTest extends AbstractRepositoryTest<XhbCaseRefer
     @Test
     void testfindByCaseIdSuccess() {
         boolean result = testfindByCaseId(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testfindByCaseIdFailure() {
         boolean result = testfindByCaseId(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testfindByCaseId(XhbCaseReferenceDao dao) {

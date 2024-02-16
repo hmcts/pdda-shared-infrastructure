@@ -49,8 +49,6 @@ public final class MergeDateUtils {
             calendar.set(year, month, day, hourOfDay, minute, second);
             return calendar;
         }
-
-
         return null;
     }
 
@@ -157,7 +155,6 @@ public final class MergeDateUtils {
             LOG.debug(xhibitTime.toString() + " after " + cppTime.toString() + " ?");
             return cppTime.after(xhibitTime);
         }
-
         return false;
     }
 }

@@ -46,13 +46,13 @@ class XhbPddaDlNotifierRepositoryTest extends AbstractRepositoryTest<XhbPddaDlNo
     @Test
     void testFindByCourtAndLastRunDateSuccess() {
         boolean result = testFindByCourtAndLastRunDate(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByCourtAndLastRunDateFailure() {
         boolean result = testFindByCourtAndLastRunDate(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFindByCourtAndLastRunDate(XhbPddaDlNotifierDao dao) {

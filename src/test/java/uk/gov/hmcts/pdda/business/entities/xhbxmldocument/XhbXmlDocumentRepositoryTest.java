@@ -46,13 +46,13 @@ class XhbXmlDocumentRepositoryTest extends AbstractRepositoryTest<XhbXmlDocument
     @Test
     void testFindListByClobIdSuccess() {
         boolean result = testFindListByClobId(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindListByClobIdFailure() {
         boolean result = testFindListByClobId(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFindListByClobId(XhbXmlDocumentDao dao) {

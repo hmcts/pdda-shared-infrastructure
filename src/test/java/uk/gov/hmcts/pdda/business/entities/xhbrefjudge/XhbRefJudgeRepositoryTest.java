@@ -48,13 +48,13 @@ class XhbRefJudgeRepositoryTest extends AbstractRepositoryTest<XhbRefJudgeDao> {
     @Test
     void testFindScheduledAttendeeJudgeSuccess() {
         boolean result = testFindScheduledAttendeeJudge(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindScheduledAttendeeJudgeFailure() {
         boolean result = testFindScheduledAttendeeJudge(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFindScheduledAttendeeJudge(XhbRefJudgeDao dao) {
@@ -78,13 +78,13 @@ class XhbRefJudgeRepositoryTest extends AbstractRepositoryTest<XhbRefJudgeDao> {
     @Test
     void testFindScheduledSittingJudgeSuccess() {
         boolean result = testFindScheduledSittingJudge(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindScheduledSittingJudgeFailure() {
         boolean result = testFindScheduledSittingJudge(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFindScheduledSittingJudge(XhbRefJudgeDao dao) {
