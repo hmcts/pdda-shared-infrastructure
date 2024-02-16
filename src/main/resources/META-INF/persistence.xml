@@ -52,7 +52,7 @@
 			<property name="javax.persistence.jdbc.driver"
 				value="org.postgresql.Driver" />
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:postgresql://pdda-public-display-data-aggregator-pr-42-postgresql:5432/pdda" />
+				value="jdbc:postgresql://pdda-public-display-data-aggregator-pr-42-postgresql:5432/javadatabase" />
 			<property name="javax.persistence.jdbc.user"
 				value="javapostgres" />
 			<property name="javax.persistence.jdbc.password"

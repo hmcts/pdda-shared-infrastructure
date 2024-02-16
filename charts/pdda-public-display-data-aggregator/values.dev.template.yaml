@@ -4,7 +4,6 @@ java:
   ingressHost: ${SERVICE_FQDN}
   environment:
     DB_HOST: "{{ .Release.Name }}-postgresql"
-    DB_NAME: "pdda"
     DB_USER_NAME: "{{ .Values.postgresql.auth.username}}"
     DB_PASSWORD: "{{ .Values.postgresql.auth.password}}"
   postgresql:
