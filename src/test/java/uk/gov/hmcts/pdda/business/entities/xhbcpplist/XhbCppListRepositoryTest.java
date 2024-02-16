@@ -51,37 +51,37 @@ class XhbCppListRepositoryTest extends AbstractRepositoryTest<XhbCppListDao> {
     @Test
     void testFindByCourtCodeAndListTypeAndListDateSuccess() {
         boolean result = testFind(getDummyDao(), BYLISTDATE);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByCourtCodeAndListTypeAndListDateFailure() {
         boolean result = testFind(null, BYLISTDATE);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindSuccess() {
         boolean result = testFind(getDummyDao(), BYSTARTDATE);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindFailure() {
         boolean result = testFind(null, BYSTARTDATE);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByClobIdSuccess() {
         boolean result = testFind(getDummyDao(), BYCLOBID);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindByClobIdFailure() {
         boolean result = testFind(null, BYCLOBID);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFind(XhbCppListDao dao, Integer whichTest) {

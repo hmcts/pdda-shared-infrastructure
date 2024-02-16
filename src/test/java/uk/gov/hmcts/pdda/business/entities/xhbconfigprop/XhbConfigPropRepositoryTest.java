@@ -45,13 +45,13 @@ class XhbConfigPropRepositoryTest extends AbstractRepositoryTest<XhbConfigPropDa
     @Test
     void testfindByPropertyNameSuccess() {
         boolean result = testfindByPropertyName(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testfindByPropertyNameFailure() {
         boolean result = testfindByPropertyName(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testfindByPropertyName(XhbConfigPropDao dao) {

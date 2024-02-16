@@ -7,7 +7,6 @@ import jakarta.persistence.Persistence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 public class EntityManagerUtil {
     private static final Logger LOG = LoggerFactory.getLogger(EntityManagerUtil.class);
     private static final EntityManagerFactory ENTITYMANAGERFACTORY;

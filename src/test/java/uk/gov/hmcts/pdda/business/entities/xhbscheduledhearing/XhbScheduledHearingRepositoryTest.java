@@ -47,13 +47,13 @@ class XhbScheduledHearingRepositoryTest extends AbstractRepositoryTest<XhbSchedu
     @Test
     void testFindActiveCasesInRoomSuccess() {
         boolean result = testFindActiveCasesInRoom(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindActiveCasesInRoomFailure() {
         boolean result = testFindActiveCasesInRoom(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFindActiveCasesInRoom(XhbScheduledHearingDao dao) {
@@ -79,13 +79,13 @@ class XhbScheduledHearingRepositoryTest extends AbstractRepositoryTest<XhbSchedu
     @Test
     void testFindBySittingIdSuccess() {
         boolean result = testFindBySittingId(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindBySittingIdFailure() {
         boolean result = testFindBySittingId(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFindBySittingId(XhbScheduledHearingDao dao) {

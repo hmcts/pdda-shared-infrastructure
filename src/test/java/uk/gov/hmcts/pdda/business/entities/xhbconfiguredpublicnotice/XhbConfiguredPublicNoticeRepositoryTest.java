@@ -47,13 +47,13 @@ class XhbConfiguredPublicNoticeRepositoryTest extends AbstractRepositoryTest<Xhb
     @Test
     void testfindByDefinitivePnCourtRoomValueSuccess() {
         boolean result = testfindByDefinitivePnCourtRoomValue(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testfindByDefinitivePnCourtRoomValueFailure() {
         boolean result = testfindByDefinitivePnCourtRoomValue(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testfindByDefinitivePnCourtRoomValue(XhbConfiguredPublicNoticeDao dao) {
@@ -77,13 +77,13 @@ class XhbConfiguredPublicNoticeRepositoryTest extends AbstractRepositoryTest<Xhb
     @Test
     void testFindActiveCourtRoomNoticesSuccess() {
         boolean result = testFindActiveCourtRoomNotices(getDummyDao());
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindActiveCourtRoomNoticesFailure() {
         boolean result = testFindActiveCourtRoomNotices(null);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFindActiveCourtRoomNotices(XhbConfiguredPublicNoticeDao dao) {

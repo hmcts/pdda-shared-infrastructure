@@ -53,49 +53,49 @@ class XhbCppStagingInboundRepositoryTest extends AbstractRepositoryTest<XhbCppSt
     @Test
     void testFindNextDocumentByValidationAndProcessingStatus() {
         boolean result = testFind(getDummyDao(), BYVALIDATIONANDPROCESSINGSTATUS);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
         result = testFind(null, BYVALIDATIONANDPROCESSINGSTATUS);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindNextDocumentByProcessingStatus() {
         boolean result = testFind(getDummyDao(), BYSTATUS);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
         result = testFind(null, BYSTATUS);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindNextDocument() {
         boolean result = testFind(getDummyDao(), BYNEXTDOCUMENT);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
         result = testFind(null, BYNEXTDOCUMENT);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindNextDocumentByValidationStatus() {
         boolean result = testFind(getDummyDao(), BYVALIDATIONSTATUS);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
         result = testFind(null, BYVALIDATIONSTATUS);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindNextDocumentTestSuccess() {
         boolean result = testFind(getDummyDao(), BYNEXTDOCUMENTTEST);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
         result = testFind(null, BYNEXTDOCUMENTTEST);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     @Test
     void testFindUnrespondedCppMessages() {
         boolean result = testFind(getDummyDao(), UNRESPONDED);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
         result = testFind(null, UNRESPONDED);
-        assertTrue(result, TRUE);
+        assertTrue(result, NOT_TRUE);
     }
 
     private boolean testFind(XhbCppStagingInboundDao dao, Integer whichTest) {

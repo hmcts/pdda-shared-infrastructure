@@ -1,8 +1,7 @@
 package uk.gov.hmcts.pdda.web.publicdisplay.rendering.compiled;
 
-import org.junit.jupiter.api.AfterEach;
+import org.easymock.TestSubject;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -22,8 +21,8 @@ import uk.gov.hmcts.pdda.web.publicdisplay.types.document.DisplayDocument;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Locale;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -57,9 +56,7 @@ class DisplayDocumentCompiledRendererDelegateTest {
     private static final String NO30200 = "30200";
     private static final String INVALID = "invalid";
     private static final String TRUE = "Result is not True";
-    private static final String NOTNULL = "Result is Null";
-    private static final String EQUALS = "Results are not Equal";
-    private final Locale dummyLocale = new Locale("en", "GB");
+    private static final String NULL = "Result is Null";
 
     @Mock
     private TranslationBundle mockTranslationBundle;
@@ -76,15 +73,9 @@ class DisplayDocumentCompiledRendererDelegateTest {
     @Mock
     private DisplayStoreControllerBean mockDisplayStoreControllerBean;
 
-    @BeforeEach
-    public void setUp() throws Exception {
-        // Do nothing
-    }
-
-    @AfterEach
-    public void tearDown() throws Exception {
-        // Do nothing
-    }
+    @TestSubject
+    private final AllCaseStatusCompiledRendererDelegate classUnderTest =
+        new AllCaseStatusCompiledRendererDelegate();
 
     @Test
     void testDailytListCompiledRendererDelegate() {
@@ -315,5 +306,12 @@ class DisplayDocumentCompiledRendererDelegateTest {
             throw new DelegateNotFoundException("Test");
 
         });
+    }
+
+    @Test
+    void testGetLoggedTimeToRender() {
+        String result =
+            classUnderTest.getLoggedTimeToRender(null, System.currentTimeMillis(), "Test");
+        assertNotNull(result, NULL);
     }
 }
