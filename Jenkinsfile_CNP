@@ -3,7 +3,7 @@
 @Library("Infrastructure") _
 
 def product = "pdda"
+def component = "infrastructure"
 
-withInfraPipeline(product) {
-    enableSlackNotifications('#pdda-builds')
+withInfraPipeline(product, component) {
 }
