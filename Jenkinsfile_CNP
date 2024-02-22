@@ -1,0 +1,9 @@
+#!groovy
+
+@Library("Infrastructure") _
+
+def product = "pdda"
+
+withInfraPipeline(product) {
+    enableSlackNotifications('#pdda-builds')
+}
