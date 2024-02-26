@@ -30,3 +30,27 @@ module "postgresql" {
   
   common_tags = var.common_tags
 }
+
+resource "azurerm_key_vault_secret" "postgres-user" {
+  name         = "pdda-POSTGRES-USER"
+  value        = module.postgresql.username
+  key_vault_id = module.pdda_key_vault.key_vault_id
+}
+
+resource "azurerm_key_vault_secret" "postgres-password" {
+  name         = "pdda-POSTGRES-PASS"
+  value        = module.postgresql.password
+  key_vault_id = module.pdda_key_vault.key_vault_id
+}
+
+resource "azurerm_key_vault_secret" "postgres-host" {
+  name         = "pdda-POSTGRES-HOST"
+  value        = module.postgresql.fqdn
+  key_vault_id = module.pdda_key_vault.key_vault_id
+}
+
+resource "azurerm_key_vault_secret" "postgres-port" {
+  name         = "bpm-POSTGRES-PORT"
+  value        = "5432"
+  key_vault_id = module.pdda_key_vault.key_vault_id
+}
