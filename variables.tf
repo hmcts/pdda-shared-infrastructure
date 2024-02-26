@@ -6,7 +6,9 @@ variable "location" {
   default = "UK South"
 }
 
-variable "env" {}
+variable "env" {
+  default = "dev"
+}
 
 variable "subscription" {}
 
