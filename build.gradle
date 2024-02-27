@@ -175,7 +175,7 @@ dependencies {
       exclude group: "org.apache.geronimo.mail", module: "geronimo-mail_2.1_provider"
       exclude group: "org.apache.geronimo.components", module: "geronimo-connector"
     }
-    implementation 'org.slf4j:slf4j-api:2.0.7'
+    implementation 'org.slf4j:slf4j-api:2.0.12'
     implementation 'org.apache.hadoop:hadoop-hdfs-client:3.3.6'
     implementation 'org.hsqldb:hsqldb:2.7.2'
     implementation 'org.yaml:snakeyaml:2.2'
