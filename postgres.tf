@@ -50,7 +50,7 @@ resource "azurerm_key_vault_secret" "postgres-host" {
 }
 
 resource "azurerm_key_vault_secret" "postgres-port" {
-  name         = "bpm-POSTGRES-PORT"
+  name         = "pdda-POSTGRES-PORT"
   value        = "5432"
   key_vault_id = module.pdda_key_vault.key_vault_id
 }
