@@ -6,14 +6,16 @@ variable "location" {
   default = "UK South"
 }
 
-variable "env" {
-  default = "dev"
-}
+variable "env" {}
 
 variable "subscription" {}
 
 variable "business_area" {
   default = "sds" 
+}
+
+variable "developers_group" {
+  default = "DTS SDS Developers"
 }
 
 variable "aks_subscription_id" {} # provided by the Jenkins library, ADO users will need to specify this
