@@ -184,7 +184,7 @@ dependencies {
       exclude group: "org.apache.geronimo.components", module: "geronimo-connector"
     }
     implementation 'ch.qos.logback:logback-core:1.4.14'
-    implementation 'ch.qos.logback:logback-classic:1.4.14'
+    implementation 'ch.qos.logback:logback-classic:1.5.3'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
     implementation 'com.fasterxml.jackson.core:jackson-core:2.15.2'
     implementation 'jakarta.jms:jakarta.jms-api:3.1.0'
