@@ -1,1 +1,0 @@
-{ call xhb_import_export_status_pkg.get_by_court_id ( ?, ? ) }
