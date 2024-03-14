@@ -48,9 +48,3 @@ resource "azurerm_key_vault_secret" "postgres-host" {
   value        = module.postgresql.fqdn
   key_vault_id = module.pdda_key_vault.key_vault_id
 }
-
-resource "azurerm_key_vault_secret" "postgres-port" {
-  name         = "pdda-POSTGRES-PORT"
-  value        = "5432"
-  key_vault_id = module.pdda_key_vault.key_vault_id
-}
