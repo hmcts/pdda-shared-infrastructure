@@ -60,3 +60,9 @@ resource "azurerm_key_vault_secret" "postgres-database" {
   value        = "pdda"
   key_vault_id = module.pdda_key_vault.key_vault_id
 }
+
+resource "azurerm_key_vault_secret" "postgres-schema" {
+  name         = "public-display-data-aggregator-POSTGRES-SCHEMA"
+  value        = "pdda"
+  key_vault_id = module.pdda_key_vault.key_vault_id
+}
