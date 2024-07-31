@@ -1,5 +1,5 @@
 #!/bin/zsh
- 
+  
 if [[ -n $TOMEE_HOME ]]; then
 	clear
 	cd $TOMEE_HOME/bin
