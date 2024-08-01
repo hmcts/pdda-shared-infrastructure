@@ -67,19 +67,19 @@ resource "azurerm_key_vault_secret" "postgres-schema" {
   key_vault_id = module.pdda_key_vault.key_vault_id
 }
 
-resource "azurerm_key_vault_secret" "postgres-schema" {
+resource "azurerm_key_vault_secret" "azure-clientID" {
   name         = "public-display-data-aggregator-authentication-clientID"
   value        = "pdda"
   key_vault_id = module.pdda_key_vault.key_vault_id
 }
 
-resource "azurerm_key_vault_secret" "postgres-schema" {
+resource "azurerm_key_vault_secret" "azure-clientSecret" {
   name         = "public-display-data-aggregator-authentication-clientSecret"
   value        = "pdda"
   key_vault_id = module.pdda_key_vault.key_vault_id
 }
 
-resource "azurerm_key_vault_secret" "postgres-schema" {
+resource "azurerm_key_vault_secret" "azure-tenantID" {
   name         = "public-display-data-aggregator-authentication-tenantID"
   value        = "pdda"
   key_vault_id = module.pdda_key_vault.key_vault_id
