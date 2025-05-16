@@ -1,14 +1,13 @@
 module "application_insights_pdm" {
   source   = "git@github.com:hmcts/terraform-module-application-insights?ref=main"
   location = azurerm_resource_group.pdda_resource_group.location
-
-  env     = var.env
-  product = "pdm"
+  
+  env      = var.env
+  product  = "pdm"
 
   resource_group_name = azurerm_resource_group.pdda_resource_group.name
 
-  common_tags         = var.common_tags
-  alert_limit_reached = true
+  common_tags = var.common_tags
 }
 
 moved {
