@@ -11,7 +11,7 @@ variable "env" {}
 variable "subscription" {}
 
 variable "business_area" {
-  default = "sds" 
+  default = "sds"
 }
 
 variable "developers_group" {

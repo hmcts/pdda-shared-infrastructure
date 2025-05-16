@@ -29,12 +29,12 @@ module "postgresql" {
   admin_user_object_id = var.jenkins_AAD_objectId
 
   common_tags = var.common_tags
-  
+
   pgsql_server_configuration = {
-	  "azure.extensions"     = "pg_cron,pg_stat_statements,pg_buffercache,hypopg"
-	  "cron.database_name"   = "pdda"
-	}
-  
+    "azure.extensions"   = "pg_cron,pg_stat_statements,pg_buffercache,hypopg"
+    "cron.database_name" = "pdda"
+  }
+
 }
 
 resource "azurerm_key_vault_secret" "postgres-user" {
