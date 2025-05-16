@@ -1,8 +1,8 @@
 module "application_insights_pdm" {
-  source   = "git@github.com:hmcts/terraform-module-application-insights?ref=main"
-  
-  env      = var.env
-  product  = "pdm"
+  source = "git@github.com:hmcts/terraform-module-application-insights?ref=main"
+
+  env     = var.env
+  product = "pdm"
 
   resource_group_name = azurerm_resource_group.pdda_resource_group.name
 
