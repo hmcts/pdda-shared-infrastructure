@@ -5,7 +5,6 @@ module "application_insights" {
   env     = var.env
   product = var.product
 
-  location            = azurerm_resource_group.pdda_resource_group.location
   resource_group_name = azurerm_resource_group.pdda_resource_group.name
 
   common_tags = var.common_tags
