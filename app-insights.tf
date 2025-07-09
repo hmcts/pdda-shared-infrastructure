@@ -1,9 +1,9 @@
 module "application_insights" {
-  source         = "git@github.com:hmcts/terraform-module-application-insights?ref=main"
-  location       = var.location
-  env            = var.env
-  product        = var.product
-  alert_location = var.location
+  source   = "git@github.com:hmcts/terraform-module-application-insights?ref=4.x"
+  location = var.location
+  env      = var.env
+  product  = var.product
+
 
 
   resource_group_name = azurerm_resource_group.pdda_resource_group.name
