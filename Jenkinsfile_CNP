@@ -4,6 +4,7 @@
 
 def product = "pdda"
 def component = "infrastructure"
+def branchesToSync = ['demo']
 
 withInfraPipeline(product, component) {
         enableSlackNotifications('#pdda-builds')
