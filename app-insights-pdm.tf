@@ -3,6 +3,7 @@ module "application_insights_pdm" {
   location = var.location
   env      = var.env
   product  = "pdm"
+  alert_location = var.location
 
 
   resource_group_name = azurerm_resource_group.pdda_resource_group.name
