@@ -1,8 +1,8 @@
 module "application_insights_pdm" {
-  source   = "git@github.com:hmcts/terraform-module-application-insights?ref=main"
-  location = var.location
-  env      = var.env
-  product  = "pdm"
+  source         = "git@github.com:hmcts/terraform-module-application-insights?ref=main"
+  location       = var.location
+  env            = var.env
+  product        = "pdm"
   alert_location = var.location
 
 
