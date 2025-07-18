@@ -19,6 +19,12 @@ module "postgresql" {
       name : "pdda"
     }
   ]
+  pgsql_server_configuration = [
+    {
+      name  = "azure.extensions"
+      value = "pg_cron"
+    }
+  ]
 
   pgsql_sku     = "GP_Standard_D2ds_v4"
   pgsql_version = "16"
