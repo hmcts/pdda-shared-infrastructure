@@ -26,7 +26,7 @@ module "postgresql" {
     }
   ]
 
-  pgsql_sku     = "GP_Standard_D2ds_v4"
+  pgsql_sku     = var.pgsql_sku
   pgsql_version = "16"
 
   # The ID of the principal to be granted admin access to the database server.

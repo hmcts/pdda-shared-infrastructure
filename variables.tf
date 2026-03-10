@@ -38,3 +38,7 @@ variable "jenkins_AAD_objectId" {
 }
 
 
+
+variable "pgsql_sku" {
+  default = "GP_Standard_D2ds_v4"
+}
