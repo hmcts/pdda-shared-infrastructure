@@ -1,5 +1,8 @@
 module "pdda_key_vault" {
-  source = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
+  source = "git@github.com:hmcts/cnp-module-key-vault?ref=DTSPO-31965/remove-jenkins-ptl-access"
+
+  # SDS only: allows dev pipelines to read from the STG vault
+  grant_dev_jenkins_access = var.env == "stg"
 
   name                    = "${var.product}-${var.env}"
   product                 = var.product
