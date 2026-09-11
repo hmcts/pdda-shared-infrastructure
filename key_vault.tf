@@ -12,6 +12,7 @@ module "pdda_key_vault" {
   product_group_name      = "DTS SDS PDDA"
   create_managed_identity = true
   developers_group        = var.developers_group
+  jenkins_object_id       = data.azurerm_user_assigned_identity.jenkins.principal_id
 
   common_tags = var.common_tags
 }
